@@ -1,7 +1,5 @@
 export default function Home () {
   return (
-    <main className="">
-      test
-    </main>
+   <p>test</p>
   )
 }
