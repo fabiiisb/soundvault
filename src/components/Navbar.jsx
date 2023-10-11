@@ -7,19 +7,19 @@ const NavbarUi = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const menuItems = [
     'Top songs',
-    'Community playlist',
-    'Top artists'
+    'Top artists',
+    'Community playlist'
   ]
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-transparent backdrop-saturate-1'>
       <NavbarContent justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           className="sm:hidden"
         />
         <NavbarBrand className="mr-4">
-          <p className="hidden sm:block font-bold text-inherit">ACME</p>
+          <p className="hidden sm:block font-bold text-inherit">SOUNDVAULT</p>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
           {menuItems.map((item, index) => (
@@ -75,7 +75,7 @@ const NavbarUi = () => {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
-      <NavbarMenu>
+      <NavbarMenu className='bg-transparent'>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link

@@ -11,8 +11,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        test: '#0C0513',
-        niceOrange: '#fc7c2c'
+        blackPurple: '#08040c',
+        niceOrange: '#FCA36B',
+        bgBlur: '#381c24'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
