@@ -11,7 +11,7 @@ export default function RootLayout ({ children }) {
   return (
     <html lang="en">
       <body
-        className="bg-background dark text-foreground h-screen w-screen">
+        className="bg-background dark text-foreground min-h-screen h-100% ">
         <Providers>
           <NavbarUi />
           <main
