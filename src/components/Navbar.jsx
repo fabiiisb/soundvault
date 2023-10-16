@@ -75,7 +75,7 @@ const NavbarUi = () => {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
-      <NavbarMenu className='bg-transparent'>
+      <NavbarMenu className='bg-transparent backdrop-saturate-1'>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
