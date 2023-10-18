@@ -12,13 +12,16 @@ module.exports = {
     extend: {
       colors: {
         blackPurple: '#08040c',
-        niceOrange: '#FCA36B',
+        niceOrange: '#fc8434',
         bgBlur: '#381c24'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+      },
+      screens: {
+        mini: '384px'
       }
     }
   },
