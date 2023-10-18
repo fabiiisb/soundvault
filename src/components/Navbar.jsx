@@ -1,8 +1,10 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button } from '@nextui-org/react'
-import { SearchIcon } from './SearchIcon.jsx'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from '@nextui-org/react'
+import { SearchIcon } from './svg/SearchIcon.jsx'
 import { useState } from 'react'
 import Link from 'next/link.js'
+import LoginModal from '@/components/Modals/LoginModal'
+import SignUpModal from './Modals/SignUpModal.jsx'
 
 const NavbarUi = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -13,18 +15,22 @@ const NavbarUi = () => {
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-transparent backdrop-saturate-1'>
-      <NavbarContent justify="start">
+      <NavbarContent justify="start" className='data-[justify=start] flex-[none]'>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="sm:hidden"
+          className="sm:hidden  grow-0"
         />
         <NavbarBrand className='mr-2 grow-0'>
-          <Link href={'/'}><p className="hidden sm:block font-bold text-inherit">SOUNDVAULT</p></Link>
+          <Link href={'/'}>
+            <p className='font-bold text-inherit'>
+              SOUNDVAULT
+            </p>
+          </Link>
         </NavbarBrand>
-        <NavbarContent className="hidden sm:flex gap-3">
+        <NavbarContent className='hidden sm:flex gap-3'>
           {menuItems.map((item, index) => (
-            <NavbarItem key={index}>
-              <Link color="foreground" href="#">
+            <NavbarItem key={index} className='hover:underline hover:underline-offset-[3px] hover:decoration-niceOrange hover:decoration-2'>
+              <Link href="#">
                 {item}
               </Link>
             </NavbarItem>
@@ -68,13 +74,9 @@ const NavbarUi = () => {
           </NavbarMenuItem>
         ))}
         <NavbarMenuItem>
-          <div className='flex gap-1'>
-            <Button as={Link} color="primary" href="#" variant="flat">
-              Sign Up
-            </Button>
-            <Button as={Link} color="success" href="#" variant="flat">
-              Sign In
-            </Button>
+          <div className='flex gap-2 '>
+            <LoginModal />
+            <SignUpModal />
           </div>
         </NavbarMenuItem>
       </NavbarMenu>
@@ -119,12 +121,8 @@ const UserDropDown = () => {
 const LoginButtons = () => {
   return (
     <div className='hidden sm:flex gap-1'>
-      <Button as={Link} color="primary" href="#" variant="flat">
-        Sign Up
-      </Button>
-      <Button as={Link} color="success" href="#" variant="flat">
-        Sign In
-      </Button>
+      <LoginModal />
+      <SignUpModal />
     </div>
   )
 }

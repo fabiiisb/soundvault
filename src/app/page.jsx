@@ -1,5 +1,5 @@
-import SmallArtistCard from '@/components/songCard/SmallSongCard'
-import TopArtistCard from '@/components/songCard/TopSongCard'
+import SmallArtistCard from '@/components/songCards/SmallSongCard'
+import TopArtistCard from '@/components/songCards/TopSongCard'
 import '@/app/test.css'
 
 const SONGS = [
@@ -60,14 +60,14 @@ const SONGS = [
 export default function Home () {
   return (
     <section>
-      <h1 className='text-2xl pb-3 font-bold underline underline-offset-[3px]
-      ] decoration-niceOrange decoration-2'>Songs of the mounth</h1>
+      <h1 className='text-2xl pb-3 font-bold underline underline-offset-[3px] decoration-niceOrange decoration-2'>Songs of the mounth</h1>
       <ul className='grid mini:grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
         <li className='mini:col-[1_/_3] mini:row-[1_/_3] row-span-1 col-span-1'><TopArtistCard /></li>
         {SONGS.map((item, index) => (
           <li key={index}><SmallArtistCard name={item.name} id={item.id} /></li>
         ))}
       </ul>
+
     </section>
   )
 }
