@@ -8,12 +8,13 @@ export default function SignUpModal () {
 
   return (
     <>
-      <Button onPress={onOpen} className='bg-[#6b3645] font-bold'>Sign Up</Button>
+      <Button onPress={onOpen} fullWidth className='bg-[#6b3645] font-bold'>Sign Up</Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="top-center"
         backdrop='blur'
+        scrollBehavior={'inside'}
       >
         <ModalContent>
           {(onClose) => (

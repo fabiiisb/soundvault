@@ -74,7 +74,7 @@ const NavbarUi = () => {
           </NavbarMenuItem>
         ))}
         <NavbarMenuItem>
-          <div className='flex gap-2 '>
+          <div className='flex flex-col sm:flex gap-2'>
             <LoginModal />
             <SignUpModal />
           </div>

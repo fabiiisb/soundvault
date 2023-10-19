@@ -8,7 +8,7 @@ export default function LoginModal () {
 
   return (
     <>
-      <Button onPress={onOpen} variant='light' className='font-bold'>Login</Button>
+      <Button onPress={onOpen} fullWidth variant='flat' className='font-bold bg-bgBlur'>Login</Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
