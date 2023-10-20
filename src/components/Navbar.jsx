@@ -29,7 +29,7 @@ const NavbarUi = () => {
         </NavbarBrand>
         <NavbarContent className='hidden sm:flex gap-3'>
           {menuItems.map((item, index) => (
-            <NavbarItem key={index} className='hover:underline hover:underline-offset-[3px] hover:decoration-niceOrange hover:decoration-2'>
+            <NavbarItem key={index} className='hover:underline hover:underline-offset-[3px] hover:decoration-niceOrange-400 hover:decoration-2'>
               <Link href="#">
                 {item}
               </Link>
@@ -45,7 +45,7 @@ const NavbarUi = () => {
             base: 'max-w-full sm:max-w-[10rem] h-10',
             mainWrapper: 'h-full',
             input: 'text-small',
-            inputWrapper: 'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20'
+            inputWrapper: 'h-full font-normal text-default-500 dark:bg-default-500/20'
           }}
           placeholder="Search..."
           size="sm"

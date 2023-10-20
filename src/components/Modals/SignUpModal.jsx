@@ -8,7 +8,7 @@ export default function SignUpModal () {
 
   return (
     <>
-      <Button onPress={onOpen} fullWidth className='bg-[#6b3645] font-bold'>Sign Up</Button>
+      <Button onPress={onOpen} fullWidth className='bg-bgBlur-900 hover:bg-bgBlur-800 font-bold'>Sign Up</Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
