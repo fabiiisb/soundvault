@@ -1,6 +1,6 @@
 'use client'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from '@nextui-org/react'
-import { SearchIcon } from './svg/SearchIcon.jsx'
+import { SearchNormal1 } from 'iconsax-react'
 import { useState } from 'react'
 import Link from 'next/link.js'
 import LoginModal from '@/components/Modals/LoginModal'
@@ -49,7 +49,7 @@ const NavbarUi = () => {
           }}
           placeholder="Search..."
           size="sm"
-          startContent={<SearchIcon size={18} />}
+          startContent={<SearchNormal1 size={18} />}
           type="search"
         />
 

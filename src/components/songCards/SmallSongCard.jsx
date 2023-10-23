@@ -7,15 +7,15 @@ export default function SmallArtistCard ({ name, id }) {
     <LinkUi
       href={`/song/${id}`}
       as={Link}
-      className='w-full h-full'
+      className='w-full h-full min-h-[150px]'
     >
       <Card
         isFooterBlurred
-        radius="lg"
+        radius='lg'
         className='w-full h-full'
       >
         <Image
-          alt="Woman listing to music"
+          alt='Song of the mounth'
           className="object-cover h-full w-full"
           src='https://media.discordapp.net/attachments/1072899954525356072/1106638969908772984/kingdomcreation_cd_cover_high-resolution_drawing_modern_art_and_5ed8af70-edc7-4fef-94d9-130527a95b3b.png?ex=6532bd5a&is=6520485a&hm=7a2a2af806305066cf45f01b64f60ee3078d3eaeca14edf7b505fd5a8749aa37&=&width=671&height=671'
         />

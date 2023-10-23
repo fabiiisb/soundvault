@@ -1,8 +1,6 @@
 'use client'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link } from '@nextui-org/react'
-import { MailIcon } from '@/components/svg/MailIcon.jsx'
-import { LockIcon } from '@/components/svg/LockIcon.jsx'
-
+import { Lock, Sms } from 'iconsax-react'
 export default function SignUpModal () {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
@@ -24,7 +22,7 @@ export default function SignUpModal () {
                 <Input
                   autoFocus
                   endContent={
-                    <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                    <Sms variant="Bold" className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   label="Email"
                   placeholder="Enter your email"
@@ -32,7 +30,7 @@ export default function SignUpModal () {
                 />
                 <Input
                   endContent={
-                    <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                    <Lock variant="Bold" className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   label="Password"
                   placeholder="Enter your password"
@@ -56,7 +54,7 @@ export default function SignUpModal () {
                 <Button color="danger" variant="flat" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button color="primary">
                   Sign Up
                 </Button>
               </ModalFooter>
