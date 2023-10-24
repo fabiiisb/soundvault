@@ -1,20 +1,21 @@
 import './globals.css'
 import { Providers } from './providers'
-import NavbarUi from '@/components/Navbar'
+import NavbarUi from '@/components/Navbar.jsx'
 
 export const metadata = {
   title: 'Soundvault',
   description: 'Soundvault, the music app',
-  colorScheme: 'dark'
+  themeColor: '#08040c'
 }
 
 export default function RootLayout ({ children }) {
   return (
     <html lang='en' className='bg-blackPurple dark text-foreground min-h-screen h-100%'>
+
       <body>
         <Providers>
           <NavbarUi />
-          <main className='relative max-w-[1024px] mx-auto px-6 py-8 z-10'>
+          <main className='relative max-w-[1024px] mx-auto px-6 py-3 sm:py-7 z-10'>
             {children}
           </main>
         </Providers>

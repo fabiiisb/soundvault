@@ -1,9 +1,10 @@
 import React from 'react'
+import MusicPlayer from '@/components/MusicPlayer/MusicPlayingCard.jsx'
 
 const Page = ({ params }) => {
-  const id = params.songId
+  // const id = params.songId
   return (
-    <div>{id}</div>
+    <MusicPlayer />
   )
 }
 
