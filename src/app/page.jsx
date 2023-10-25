@@ -57,7 +57,7 @@ const SONGS = [
   }
 ]
 
-export default function Home () {
+export default function HomePage () {
   return (
     <section>
       <h1 className='text-2xl pb-3 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Songs of the mounth</h1>

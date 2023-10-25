@@ -1,11 +1,13 @@
 import React from 'react'
 import MusicPlayer from '@/components/MusicPlayer/MusicPlayingCard.jsx'
 
-const Page = ({ params }) => {
+const SongPage = ({ params }) => {
   // const id = params.songId
   return (
-    <MusicPlayer />
+    <section>
+      <MusicPlayer />
+    </section>
   )
 }
 
-export default Page
+export default SongPage
