@@ -4,12 +4,12 @@ import { Image } from '@nextui-org/react'
 import PlayButtons, { BtnLikeSong } from './miniComponents/PlayerButtons.jsx'
 import ProgressBar from './miniComponents/PlayerProgressBar.jsx'
 
-export default function MusicPlayer () {
+export default function MusicCard () {
   const [liked, setLiked] = useState(false)
 
   return (
-    <div className="p-4 border-none rounded-lg h-[calc(100vh-96px)] sm:h-[inherit]">
-      <div className="grid grid-cols-6 sm:grid-cols-12 gap-6 sm:gap-4 items-center justify-center">
+    <div className="border-none rounded-lg h-[calc(100vh-96px)] sm:h-[inherit]">
+      <div className="grid grid-cols-6 sm:grid-cols-12 gap-2 sm:gap-6 items-center justify-center">
 
         <div className="relative col-span-6 sm:col-span-4">
           <Image
@@ -24,8 +24,8 @@ export default function MusicPlayer () {
         <div className="flex flex-col col-span-6 sm:col-span-8">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-0">
+              <h1 className="text-xl sm:text-2xl font-medium mt-1 mb-1 text-niceOrange-400">Song name</h1>
               <p className="text-small text-foreground/80">Artist/User</p>
-              <h1 className="text-large font-medium mt-2 text-niceOrange-400">Song name</h1>
             </div>
             <BtnLikeSong liked={liked} setLiked={setLiked} />
           </div>

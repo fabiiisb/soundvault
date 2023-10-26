@@ -14,7 +14,7 @@ const NavbarUi = () => {
   ]
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-transparent backdrop-saturate-1'>
+    <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-transparent backdrop-saturate-1 shadow-medium'>
       <NavbarContent justify="start" className='data-[justify=start] flex-[none]'>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
