@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
 import { Image } from '@nextui-org/react'
-import PlayButtons, { BtnLikeSong } from './miniComponents/PlayerButtons.jsx'
-import ProgressBar from './miniComponents/PlayerProgressBar.jsx'
+import PlayButtons, { BtnLikeSong } from './miniComponents/Buttons.jsx'
+import ProgressBar from './miniComponents/ProgressBar.jsx'
 
 export default function MusicCard () {
   const [liked, setLiked] = useState(false)

@@ -14,8 +14,8 @@ const ProgressBar = () => {
         value={33}
       />
       <div className="flex justify-between">
-        <p className="text-small">1:23</p>
-        <p className="text-small text-foreground/50">4:32</p>
+        <p className="text-tiny">1:23</p>
+        <p className="text-tiny text-foreground/50">4:32</p>
       </div>
     </div>
   )
