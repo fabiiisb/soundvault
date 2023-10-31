@@ -1,7 +1,7 @@
 import './globals.css'
 import { Providers } from './providers'
-import NavbarUi from '@/components/Navbar.jsx'
-import MusicNav from '@/components/MusicPlayer/MusicNav.jsx'
+import NavbarUi from '@/components/Navbar'
+import MusicNav from '@/components/Player/PlayerNav'
 import { BlobBgBlur } from '@/components/Blobs/Blobs'
 import PlayerCompo from '@/context/MusicPlayer/PlayerCompo'
 

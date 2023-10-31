@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, BtnVolume } from '@/components/MusicPlayer/miniComp/PlayButtons.jsx'
+import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, BtnVolume } from '@/components/Player/miniComp/PlayerBtns'
 import ProgressBar from './miniComp/ProgressBar'
 
 const MusicNav = () => {

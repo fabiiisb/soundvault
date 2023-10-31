@@ -1,13 +1,10 @@
 'use client'
-import { useState } from 'react'
 import { Image } from '@nextui-org/react'
-import { BtnLikeSong, BtnPlaySong } from './miniComp/PlayButtons.jsx'
+import { BtnLikeSong, BtnPlaySong } from '@/components/Player/miniComp/PlayerBtns'
 
 export default function MusicCard () {
-  const [liked, setLiked] = useState(false)
-
   return (
-    <div className="border-none rounded-lg h-[calc(100vh-200px)] sm:h-[inherit]">
+    <div className="border-none rounded-lg">
       <div className="grid grid-cols-6 sm:grid-cols-12 gap-2 sm:gap-6 items-center justify-center">
 
         <div className="relative col-span-6 sm:col-span-4">
@@ -22,15 +19,16 @@ export default function MusicCard () {
 
         <div className="flex flex-col col-span-6 sm:col-span-8">
           <div className="flex justify-between items-start">
-            <div className="flex flex-col gap-3">
-              <h1 className="text-xl sm:text-4xl font-medium text-niceOrange-400 ">Song name</h1>
-              <p className="text-small text-foreground/80 ">Artist/User</p>
+            <div className="flex flex-col gap-2">
+              <h1 className="text-2xl sm:text-4xl font-medium text-niceOrange-400 ">Song name</h1>
+              <a className="text-small text-foreground/80 " href='#'>
+                Artist/User
+              </a>
               <div className={'h-16 w-16'}>
                 <BtnPlaySong className={'h-full w-full'}/>
               </div>
-
             </div>
-            <BtnLikeSong liked={liked} setLiked={setLiked} />
+            <BtnLikeSong />
           </div>
         </div>
       </div>

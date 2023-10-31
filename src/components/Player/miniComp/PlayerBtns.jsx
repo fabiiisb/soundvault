@@ -43,7 +43,7 @@ export const BtnPlaySong = ({ className }) => {
       variant="light"
       onClick={handlePlay}
     >
-      {play ? <PauseCircle variant="Bold" size={54} /> : <PlayCircle variant="Bold" size={54} />}
+      {play ? <PauseCircle variant="Bold" size={100} /> : <PlayCircle variant="Bold" size={100} />}
     </Button>
   )
 }
