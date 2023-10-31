@@ -1,37 +1,8 @@
 'use client'
-import React, { useState } from 'react'
 import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross } from 'iconsax-react'
 import { Button } from '@nextui-org/react'
-
-const PlayButtons = () => {
-  const [replay, setReplay] = useState(false)
-  const [random, setRandom] = useState(false)
-  const [play, setPlay] = useState(false)
-
-  return (
-    <div className="flex w-full items-center justify-center ">
-      <BtnReplaySong
-        replay={replay}
-        setReplay={setReplay}
-        random={random}
-        setRandom={setRandom}
-      />
-      <BtnPrevSong />
-      <BtnPlaySong
-        className={'w-auto h-auto data-[hover]:bg-foreground/10 text-white/95'}
-        play={play}
-        setPlay={setPlay}
-      />
-      <BtnNextSong />
-      <BtnRandomSong
-        random={random}
-        setRandom={setRandom}
-        replay={replay}
-        setReplay={setReplay}
-      />
-    </div>
-  )
-}
+import { useContext } from 'react'
+import playerContext from '@/context/MusicPlayer/playerContext'
 
 export const BtnNextSong = () => {
   return (
@@ -61,10 +32,8 @@ export const BtnPrevSong = () => {
   )
 }
 
-export const BtnPlaySong = ({ className, play, setPlay }) => {
-  const handlePlay = () => {
-    setPlay((v) => !v)
-  }
+export const BtnPlaySong = ({ className }) => {
+  const { play, handlePlay } = useContext(playerContext)
 
   return (
     <Button
@@ -79,16 +48,13 @@ export const BtnPlaySong = ({ className, play, setPlay }) => {
   )
 }
 
-export const BtnRandomSong = ({ random, setRandom, replay, setReplay }) => {
-  const handleRandom = () => {
-    if (replay) setReplay((v) => !v)
-    setRandom((v) => !v)
-  }
+export const BtnRandomSong = ({ className }) => {
+  const { random, handleRandom } = useContext(playerContext)
 
   return (
     <Button
       isIconOnly
-      className="data-[hover]:bg-foreground/10"
+      className={'data-[hover]:bg-foreground/10 ' + className}
       radius="full"
       variant="light"
       onClick={handleRandom}>
@@ -99,16 +65,13 @@ export const BtnRandomSong = ({ random, setRandom, replay, setReplay }) => {
   )
 }
 
-export const BtnReplaySong = ({ replay, setReplay, random, setRandom }) => {
-  const handleReplay = () => {
-    if (random) setRandom((v) => !v)
-    setReplay((v) => !v)
-  }
+export const BtnReplaySong = ({ className }) => {
+  const { replay, handleReplay } = useContext(playerContext)
 
   return (
     <Button
       isIconOnly
-      className="data-[hover]:bg-foreground/10"
+      className={'data-[hover]:bg-foreground/10 ' + className}
       radius="full"
       variant="light"
       onClick={handleReplay}>
@@ -119,14 +82,16 @@ export const BtnReplaySong = ({ replay, setReplay, random, setRandom }) => {
   )
 }
 
-export const BtnLikeSong = ({ className, liked, setLiked }) => {
+export const BtnLikeSong = ({ className }) => {
+  const { liked, handleLike } = useContext(playerContext)
+
   return (
     <Button
       isIconOnly
       className={'text-default-900/60 data-[hover]:bg-foreground/10 ' + className}
       radius="full"
       variant="light"
-      onPress={() => setLiked((v) => !v)}
+      onClick={handleLike}
     >
       <Heart
         variant={liked ? 'Bold' : 'Linear'}
@@ -136,10 +101,8 @@ export const BtnLikeSong = ({ className, liked, setLiked }) => {
   )
 }
 
-export const BtnVolume = ({ className, isMute, setMute }) => {
-  const handleMute = () => {
-    setMute((v) => !v)
-  }
+export const BtnVolume = ({ className }) => {
+  const { isMute, handleMute } = useContext(playerContext)
 
   return (
     <Button
@@ -152,5 +115,3 @@ export const BtnVolume = ({ className, isMute, setMute }) => {
     </Button>
   )
 }
-
-export default PlayButtons

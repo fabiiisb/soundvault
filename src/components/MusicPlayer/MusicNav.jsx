@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, BtnVolume } from '@/components/MusicPlayer/miniComponents/Buttons.jsx'
-import ProgressBar from './miniComponents/ProgressBar'
+import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, BtnVolume } from '@/components/MusicPlayer/miniComp/PlayButtons.jsx'
+import ProgressBar from './miniComp/ProgressBar'
 
-const MusicPlayer = () => {
+const MusicNav = () => {
   const [play, setPlay] = useState(false)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
@@ -40,4 +40,4 @@ const MusicPlayer = () => {
   )
 }
 
-export default MusicPlayer
+export default MusicNav

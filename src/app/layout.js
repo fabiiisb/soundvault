@@ -1,7 +1,9 @@
 import './globals.css'
 import { Providers } from './providers'
 import NavbarUi from '@/components/Navbar.jsx'
-import MusicPlayer from '@/components/MusicPlayer/MusicPlayer.jsx'
+import MusicNav from '@/components/MusicPlayer/MusicNav.jsx'
+import { BlobBgBlur } from '@/components/Blobs/Blobs'
+import PlayerCompo from '@/context/MusicPlayer/PlayerCompo'
 
 export const metadata = {
   title: 'Soundvault',
@@ -12,17 +14,19 @@ export const metadata = {
 export default function RootLayout ({ children }) {
   return (
     <html lang='en' className='bg-blackPurple dark text-foreground min-h-screen h-100%'>
-
-      <body className='mb-[56px]'>
+      <body >
         <Providers>
-          <NavbarUi />
-          <main className='relative max-w-[1024px] mx-auto px-6 py-3 sm:py-7 z-10'>
-            {children}
-          </main>
-          <MusicPlayer />
+          <PlayerCompo>
+            <NavbarUi />
+            <main
+              className='relative max-w-[1024px] mx-auto mb-[96px] sm:mb-[56px] px-6  py-5 z-10 '
+            >
+              {children}
+            </main>
+            <MusicNav />
+            <BlobBgBlur />
+          </PlayerCompo>
         </Providers>
-        <div className='circlePosition fixed w-[520px] h-[400px] bg-bgBlur-950 rounded-[100%] translate-x-[50%] blur-[90px] z-0 top-[-27%] left-[-20%] sm:left-[10%] md:left-[25%] lg:left-[40%] xl:left-[55%] 2xl:left-[70%]'></div>
-
       </body>
     </html>
 
