@@ -5,7 +5,7 @@ import { BtnLikeSong, BtnPlaySong } from '@/components/Player/miniComp/PlayerBtn
 export default function MusicCard () {
   return (
     <div className="border-none rounded-lg">
-      <div className="grid grid-cols-6 sm:grid-cols-12 gap-2 sm:gap-6 items-center justify-center">
+      <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center justify-center">
 
         <div className="relative col-span-6 sm:col-span-4">
           <Image
@@ -20,15 +20,21 @@ export default function MusicCard () {
         <div className="flex flex-col col-span-6 sm:col-span-8">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2">
-              <h1 className="text-2xl sm:text-4xl font-medium text-niceOrange-400 ">Song name</h1>
-              <a className="text-small text-foreground/80 " href='#'>
-                Artist/User
-              </a>
-              <div className={'h-16 w-16'}>
-                <BtnPlaySong className={'h-full w-full'}/>
+              <h1 className="text-2xl minixl:text-3xl sm:text-4xl font-medium text-niceOrange-400 ">Song name</h1>
+              <div>
+                <a className="text-small hover:text-foreground/80 " href='#'>
+                  Artist/User
+                </a>
+              </div>
+              <div className={'flex gap-2 '}>
+                <div className='h-12 w-12'>
+                  <BtnPlaySong className={'h-full w-full'} />
+                </div>
+                <div className='h-12 w-12'>
+                  <BtnLikeSong className={'h-full w-full'} size={40}/>
+                </div>
               </div>
             </div>
-            <BtnLikeSong />
           </div>
         </div>
       </div>

@@ -82,7 +82,7 @@ export const BtnReplaySong = ({ className }) => {
   )
 }
 
-export const BtnLikeSong = ({ className }) => {
+export const BtnLikeSong = ({ className, size }) => {
   const { liked, handleLike } = useContext(playerContext)
 
   return (
@@ -96,6 +96,7 @@ export const BtnLikeSong = ({ className }) => {
       <Heart
         variant={liked ? 'Bold' : 'Linear'}
         className={liked ? 'text-niceOrange-400' : 'text-inherit'}
+        size={size}
       />
     </Button>
   )
