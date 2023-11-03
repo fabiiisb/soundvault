@@ -1,20 +1,21 @@
 'use client'
 import { Image } from '@nextui-org/react'
 import { BtnLikeSong, BtnPlaySong } from '@/components/Player/miniComp/PlayerBtns'
+import Link from 'next/link'
 
 export default function MusicCard () {
   return (
     <div className="border-none rounded-lg">
       <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center justify-center">
 
-        <div className="relative col-span-6 sm:col-span-4">
+        <div className="relative col-span-6 sm:col-span-4 ">
           <Image
-            alt="Album cover"
+            alt="Song image"
             className="object-cover sm:max-h-[250px] "
-            isBlurred
             src='https://media.discordapp.net/attachments/1072899954525356072/1106638969908772984/kingdomcreation_cd_cover_high-resolution_drawing_modern_art_and_5ed8af70-edc7-4fef-94d9-130527a95b3b.png?ex=6532bd5a&is=6520485a&hm=7a2a2af806305066cf45f01b64f60ee3078d3eaeca14edf7b505fd5a8749aa37&=&width=671&height=671'
             width="100%"
           />
+          <div className='rounded-[14px] border- absolute top-0 z-10 h-full w-full bg-gradient-to-t from-blackPurple-950 to-20%'></div>
         </div>
 
         <div className="flex flex-col col-span-6 sm:col-span-8">
@@ -22,11 +23,11 @@ export default function MusicCard () {
             <div className="flex flex-col gap-2">
               <h1 className="text-2xl minixl:text-3xl sm:text-4xl font-medium text-niceOrange-400 ">Song name</h1>
               <div>
-                <a className="text-small hover:text-foreground/80 " href='#'>
+                <Link className="text-small hover:text-foreground/80 no-underline hover:underline" href='/user/1'>
                   Artist/User
-                </a>
+                </Link>
               </div>
-              <div className={'flex gap-2 '}>
+              <div className={'flex gap-2'}>
                 <div className='h-12 w-12'>
                   <BtnPlaySong className={'h-full w-full'} />
                 </div>

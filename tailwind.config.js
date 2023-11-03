@@ -11,7 +11,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        blackPurple: '#08040c',
+        blackPurple: {
+          50: '#f8f3fc',
+          100: '#efe6f8',
+          200: '#d9c7f0',
+          300: '#b695e4',
+          400: '#8d5cd4',
+          500: '#7037c0',
+          600: '#5d27a2',
+          700: '#4e2183',
+          800: '#421f6d',
+          900: '#3b1e5c',
+          950: '#08040c'
+        },
         niceOrange: {
           50: '#fff6ed',
           100: '#ffebd5',

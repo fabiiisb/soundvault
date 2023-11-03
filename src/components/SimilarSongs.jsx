@@ -88,15 +88,15 @@ const SimilarSongs = () => {
                     {item.songName}
                   </Link>
                   <Link
-                    className='text-tiny block hover:text-foreground/80'
-                    href={'#'}
+                    className='text-tiny block hover:text-foreground/80 no-underline hover:underline'
+                    href='/user/1'
                   >
                     {item.artist}
                   </Link>
                 </div>
               </div>
               <div className='flex items-center justify-end gap-2'>
-                <BtnLikeSong className={'invisible group-hover:visible'} />
+                <BtnLikeSong className={'hidden group-hover:flex'} />
                 <p className='text-small text-foreground/80'>
                   {item.duration}
                 </p>

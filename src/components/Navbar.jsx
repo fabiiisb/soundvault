@@ -22,7 +22,8 @@ const NavbarUi = () => {
         />
         <NavbarBrand className='mr-2 grow-0'>
           <Link href={'/'}>
-            <p className='font-bold text-inherit'>
+            <p
+              className='font-bold text-transparent bg-clip-text bg-gradient-to-r from-niceOrange-400 to-bgBlur-500'>
               SOUNDVAULT
             </p>
           </Link>
