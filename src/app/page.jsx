@@ -1,5 +1,5 @@
-import SmallArtistCard from '@/components/songCards/SmallSongCard'
-import TopArtistCard from '@/components/songCards/TopSongCard'
+import SmallArtistCard from '@/components/Song/Cards/SmallSongCard'
+import TopArtistCard from '@/components/Song/Cards/TopSongCard'
 import '@/app/test.css'
 
 const SONGS = [

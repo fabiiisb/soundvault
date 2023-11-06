@@ -3,7 +3,7 @@ import { Image } from '@nextui-org/react'
 import { BtnLikeSong, BtnPlaySong } from '@/components/Player/miniComp/PlayerBtns'
 import Link from 'next/link'
 
-export default function MusicCard () {
+export default function SongView ({ songName, user }) {
   return (
     <div className="border-none rounded-lg">
       <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center justify-center">
@@ -21,10 +21,10 @@ export default function MusicCard () {
         <div className="flex flex-col col-span-6 sm:col-span-8">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2">
-              <h1 className="text-2xl minixl:text-3xl sm:text-4xl font-medium text-niceOrange-400 ">Song name</h1>
+              <h1 className="text-2xl minixl:text-3xl sm:text-4xl font-medium text-niceOrange-400 ">{songName}</h1>
               <div>
                 <Link className="text-small hover:text-foreground/80 no-underline hover:underline" href='/user/1'>
-                  Artist/User
+                  {user}
                 </Link>
               </div>
               <div className={'flex gap-2'}>
