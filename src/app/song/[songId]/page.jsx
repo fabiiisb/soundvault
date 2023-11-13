@@ -21,7 +21,7 @@ const similarSongsData = [
     id: 'similarsong3'
   },
   {
-    songName: 'Nuthin\' But a \'G\' Thang',
+    songName: 'Nuthin\' But a \'G\' Thang asd asdasd asd asdasd as dasda sdasd xd',
     user: 'Dr. Dre',
     duration: '3:58',
     id: 'similarsong4'
@@ -72,7 +72,7 @@ const SongPage = ({ params }) => {
         <SongView songName={'test'} user={'test'} />
       </section>
       <section className='mt-10'>
-        <SongUl title={'Similar Songs'} songList={similarSongsData} />
+        <SongUl title={'Similar Songs'} songList={similarSongsData} gradientColor={'from-bgBlur-950'} />
       </section>
     </>
   )

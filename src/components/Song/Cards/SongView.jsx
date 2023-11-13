@@ -12,7 +12,7 @@ export default function SongView ({ songName, user }) {
           <Image
             alt="Song image"
             className="object-cover sm:max-h-[250px] "
-            src='https://media.discordapp.net/attachments/1072899954525356072/1106638969908772984/kingdomcreation_cd_cover_high-resolution_drawing_modern_art_and_5ed8af70-edc7-4fef-94d9-130527a95b3b.png?ex=6532bd5a&is=6520485a&hm=7a2a2af806305066cf45f01b64f60ee3078d3eaeca14edf7b505fd5a8749aa37&=&width=671&height=671'
+            src='https://media.discordapp.net/attachments/990816877691437086/1156393398505328692/abel_town_Depicting_two_musician_in_a_getho_and_minecraft_style_c222eba1-5022-43df-a4ed-4b202874a78b.png?ex=655d5146&is=654adc46&hm=e88d191fab2b56192685d8379275d2893261b59f47ab094bc5f9f92b6aa589d8&=&width=671&height=671'
             width="100%"
           />
           <div className='rounded-[14px] border- absolute top-0 z-10 h-full w-full bg-gradient-to-t from-blackPurple-950 to-20%'></div>
@@ -32,7 +32,7 @@ export default function SongView ({ songName, user }) {
                   <BtnPlaySong className={'h-full w-full'} />
                 </div>
                 <div className='h-12 w-12'>
-                  <BtnLikeSong className={'h-full w-full'} size={40}/>
+                  <BtnLikeSong className={'h-full w-full'} size={40} />
                 </div>
               </div>
             </div>

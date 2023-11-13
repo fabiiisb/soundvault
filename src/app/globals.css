@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.marquee:hover .marquee__content {
+  animation: scroll linear infinite;
+  animation-duration: 10s;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 1rem));
+  }
+}
