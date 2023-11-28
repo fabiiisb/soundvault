@@ -102,7 +102,11 @@ const page = () => {
           <UserView className={'h-full sm:h-[304px]'} />
         </div>
         <div className='w-full'>
-          <SongUl title={'Popular'} songList={popularData} />
+          <SongUl
+            title={'Popular'}
+            songList={popularData}
+            gradientColor={'from-blackPurple-900'}
+          />
         </div>
       </section>
       <section className='mt-10'>
@@ -127,7 +131,7 @@ const page = () => {
         <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
           Playlists
         </h2>
-        <ul className='grid mini:grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
+        <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
           {playlists.map((item, index) => (
             <li key={index}>
               <PlaylistCard name={item.playlistName} id={item.id} src={'https://media.discordapp.net/attachments/990816877691437086/1172158885696647280/mayaadis82_2_guys__Theyre_pop_rock_music_artist_.this_is_cover__ae89f55d-a618-4af0-b129-5a7cb0b7996f.png?ex=655f4d08&is=654cd808&hm=e3779779426e32691473050194bbda58d4f16cef9d6bc4fc2e1364ac6c68d4b5&=&width=671&height=671'} />

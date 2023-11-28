@@ -8,6 +8,8 @@ export default function SignUpModal () {
     <>
       <Button onPress={onOpen} fullWidth className='bg-bgBlur-900 hover:bg-bgBlur-800 font-bold'>Sign Up</Button>
       <Modal
+        hideCloseButton
+        isDismissable={false}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="top-center"

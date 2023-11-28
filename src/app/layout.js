@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout ({ children }) {
   return (
     <html lang='en' className='bg-blackPurple-950 dark text-foreground min-h-screen h-100%'>
-      <body >
+      <body>
         <Providers>
           <PlayerCompo>
             <NavbarUi />

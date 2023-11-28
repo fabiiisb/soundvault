@@ -1,10 +1,8 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button } from '@nextui-org/react'
 import { SearchNormal1 } from 'iconsax-react'
 import { useState } from 'react'
 import Link from 'next/link.js'
-import LoginModal from '@/components/Modals/LoginModal'
-import SignUpModal from './Modals/SignUpModal.jsx'
 
 const NavbarUi = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -23,7 +21,7 @@ const NavbarUi = () => {
         <NavbarBrand className='mr-2 grow-0'>
           <Link href={'/'}>
             <p
-              className='font-bold text-transparent bg-clip-text bg-gradient-to-r from-niceOrange-400 to-bgBlur-500'>
+              className='font-bold'>
               SOUNDVAULT
             </p>
           </Link>
@@ -55,8 +53,9 @@ const NavbarUi = () => {
         />
 
         {/* <UserDropDown /> */}
-        <LoginButtons />
-
+        <div className='hidden sm:flex gap-1'>
+          <LoginButtons />
+        </div>
       </NavbarContent>
 
       <NavbarMenu className='bg-transparent backdrop-saturate-1'>
@@ -76,8 +75,7 @@ const NavbarUi = () => {
         ))}
         <NavbarMenuItem>
           <div className='flex flex-col sm:flex gap-2'>
-            <LoginModal />
-            <SignUpModal />
+            <LoginButtons />
           </div>
         </NavbarMenuItem>
       </NavbarMenu>
@@ -121,10 +119,25 @@ const UserDropDown = () => {
 
 const LoginButtons = () => {
   return (
-    <div className='hidden sm:flex gap-1'>
-      <LoginModal />
-      <SignUpModal />
-    </div>
+    <>
+      <Button
+        as={Link}
+        href='/auth/login'
+        variant='flat'
+        fullWidth
+        className='bg-default-500/20 hover:!bg-bgBlur-800'
+      >
+        Login
+      </Button>
+      <Button
+        as={Link}
+        href='/auth/signup'
+        fullWidth
+        className='bg-bgBlur-900 hover:bg-bgBlur-800 '
+      >
+        Sign Up
+      </Button>
+    </>
   )
 }
 

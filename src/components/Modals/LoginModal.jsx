@@ -9,6 +9,8 @@ export default function LoginModal () {
     <>
       <Button onPress={onOpen} variant='flat' fullWidth className='font-bold bg-default-500/20 hover:!bg-bgBlur-800'>Login</Button>
       <Modal
+        hideCloseButton
+        isDismissable={false}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="top-center"

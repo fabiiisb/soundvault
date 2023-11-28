@@ -1,7 +1,4 @@
-'use client'
-import { SongUl } from '@/components/Song/SongList'
-import SongView from '@/components/Song/Cards/SongView'
-// import { useState, useEffect } from 'react'
+import { NextResponse } from 'next/server'
 
 const arraytest = [
   {
@@ -66,34 +63,8 @@ const arraytest = [
   }
 ]
 
-const SongPage = ({ params }) => {
-  // const [similarSongsData, setSimilarSongsData] = useState([])
-
-  // useEffect(() => {
-  //   async function fetchData () {
-  //     try {
-  //       const response = await fetch('http://localhost:3000/api/song')
-  //       const data = await response.json()
-  //       console.log(data)
-  //       setSimilarSongsData(data)
-  //     } catch (error) {
-  //       console.error('Error fetching similar songs:', error)
-  //     }
-  //   }
-
-  //   fetchData()
-  // }, [])
-
-  return (
-    <>
-      <section>
-        <SongView songName={'test'} user={'test'} />
-      </section>
-      <section className='mt-10'>
-        <SongUl title={'Similar Songs'} songList={arraytest} gradientColor={'from-bgBlur-950'} />
-      </section>
-    </>
+export function GET () {
+  return NextResponse.json(
+    arraytest
   )
 }
-
-export default SongPage

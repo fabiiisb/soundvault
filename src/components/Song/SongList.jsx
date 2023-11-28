@@ -34,11 +34,11 @@ export const SongLi = ({ song }) => {
           />
           <div className='flex flex-col max-w-[120px] overflow-hidden'>
             <Link
-              className='marquee text-small hover:text-foreground/80 text-white flex gap-4 '
+              className='marquee text-small hover:text-foreground/80 text-white flex gap-4'
               href={'/song/1'}
             >
               <p className='marquee__content min-w-full flex flex-shrink-0 '>{song.songName}</p>
-              <p aria-hidden='true' className='marquee__content min-w-full flex flex-shrink-0 '>{song.songName}</p>
+              <p aria-hidden='true' className='marquee__content min-w-full flex flex-shrink-0'>{song.songName}</p>
             </Link>
             <Link
               className='text-tiny hover:text-foreground/80 no-underline hover:underline text-white/70 truncate'
