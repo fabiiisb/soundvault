@@ -25,7 +25,13 @@ const ContactForm = () => {
   const handleUsername = (ev) => {
     const newUsername = ev.target.value
     const usernameRegex = /^[a-zA-Z0-9]+$/
-    setUsername(newUsername)
+
+    if (newUsername.length > 20) {
+      const truncatedInput = newUsername.slice(0, 20)
+      setUsername(truncatedInput)
+    } else {
+      setUsername(newUsername)
+    }
 
     if (newUsername !== '') {
       if (!usernameRegex.test(newUsername)) {
@@ -39,37 +45,64 @@ const ContactForm = () => {
 
   const handleEmail = (ev) => {
     const newEmail = ev.target.value
-    setEmail(newEmail)
 
-    if (newEmail !== '') {
-      setValEmail(false)
+    if (newEmail.length > 50) {
+      const truncatedInput = newEmail.slice(0, 50)
+      setEmail(truncatedInput)
+    } else {
+      setEmail(newEmail)
     }
+
+    if (newEmail !== '') setValEmail(false)
   }
 
   const handleFirstName = (ev) => {
     const newFirstName = ev.target.value
-    setFirstName(newFirstName)
+
+    if (newFirstName.length > 50) {
+      const truncatedInput = newFirstName.slice(0, 50)
+      setFirstName(truncatedInput)
+    } else {
+      setFirstName(newFirstName)
+    }
 
     if (newFirstName !== '') setValFirstName(false)
   }
 
   const handleLastName = (ev) => {
     const newLastName = ev.target.value
-    setLastName(newLastName)
+
+    if (newLastName.length > 50) {
+      const truncatedInput = newLastName.slice(0, 50)
+      setLastName(truncatedInput)
+    } else {
+      setLastName(newLastName)
+    }
 
     if (newLastName !== '') setValLastName(false)
   }
 
   const handlePassword = (ev) => {
     const newPassword = ev.target.value
-    setPassword(newPassword)
+    if (newPassword.length > 60) {
+      const truncatedInput = newPassword.slice(0, 60)
+      setPassword(truncatedInput)
+    } else {
+      setPassword(newPassword)
+    }
 
     if (newPassword !== '') setValPassword(false)
   }
 
   const handlePassword2 = (ev) => {
     const newPassword2 = ev.target.value
-    setPasswordRepeat(newPassword2)
+
+    if (newPassword2.length > 60) {
+      const truncatedInput = newPassword2.slice(0, 60)
+      setPasswordRepeat(truncatedInput)
+    } else {
+      setPasswordRepeat(newPassword2)
+    }
 
     if (newPassword2 !== '') setValPasswordRep(false)
   }
@@ -189,69 +222,69 @@ const ContactForm = () => {
 
   return (
     <>
-    <h1 className="text-xl font-bold inline-block mb-3">Sign up</h1>
-    <form
-      className='flex flex-col gap-4'
-      onSubmit={submitForm}
-    >
-      <div className='flex flex-col gap-3'>
-        <Input type='text' label="Username" placeholder="Enter your username" size='sm' value={username} autocomplete="off"
-          color={valUsername ? 'danger' : ''}
-          isInvalid={valUsername}
-          errorMessage={valUsername && errorMsgUser}
-          onChange={handleUsername}
-        />
+      <h1 className="text-xl font-bold inline-block mb-3">Sign up</h1>
+      <form
+        className='flex flex-col gap-4'
+        onSubmit={submitForm}
+      >
+        <div className='flex flex-col gap-3'>
+          <Input type='text' label="Username" placeholder="Enter your username" size='sm' value={username} autocomplete="off"
+            color={valUsername ? 'danger' : ''}
+            isInvalid={valUsername}
+            errorMessage={valUsername && errorMsgUser}
+            onChange={handleUsername}
+          />
 
-        <Input type='email' label="Email" placeholder="Enter your email" size='sm' value={email} autocomplete="off"
-          isInvalid={valEmail}
-          color={valEmail ? 'danger' : ''}
-          errorMessage={valEmail && errorMsgEmail}
-          onChange={handleEmail}
-        />
+          <Input type='email' label="Email" placeholder="Enter your email" size='sm' value={email} autocomplete="off"
+            isInvalid={valEmail}
+            color={valEmail ? 'danger' : ''}
+            errorMessage={valEmail && errorMsgEmail}
+            onChange={handleEmail}
+          />
 
-        <Input type='text' label="First name" placeholder="Enter your first name" size='sm' value={firstName}
-          color={valFirstName ? 'danger' : ''}
-          isInvalid={valFirstName}
-          errorMessage={valFirstName && 'First name cannot be empty'}
-          onChange={handleFirstName}
-        />
+          <Input type='text' label="First name" placeholder="Enter your first name" size='sm' value={firstName}
+            color={valFirstName ? 'danger' : ''}
+            isInvalid={valFirstName}
+            errorMessage={valFirstName && 'First name cannot be empty'}
+            onChange={handleFirstName}
+          />
 
-        <Input type='text' label="Last name" placeholder="Enter your last name" size='sm' value={lastName}
-          isInvalid={valLastName}
-          errorMessage={valLastName && 'Last name cannot be empty'}
-          color={valLastName ? 'danger' : ''}
-          onChange={handleLastName}
-        />
+          <Input type='text' label="Last name" placeholder="Enter your last name" size='sm' value={lastName}
+            isInvalid={valLastName}
+            errorMessage={valLastName && 'Last name cannot be empty'}
+            color={valLastName ? 'danger' : ''}
+            onChange={handleLastName}
+          />
 
-        <Input type="password" label="Password" placeholder="Enter your password" size='sm' value={password}
-          errorMessage={valPassword && errorMsgPass}
-          color={valPassword ? 'danger' : ''}
-          onChange={handlePassword}
-        />
+          <Input type="password" label="Password" placeholder="Enter your password" size='sm' value={password}
+            errorMessage={valPassword && errorMsgPass}
+            color={valPassword ? 'danger' : ''}
+            onChange={handlePassword}
+          />
 
-        <Input type="password" label="Confirm Password" placeholder="Repeat your password" size='sm' value={passwordRepeat}
-          errorMessage={valPasswordRep && errorMsgPass}
-          color={valPasswordRep ? 'danger' : ''}
-          onChange={handlePassword2}
-        />
-      </div>
-      <div className='flex gap-2 text-tiny text-niceOrange-400 justify-end'>
-        <Link
-          className='no-underline hover:underline'
-          href="/auth/login">
-          {'Do you have an account? '}
-          <span
-            className='font-semibold'
-          >
-            Login!
-          </span>
-        </Link>
-      </div>
-      <div className='flex justify-end'>
-        <Button as={'button'} type="submit" className='font-semibold'>Sign Up</Button>
-      </div>
-    </form>
-  </>
+          <Input type="password" label="Confirm Password" placeholder="Repeat your password" size='sm' value={passwordRepeat}
+            errorMessage={valPasswordRep && errorMsgPass}
+            color={valPasswordRep ? 'danger' : ''}
+            onChange={handlePassword2}
+          />
+        </div>
+        <div className='flex gap-2 text-tiny text-niceOrange-400 justify-end'>
+          <Link
+            className='no-underline hover:underline'
+            href="/auth/login">
+            {'Do you have an account? '}
+            <span
+              className='font-semibold'
+            >
+              Login!
+            </span>
+          </Link>
+        </div>
+        <div className='flex justify-end'>
+          <Button as={'button'} type="submit" className='font-semibold'>Sign Up</Button>
+        </div>
+      </form>
+    </>
   )
 }
 
