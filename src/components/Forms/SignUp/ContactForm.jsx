@@ -206,18 +206,24 @@ const ContactForm = () => {
       const passwordData = String(password)
 
       const userArray = {
-        username: usernameData,
-        email: emailData,
-        firstName: firstNameData,
-        lastName: lastNameData,
-        password: passwordData
+        Username: usernameData,
+        EmailAddress: emailData,
+        Password: firstNameData,
+        FirstName: lastNameData,
+        LastName: passwordData
       }
 
-      console.log(userArray)
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.2.0' },
+        body: JSON.stringify(userArray)
+      }
+
+      fetch('http://localhost:3000/api/auth/signup', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err))
     }
-    // } else {
-    //   console.error('Invalid form')
-    // }
   }
 
   return (

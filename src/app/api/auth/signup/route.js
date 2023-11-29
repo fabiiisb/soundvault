@@ -1,18 +1,26 @@
 import { NextResponse } from 'next/server'
 import { getConn } from '@/utils/mssqlConn'
 
-export async function GET () {
+export async function POST (request) {
+  const {
+    Username,
+    EmailAddress,
+    Password,
+    FirstName,
+    LastName
+  } = await request.json()
+
   let pool
 
   try {
     pool = await getConn()
     const result = await pool
       .request()
-      .input('Username', 'asddxv')
-      .input('Password', 'asdasdsd123')
-      .input('EmailAddress', 'xcvfb@example.com')
-      .input('FirstName', 'f')
-      .input('LastName', 'r')
+      .input('USERNAME', Username)
+      .input('PASSWORD', Password)
+      .input('EMAIL_ADDRESS', EmailAddress)
+      .input('FIRST_NAME', FirstName)
+      .input('LAST_NAME', LastName)
       .execute('CreateNewUser')
 
     if (result.returnValue === 0) {
