@@ -215,7 +215,7 @@ const ContactForm = () => {
 
       const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.2.0' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userArray)
       }
 
