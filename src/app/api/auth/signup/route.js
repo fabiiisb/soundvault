@@ -1,54 +1,58 @@
 import { NextResponse } from 'next/server'
-import { getConn } from '@/utils/mssqlConn'
+import { getConn } from '@/utils/db/dbConn'
+import { dbSignUpErr } from '@/utils/db/dbErrors'
+import { validateSignUp } from '@/schemas/Validations/signup'
 
 export async function POST (request) {
-  const {
-    Username,
-    EmailAddress,
-    Password,
-    FirstName,
-    LastName
-  } = await request.json()
-
   let pool
-
   try {
+    const data = await request.json()
+    const validationRes = await validateSignUp(data)
+
+    if (validationRes.error) {
+      return NextResponse.json(
+        {
+          error: validationRes.error
+        }, {
+          status: 400
+        }
+      )
+    }
+
     pool = await getConn()
-    const result = await pool
-      .request()
-      .input('USERNAME', Username)
-      .input('PASSWORD', Password)
-      .input('EMAIL_ADDRESS', EmailAddress)
-      .input('FIRST_NAME', FirstName)
-      .input('LAST_NAME', LastName)
+    const result = await pool.request()
+      .input('USERNAME', data.Username)
+      .input('PASSWORD', data.Password)
+      .input('EMAIL_ADDRESS', data.EmailAddress)
+      .input('FIRST_NAME', data.FirstName)
+      .input('LAST_NAME', data.LastName)
       .execute('CreateNewUser')
 
     if (result.returnValue === 0) {
-      return NextResponse.json({
-        message: 'user created successfully',
-        error: false
-      })
+      return NextResponse.json(
+        {
+          message: 'User created successfully!',
+          error: false
+        },
+        {
+          status: 201
+        }
+      )
     }
   } catch (err) {
     if (pool === undefined) {
-      return NextResponse.json({
-        error: 'Error connecting to the database'
-      })
+      return NextResponse.json(
+        {
+          message: 'Error connecting to the database or invalid JSON',
+          error: true
+        }, {
+          status: 500
+        }
+      )
     }
 
-    if (err.message.includes('Username already exists')) {
-      return NextResponse.json({
-        error: 'Username already exists'
-      })
-    } else if (err.message.includes('Email address already exists')) {
-      return NextResponse.json({
-        error: 'Email address already exists'
-      })
-    } else {
-      return NextResponse.json({
-        error: 'There was an error processing the request.'
-      })
-    }
+    const errorResponse = dbSignUpErr(err)
+    return errorResponse
   } finally {
     if (pool) {
       pool.close()

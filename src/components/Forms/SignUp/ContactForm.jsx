@@ -213,6 +213,15 @@ const ContactForm = () => {
         LastName: passwordData
       }
 
+      /*
+      falta verificar un minimo de caracteres x input,
+        user: min(4),
+        password: min(6),
+        email: min(5), ???
+        firstName: min(3),
+        lastname: min(3)
+     */
+
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
