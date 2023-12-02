@@ -1,32 +1,23 @@
 import { NextResponse } from 'next/server'
 
-export function dbSignUpErr (err) {
-  if (err.message.includes('Username already exists')) {
+export function dbSignUpErr (err, pool) {
+  if (pool === undefined) {
     return NextResponse.json(
       {
-        message: 'Username already exists.',
+        message: 'Error connecting to the database or invalid JSON',
         error: true
       }, {
-        status: 409
-      }
-    )
-  } else if (err.message.includes('Email address already exists')) {
-    return NextResponse.json(
-      {
-        message: 'Email address already exists.',
-        error: true
-      }, {
-        status: 409
-      }
-    )
-  } else {
-    return NextResponse.json(
-      {
-        message: 'There was an error processing the request.',
-        error: true
-      }, {
-        status: 400
+        status: 500
       }
     )
   }
+
+  return NextResponse.json(
+    {
+      message: err.message,
+      error: true
+    }, {
+      status: 409
+    }
+  )
 }

@@ -21,6 +21,8 @@ const ContactForm = () => {
   const [errorMsgPass, setErrorMsgPass] = useState('')
   const [errorMsgUser, setErrorMsgUser] = useState('')
   const [errorMsgEmail, setErrorMsgEmail] = useState('')
+  const [errorMsgFirstName, setErrorMsgFirstName] = useState('')
+  const [errorMsgLastName, setErrorMsgLastName] = useState('')
 
   const handleUsername = (ev) => {
     const newUsername = ev.target.value
@@ -146,6 +148,11 @@ const ContactForm = () => {
 
   const validFirstName = () => {
     if (firstName === '') {
+      setErrorMsgFirstName('First name cannot be empty')
+      setValFirstName(true)
+      return false
+    } else if (firstName.length < 3) {
+      setErrorMsgFirstName('Your first name must contain at least 3 characters')
       setValFirstName(true)
       return false
     } else {
@@ -156,6 +163,11 @@ const ContactForm = () => {
 
   const validLastName = () => {
     if (lastName === '') {
+      setErrorMsgLastName('Last name cannot be empty')
+      setValLastName(true)
+      return false
+    } else if (lastName.length < 3) {
+      setErrorMsgLastName('Your last name must contain at least 3 characters')
       setValLastName(true)
       return false
     } else {
@@ -208,19 +220,10 @@ const ContactForm = () => {
       const userArray = {
         Username: usernameData,
         EmailAddress: emailData,
-        Password: firstNameData,
-        FirstName: lastNameData,
-        LastName: passwordData
+        Password: passwordData,
+        FirstName: firstNameData,
+        LastName: lastNameData
       }
-
-      /*
-      falta verificar un minimo de caracteres x input,
-        user: min(4),
-        password: min(6),
-        email: min(5), ???
-        firstName: min(3),
-        lastname: min(3)
-     */
 
       const options = {
         method: 'POST',
@@ -260,13 +263,13 @@ const ContactForm = () => {
           <Input type='text' label="First name" placeholder="Enter your first name" size='sm' value={firstName}
             color={valFirstName ? 'danger' : ''}
             isInvalid={valFirstName}
-            errorMessage={valFirstName && 'First name cannot be empty'}
+            errorMessage={valFirstName && errorMsgFirstName}
             onChange={handleFirstName}
           />
 
           <Input type='text' label="Last name" placeholder="Enter your last name" size='sm' value={lastName}
             isInvalid={valLastName}
-            errorMessage={valLastName && 'Last name cannot be empty'}
+            errorMessage={valLastName && errorMsgLastName}
             color={valLastName ? 'danger' : ''}
             onChange={handleLastName}
           />

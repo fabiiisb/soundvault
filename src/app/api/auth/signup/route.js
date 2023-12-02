@@ -5,20 +5,23 @@ import { validateSignUp } from '@/schemas/Validations/signup'
 
 export async function POST (request) {
   let pool
+
+  const data = await request.json()
+  const validationRes = await validateSignUp(data)
+
+  if (validationRes.error) {
+    return NextResponse.json(
+      {
+        error: validationRes.error.issues
+      }, {
+        status: 400
+      }
+    )
+  }
+
+  // falta encriptar password, escape de datos
+
   try {
-    const data = await request.json()
-    const validationRes = await validateSignUp(data)
-
-    if (validationRes.error) {
-      return NextResponse.json(
-        {
-          error: validationRes.error
-        }, {
-          status: 400
-        }
-      )
-    }
-
     pool = await getConn()
     const result = await pool.request()
       .input('USERNAME', data.Username)
@@ -40,18 +43,7 @@ export async function POST (request) {
       )
     }
   } catch (err) {
-    if (pool === undefined) {
-      return NextResponse.json(
-        {
-          message: 'Error connecting to the database or invalid JSON',
-          error: true
-        }, {
-          status: 500
-        }
-      )
-    }
-
-    const errorResponse = dbSignUpErr(err)
+    const errorResponse = dbSignUpErr(err, pool)
     return errorResponse
   } finally {
     if (pool) {
