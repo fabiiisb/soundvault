@@ -24,6 +24,8 @@ const ContactForm = () => {
   const [errorMsgFirstName, setErrorMsgFirstName] = useState('')
   const [errorMsgLastName, setErrorMsgLastName] = useState('')
 
+  const [isLoadingBtn, setIsLoadingBtn] = useState(false)
+
   const handleUsername = (ev) => {
     const newUsername = ev.target.value
     const usernameRegex = /^[a-zA-Z0-9]+$/
@@ -225,6 +227,8 @@ const ContactForm = () => {
         LastName: lastNameData
       }
 
+      setIsLoadingBtn(true)
+
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -233,8 +237,14 @@ const ContactForm = () => {
 
       fetch('http://localhost:3000/api/auth/signup', options)
         .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err))
+        .then(response => {
+          console.log(response)
+          setIsLoadingBtn(false)
+        })
+        .catch(err => {
+          console.error(err)
+          setIsLoadingBtn(false)
+        })
     }
   }
 
@@ -298,8 +308,15 @@ const ContactForm = () => {
             </span>
           </Link>
         </div>
-        <div className='flex justify-end'>
-          <Button as={'button'} type="submit" className='font-semibold'>Sign Up</Button>
+        <div className='flex justify-end '>
+          <Button
+            className={'font-semibold'}
+            as={'button'}
+            isLoading={isLoadingBtn}
+            type="submit"
+          >
+            Sign Up
+          </Button>
         </div>
       </form>
     </>
