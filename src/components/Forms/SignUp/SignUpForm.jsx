@@ -4,7 +4,7 @@ import { Input, Button } from '@nextui-org/react'
 import Link from 'next/link'
 import Alert from '@/components/Alerts/Alert'
 
-const ContactForm = () => {
+const SignUpForm = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -300,7 +300,7 @@ const ContactForm = () => {
     <>
       <h1 className="text-xl font-bold inline-block mb-3">Sign up</h1>
       <form
-        className='flex flex-col gap-4'
+        className='flex flex-col gap-5'
         onSubmit={submitForm}
       >
         <div className='flex flex-col gap-3'>
@@ -311,7 +311,7 @@ const ContactForm = () => {
             onChange={handleUsername}
           />
 
-          <Input type='email' label="Email" placeholder="Enter your email" size='sm' value={email} autocomplete="off"
+          <Input label="Email" placeholder="Enter your email" size='sm' value={email} autocomplete="off"
             isInvalid={valEmail}
             color={valEmail ? 'danger' : ''}
             errorMessage={valEmail && errorMsgEmail}
@@ -344,7 +344,7 @@ const ContactForm = () => {
             onChange={handlePassword2}
           />
         </div>
-        <div className='flex gap-2 text-tiny text-niceOrange-400 justify-end'>
+        <div className='flex text-tiny text-niceOrange-400 justify-end'>
           <Link
             className='no-underline hover:underline'
             href="/auth/login">
@@ -358,7 +358,8 @@ const ContactForm = () => {
         </div>
         <div className='flex justify-end '>
           <Button
-            className={'font-semibold'}
+            className={'font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800'}
+            fullWidth
             as={'button'}
             isLoading={isLoadingBtn}
             type="submit"
@@ -372,4 +373,4 @@ const ContactForm = () => {
   )
 }
 
-export default ContactForm
+export default SignUpForm
