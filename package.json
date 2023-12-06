@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "2.1.13",
+    "bcrypt": "^5.1.1",
     "framer-motion": "10.16.4",
     "iconsax-react": "0.0.8",
     "mssql": "10.0.1",

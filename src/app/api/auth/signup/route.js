@@ -2,12 +2,13 @@ import { NextResponse } from 'next/server'
 import { getConn } from '@/utils/db/dbConn'
 import { dbSignUpErr } from '@/utils/db/dbErrors'
 import { validateSignUp } from '@/schemas/Validations/signup'
+import bcrypt from 'bcrypt'
 
 export async function POST (request) {
   let pool
-
   const data = await request.json()
   const validationRes = await validateSignUp(data)
+  const salt = 12
 
   if (validationRes.error) {
     return NextResponse.json(
@@ -19,13 +20,13 @@ export async function POST (request) {
     )
   }
 
-  // falta encriptar password, escape de datos
-
+  const hashedPass = HashPasswords(data.Password, salt)
+  // falta sanitizar datos
   try {
     pool = await getConn()
     const result = await pool.request()
       .input('USERNAME', data.Username)
-      .input('PASSWORD', data.Password)
+      .input('PASSWORD', hashedPass)
       .input('EMAIL_ADDRESS', data.EmailAddress)
       .input('FIRST_NAME', data.FirstName)
       .input('LAST_NAME', data.LastName)
@@ -50,4 +51,8 @@ export async function POST (request) {
       pool.close()
     }
   }
+}
+
+const HashPasswords = (plainPass, salt) => {
+  return bcrypt.hashSync(plainPass, salt)
 }

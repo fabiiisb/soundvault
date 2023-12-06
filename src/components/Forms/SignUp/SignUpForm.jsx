@@ -97,8 +97,8 @@ const SignUpForm = () => {
 
   const handlePassword = (ev) => {
     const newPassword = ev.target.value
-    if (newPassword.length > 60) {
-      const truncatedInput = newPassword.slice(0, 60)
+    if (newPassword.length > 100) {
+      const truncatedInput = newPassword.slice(0, 100)
       setPassword(truncatedInput)
     } else {
       setPassword(newPassword)
@@ -110,8 +110,8 @@ const SignUpForm = () => {
   const handlePassword2 = (ev) => {
     const newPassword2 = ev.target.value
 
-    if (newPassword2.length > 60) {
-      const truncatedInput = newPassword2.slice(0, 60)
+    if (newPassword2.length > 100) {
+      const truncatedInput = newPassword2.slice(0, 100)
       setPasswordRepeat(truncatedInput)
     } else {
       setPasswordRepeat(newPassword2)
