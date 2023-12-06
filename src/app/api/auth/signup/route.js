@@ -12,7 +12,7 @@ export async function POST (request) {
   if (validationRes.error) {
     return NextResponse.json(
       {
-        error: validationRes.error.issues
+        validationError: validationRes.error.issues
       }, {
         status: 400
       }

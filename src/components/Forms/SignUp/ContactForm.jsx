@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Input, Button } from '@nextui-org/react'
 import Link from 'next/link'
+import Alert from '@/components/Alerts/Alert'
 
 const ContactForm = () => {
   const [username, setUsername] = useState('')
@@ -25,6 +26,10 @@ const ContactForm = () => {
   const [errorMsgLastName, setErrorMsgLastName] = useState('')
 
   const [isLoadingBtn, setIsLoadingBtn] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const [alertMsg, setAlertMsg] = useState('')
+
+  const [boolErrDb, setBoolErrDb] = useState(false)
 
   const handleUsername = (ev) => {
     const newUsername = ev.target.value
@@ -45,6 +50,8 @@ const ContactForm = () => {
         setValUsername(false)
       }
     }
+
+    setBoolErrDb(false)
   }
 
   const handleEmail = (ev) => {
@@ -58,6 +65,8 @@ const ContactForm = () => {
     }
 
     if (newEmail !== '') setValEmail(false)
+
+    setBoolErrDb(false)
   }
 
   const handleFirstName = (ev) => {
@@ -122,6 +131,8 @@ const ContactForm = () => {
       setErrorMsgEmail('Invalid email addresses')
       setValEmail(true)
       return false
+    } else if (boolErrDb === true) {
+      return false
     } else {
       setValEmail(false)
       return true
@@ -142,6 +153,8 @@ const ContactForm = () => {
     } else if (username.length < 4) {
       setErrorMsgUser('Your username must contain at least 4 characters')
       setValUsername(true)
+    } else if (boolErrDb === true) {
+      return false
     } else {
       setValUsername(false)
       return true
@@ -203,6 +216,22 @@ const ContactForm = () => {
     }
   }
 
+  const dbErrors = (error) => {
+    if (error.includes('Username and email address already exist.')) {
+      setErrorMsgEmail('Email address already exist.')
+      setValEmail(true)
+
+      setErrorMsgUser('Username already exist.')
+      setValUsername(true)
+    } else if (error.includes('Username already exists.')) {
+      setErrorMsgUser('Username already exist.')
+      setValUsername(true)
+    } else if (error.includes('Email address already exists.')) {
+      setErrorMsgEmail('Email address already exist.')
+      setValEmail(true)
+    }
+  }
+
   const submitForm = async (ev) => {
     ev.preventDefault()
 
@@ -227,6 +256,7 @@ const ContactForm = () => {
         LastName: lastNameData
       }
 
+      setAlert(false)
       setIsLoadingBtn(true)
 
       const options = {
@@ -237,12 +267,30 @@ const ContactForm = () => {
 
       fetch('http://localhost:3000/api/auth/signup', options)
         .then(response => response.json())
-        .then(response => {
-          console.log(response)
+        .then(res => {
+          if (res.error) {
+            const msgError = res.message
+            dbErrors(msgError)
+            setBoolErrDb(true)
+            return setIsLoadingBtn(false)
+          }
+
+          if (res.validationError) {
+            console.log(res.validationError)
+            throw new Error('Validation error')
+          }
+
+          console.log(res.message)
           setIsLoadingBtn(false)
         })
         .catch(err => {
-          console.error(err)
+          if (err.message === 'Validation error') {
+            setAlertMsg(err.message)
+            setAlert(true)
+          } else {
+            setAlertMsg('Unexpected error')
+            setAlert(true)
+          }
           setIsLoadingBtn(false)
         })
     }
@@ -318,6 +366,7 @@ const ContactForm = () => {
             Sign Up
           </Button>
         </div>
+        {alert ? <Alert message={alertMsg} type={'error'} /> : ''}
       </form>
     </>
   )
