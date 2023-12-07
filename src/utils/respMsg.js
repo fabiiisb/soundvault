@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-const respMsg = (msg, isError, statusCode) => {
+export const respMsg = (msg, isError, statusCode) => {
   return NextResponse.json(
     {
       message: msg,
@@ -12,4 +12,14 @@ const respMsg = (msg, isError, statusCode) => {
   )
 }
 
-export default respMsg
+export const respValMsg = (msg, isError, statusCode) => {
+  return NextResponse.json(
+    {
+      validationError: msg,
+      error: isError
+    },
+    {
+      status: statusCode
+    }
+  )
+}

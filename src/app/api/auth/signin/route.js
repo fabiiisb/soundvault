@@ -1,4 +1,4 @@
-import respMsg from '@/utils/respMsg'
+import { respMsg, respValMsg } from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
 import { validateSignIn } from '@/schemas/Validations/signin'
@@ -12,7 +12,7 @@ export async function POST (request) {
   const passData = data.Password
 
   if (validationRes.error) {
-    return respMsg(validationRes.error.issues, true, 400)
+    return respValMsg(validationRes.error.issues, true, 400)
   }
 
   try {

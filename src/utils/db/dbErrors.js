@@ -1,4 +1,4 @@
-import respMsg from '../respMsg'
+import { respMsg } from '../respMsg'
 
 export function dbError (err, pool) {
   if (pool === undefined) {

@@ -1,4 +1,4 @@
-import respMsg from '@/utils/respMsg'
+import { respMsg, respValMsg } from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
 import { validateSignUp } from '@/schemas/Validations/signup'
@@ -11,7 +11,7 @@ export async function POST (request) {
   const salt = 12
 
   if (validationRes.error) {
-    return respMsg(validationRes.error.issues, true, 400)
+    return respValMsg(validationRes.error.issues, true, 400)
   }
 
   const hashedPass = HashPasswords(data.Password, salt)
