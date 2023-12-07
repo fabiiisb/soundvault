@@ -269,23 +269,23 @@ const SignUpForm = () => {
         .then(response => response.json())
         .then(res => {
           if (res.error) {
-            const msgError = res.message
-            dbErrors(msgError)
-            setBoolErrDb(true)
-            return setIsLoadingBtn(false)
+            if (res.validationError) {
+              console.log(res.validationError)
+              throw new Error('Validation error')
+            } else {
+              const msgError = res.message
+              dbErrors(msgError)
+              setBoolErrDb(true)
+              return setIsLoadingBtn(false)
+            }
+          } else {
+            console.log(res.message)
+            setIsLoadingBtn(false)
           }
-
-          if (res.validationError) {
-            console.log(res.validationError)
-            throw new Error('Validation error')
-          }
-
-          console.log(res.message)
-          setIsLoadingBtn(false)
         })
         .catch(err => {
           if (err.message === 'Validation error') {
-            setAlertMsg(err.message)
+            setAlertMsg('Validation error')
             setAlert(true)
           } else {
             setAlertMsg('Unexpected error')

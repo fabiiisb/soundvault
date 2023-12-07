@@ -1,6 +1,7 @@
 import { Input, Button } from '@nextui-org/react'
 import Link from 'next/link'
 import { useState } from 'react'
+import Alert from '@/components/Alerts/Alert'
 
 const SignInForm = () => {
   const [email, setEmail] = useState('')
@@ -10,6 +11,9 @@ const SignInForm = () => {
   const [valPass, setValPass] = useState(false)
   const [errorMsgEmail, setErrorMsgEmail] = useState('')
   const [errorMsgPass, setErrorMsgPass] = useState('')
+
+  const [alert, setAlert] = useState(false)
+  const [alertMsg, setAlertMsg] = useState('')
 
   const [isLoadingBtn, setIsLoadingBtn] = useState(false)
 
@@ -61,8 +65,6 @@ const SignInForm = () => {
     const isValidPassword = validatePassword()
 
     if (isValidEmail && isValidPassword) {
-      setIsLoadingBtn(true)
-
       const emailData = email
       const passwordData = password
 
@@ -71,6 +73,8 @@ const SignInForm = () => {
         Password: passwordData
       }
 
+      setAlert(false)
+      setIsLoadingBtn(true)
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -81,23 +85,33 @@ const SignInForm = () => {
         .then(response => response.json())
         .then(res => {
           if (res.error) {
-            const msgError = res.message
+            if (res.validationError) {
+              console.log(res.validationError)
+
+              throw new Error('Validation error')
+            } else {
+              return (
+                setErrorMsgEmail('Incorrect email address or password'),
+                setValEmail(true),
+                setErrorMsgPass('Incorrect email address or password'),
+                setValPass(true),
+                setIsLoadingBtn(false)
+              )
+            }
+          } else {
             setIsLoadingBtn(false)
-
-            return console.log(msgError)
-          } else if (res.validationError) {
-            console.log(res.validationError)
-
-            throw new Error('Validation error')
+            setValEmail(false)
+            setValPass(false)
+            console.log(res.message)
           }
-          setIsLoadingBtn(false)
-          console.log(res.message)
         })
         .catch(err => {
           if (err.message === 'Validation error') {
-            console.log('error de validacion manin')
+            setAlertMsg('Validation error')
+            setAlert(true)
           } else {
-            console.log('error inesperado manin')
+            setAlertMsg('Unexpected error')
+            setAlert(true)
           }
 
           setIsLoadingBtn(false)
@@ -149,7 +163,7 @@ const SignInForm = () => {
         </div>
         <div className='flex justify-end'>
           <Button
-             className={'font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800'}
+            className={'font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800'}
             as={'button'}
             type="submit"
             isLoading={isLoadingBtn}
@@ -158,6 +172,7 @@ const SignInForm = () => {
             Login
           </Button>
         </div>
+        {alert ? <Alert message={alertMsg} type={'error'} /> : ''}
       </form>
     </>
   )
