@@ -1,16 +1,19 @@
-import { NextResponse } from 'next/server'
+import respMsg from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
+import { validateSignIn } from '@/schemas/Validations/signin'
 import bcrypt from 'bcrypt'
-// import pc from 'picocolors'
 
 export async function POST (request) {
   let pool
   const data = await request.json()
+  const validationRes = await validateSignIn(data)
   const emailData = data.EmailAddress
   const passData = data.Password
-  // VALIDACIONES ZOD
-  // return NextResponse.json(data)
+
+  if (validationRes.error) {
+    return respMsg(validationRes.error.issues, true, 400)
+  }
 
   try {
     pool = await getConn()
@@ -19,36 +22,17 @@ export async function POST (request) {
       .execute('AuthLogin')
 
     if (result.returnValue === 0) {
-      // console.log(pc.green('SUCCESS'))
       const hashedPass = result.recordset[0].Password
       const isMatch = bcrypt.compareSync(passData, hashedPass)
 
       if (isMatch) {
-        return NextResponse.json(
-          {
-            message: 'Login Success!!',
-            error: false
-          },
-          {
-            status: 200
-          }
-        )
+        return respMsg('Login Success!!', false, 200)
       } else {
-        return NextResponse.json(
-          {
-            message: 'Incorrect Password',
-            error: true
-          },
-          {
-            status: 409
-          }
-        )
+        return respMsg('Incorrect Password', true, 409)
       }
     }
   } catch (err) {
-    // console.log(pc.red('ERROR'))
-    const errorResponse = dbError(err, pool)
-    return errorResponse
+    return dbError(err, pool)
   } finally {
     if (pool) {
       pool.close()
