@@ -11,6 +11,8 @@ const SignInForm = () => {
   const [errorMsgEmail, setErrorMsgEmail] = useState('')
   const [errorMsgPass, setErrorMsgPass] = useState('')
 
+  const [isLoadingBtn, setIsLoadingBtn] = useState(false)
+
   const handleValEmail = (ev) => {
     setEmail(ev.target.value)
     setValEmail(false)
@@ -59,6 +61,8 @@ const SignInForm = () => {
     const isValidPassword = validatePassword()
 
     if (isValidEmail && isValidPassword) {
+      setIsLoadingBtn(true)
+
       const emailData = email
       const passwordData = password
 
@@ -78,12 +82,15 @@ const SignInForm = () => {
         .then(res => {
           if (res.error) {
             const msgError = res.message
+            setIsLoadingBtn(false)
+
             return console.log(msgError)
           } else if (res.validationError) {
             console.log(res.validationError)
+
             throw new Error('Validation error')
           }
-
+          setIsLoadingBtn(false)
           console.log(res.message)
         })
         .catch(err => {
@@ -92,6 +99,8 @@ const SignInForm = () => {
           } else {
             console.log('error inesperado manin')
           }
+
+          setIsLoadingBtn(false)
         })
     }
   }
@@ -143,6 +152,7 @@ const SignInForm = () => {
              className={'font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800'}
             as={'button'}
             type="submit"
+            isLoading={isLoadingBtn}
             fullWidth
           >
             Login
