@@ -39,7 +39,11 @@ const SignInForm = () => {
 
   const validatePassword = () => {
     if (password === '') {
-      setErrorMsgPass('Password cannot be empty')
+      setErrorMsgPass('Your password cannot be empty')
+      setValPass(true)
+      return false
+    } else if (password.length < 6) {
+      setErrorMsgPass('Your password must contain at least 6 characters')
       setValPass(true)
       return false
     } else {
@@ -55,7 +59,40 @@ const SignInForm = () => {
     const isValidPassword = validatePassword()
 
     if (isValidEmail && isValidPassword) {
-      console.log(email, password)
+      const emailData = email
+      const passwordData = password
+
+      const loginArray = {
+        EmailAddress: emailData,
+        Password: passwordData
+      }
+
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginArray)
+      }
+
+      fetch('http://localhost:3000/api/auth/signin', options)
+        .then(response => response.json())
+        .then(res => {
+          if (res.error) {
+            const msgError = res.message
+            return console.log(msgError)
+          } else if (res.validationError) {
+            console.log(res.validationError)
+            throw new Error('Validation error')
+          }
+
+          console.log(res.message)
+        })
+        .catch(err => {
+          if (err.message === 'Validation error') {
+            console.log('error de validacion manin')
+          } else {
+            console.log('error inesperado manin')
+          }
+        })
     }
   }
 
