@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import respMsg from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
 import { validateSignUp } from '@/schemas/Validations/signup'
@@ -11,13 +11,7 @@ export async function POST (request) {
   const salt = 12
 
   if (validationRes.error) {
-    return NextResponse.json(
-      {
-        validationError: validationRes.error.issues
-      }, {
-        status: 400
-      }
-    )
+    return respMsg(validationRes.error.issues, true, 400)
   }
 
   const hashedPass = HashPasswords(data.Password, salt)
@@ -32,19 +26,10 @@ export async function POST (request) {
       .execute('CreateNewUser')
 
     if (result.returnValue === 0) {
-      return NextResponse.json(
-        {
-          message: 'User created successfully!',
-          error: false
-        },
-        {
-          status: 201
-        }
-      )
+      return respMsg('User created successfully!', false, 201)
     }
   } catch (err) {
-    const errorResponse = dbError(err, pool)
-    return errorResponse
+    return dbError(err, pool)
   } finally {
     if (pool) {
       pool.close()

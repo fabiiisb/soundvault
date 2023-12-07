@@ -1,23 +1,9 @@
-import { NextResponse } from 'next/server'
+import respMsg from '../respMsg'
 
 export function dbError (err, pool) {
   if (pool === undefined) {
-    return NextResponse.json(
-      {
-        message: 'Unexpected error',
-        error: true
-      }, {
-        status: 500
-      }
-    )
+    return respMsg('Unexpected error', true, 500)
+  } else {
+    return respMsg(err.message, true, 409)
   }
-
-  return NextResponse.json(
-    {
-      message: err.message,
-      error: true
-    }, {
-      status: 409
-    }
-  )
 }
