@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 
-export function dbSignUpErr (err, pool) {
+export function dbError (err, pool) {
   if (pool === undefined) {
     return NextResponse.json(
       {
-        message: 'Error connecting to the database or invalid JSON',
+        message: 'Unexpected error',
         error: true
       }, {
         status: 500

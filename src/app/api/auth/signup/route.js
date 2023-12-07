@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getConn } from '@/utils/db/dbConn'
-import { dbSignUpErr } from '@/utils/db/dbErrors'
+import { dbError } from '@/utils/db/dbErrors'
 import { validateSignUp } from '@/schemas/Validations/signup'
 import bcrypt from 'bcrypt'
 
@@ -21,7 +21,6 @@ export async function POST (request) {
   }
 
   const hashedPass = HashPasswords(data.Password, salt)
-  // falta sanitizar datos
   try {
     pool = await getConn()
     const result = await pool.request()
@@ -44,7 +43,7 @@ export async function POST (request) {
       )
     }
   } catch (err) {
-    const errorResponse = dbSignUpErr(err, pool)
+    const errorResponse = dbError(err, pool)
     return errorResponse
   } finally {
     if (pool) {
