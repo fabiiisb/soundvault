@@ -1,4 +1,3 @@
-'use client'
 import SignInForm from '@/components/Forms/SignIn/SignInForm'
 
 const LoginPage = () => {
