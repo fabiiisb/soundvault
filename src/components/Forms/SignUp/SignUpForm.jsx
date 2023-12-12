@@ -265,7 +265,7 @@ const SignUpForm = () => {
         body: JSON.stringify(userArray)
       }
 
-      fetch('http://localhost:3000/api/auth/signup', options)
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/signup`, options)
         .then(response => response.json())
         .then(res => {
           if (res.error) {

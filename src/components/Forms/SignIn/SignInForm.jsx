@@ -1,9 +1,13 @@
+'use client'
 import { Input, Button } from '@nextui-org/react'
-import Link from 'next/link'
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Alert from '@/components/Alerts/Alert'
 
 const SignInForm = () => {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -58,64 +62,46 @@ const SignInForm = () => {
     }
   }
 
-  const submitForm = (ev) => {
+  const submitForm = async (ev) => {
     ev.preventDefault()
 
     const isValidEmail = validateEmail()
     const isValidPassword = validatePassword()
 
     if (isValidEmail && isValidPassword) {
-      const emailData = email
-      const passwordData = password
+      const EmailAddress = email
+      const Password = password
+      setIsLoadingBtn(true)
 
-      const loginArray = {
-        EmailAddress: emailData,
-        Password: passwordData
-      }
+      const responseNextAuth = await signIn('credentials',
+        {
+          EmailAddress,
+          Password,
+          redirect: false
+        }
+      )
 
       setAlert(false)
-      setIsLoadingBtn(true)
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginArray)
+      setIsLoadingBtn(false)
+
+      if (responseNextAuth.error) {
+        if (responseNextAuth.error === 'undefined') {
+          return (
+            setAlertMsg('Validation error'),
+            setAlert(true)
+          )
+        } else {
+          return (
+            setErrorMsgEmail('Incorrect email address or password'),
+            setValEmail(true),
+            setErrorMsgPass('Incorrect email address or password'),
+            setValPass(true),
+            setIsLoadingBtn(false)
+          )
+        }
       }
 
-      fetch('http://localhost:3000/api/auth/signin', options)
-        .then(response => response.json())
-        .then(res => {
-          if (res.error) {
-            if (res.validationError) {
-              console.log(res.validationError)
-
-              throw new Error('Validation error')
-            } else {
-              return (
-                setErrorMsgEmail('Incorrect email address or password'),
-                setValEmail(true),
-                setErrorMsgPass('Incorrect email address or password'),
-                setValPass(true),
-                setIsLoadingBtn(false)
-              )
-            }
-          } else {
-            setIsLoadingBtn(false)
-            setValEmail(false)
-            setValPass(false)
-            console.log(res.message)
-          }
-        })
-        .catch(err => {
-          if (err.message === 'Validation error') {
-            setAlertMsg('Validation error')
-            setAlert(true)
-          } else {
-            setAlertMsg('Unexpected error')
-            setAlert(true)
-          }
-
-          setIsLoadingBtn(false)
-        })
+      router.push('/test')
     }
   }
 
