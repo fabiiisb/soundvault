@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Input, Button } from '@nextui-org/react'
+import { LoginCurve, TickCircle } from 'iconsax-react'
 import Link from 'next/link'
 import Alert from '@/components/Alerts/Alert'
 
@@ -30,6 +31,8 @@ const SignUpForm = () => {
   const [alertMsg, setAlertMsg] = useState('')
 
   const [boolErrDb, setBoolErrDb] = useState(false)
+
+  const [isSignupSucc, setSignupSucc] = useState(false)
 
   const handleUsername = (ev) => {
     const newUsername = ev.target.value
@@ -279,7 +282,7 @@ const SignUpForm = () => {
               return setIsLoadingBtn(false)
             }
           } else {
-            console.log(res.message)
+            setSignupSucc(true)
             setIsLoadingBtn(false)
           }
         })
@@ -296,79 +299,112 @@ const SignUpForm = () => {
     }
   }
 
+  const SuccessSignUp = () => {
+    return (
+      <div className='flex flex-col gap-4'>
+        <div className='text-center flex flex-col gap-4'>
+          <TickCircle variant='Bulk' size={100} className='mx-auto text-success' />
+          <p className='font-bold text-xl'>
+            Registration success!
+          </p>
+        </div>
+
+        <p className='text-center font-semibold text-md text-white/80'>
+          Welcome to Soundvault {username}.
+        </p>
+
+        <Button as={Link} href='/auth/login'
+          className='bg-bgBlur-900/80 hover:bg-bgBlur-800 font-semibold hover:text-white text-white/80' fullWidth
+          endContent={<LoginCurve className='' />}
+        >
+          Login to my account
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <>
-      <h1 className="text-xl font-bold inline-block mb-3">Sign up</h1>
-      <form
-        className='flex flex-col gap-5'
-        onSubmit={submitForm}
-      >
-        <div className='flex flex-col gap-3'>
-          <Input type='text' label="Username" placeholder="Enter your username" size='sm' value={username} autocomplete="off"
-            color={valUsername ? 'danger' : ''}
-            isInvalid={valUsername}
-            errorMessage={valUsername && errorMsgUser}
-            onChange={handleUsername}
-          />
-
-          <Input label="Email" placeholder="Enter your email" size='sm' value={email} autocomplete="off"
-            isInvalid={valEmail}
-            color={valEmail ? 'danger' : ''}
-            errorMessage={valEmail && errorMsgEmail}
-            onChange={handleEmail}
-          />
-
-          <Input type='text' label="First name" placeholder="Enter your first name" size='sm' value={firstName}
-            color={valFirstName ? 'danger' : ''}
-            isInvalid={valFirstName}
-            errorMessage={valFirstName && errorMsgFirstName}
-            onChange={handleFirstName}
-          />
-
-          <Input type='text' label="Last name" placeholder="Enter your last name" size='sm' value={lastName}
-            isInvalid={valLastName}
-            errorMessage={valLastName && errorMsgLastName}
-            color={valLastName ? 'danger' : ''}
-            onChange={handleLastName}
-          />
-
-          <Input type="password" label="Password" placeholder="Enter your password" size='sm' value={password}
-            errorMessage={valPassword && errorMsgPass}
-            color={valPassword ? 'danger' : ''}
-            onChange={handlePassword}
-          />
-
-          <Input type="password" label="Confirm Password" placeholder="Repeat your password" size='sm' value={passwordRepeat}
-            errorMessage={valPasswordRep && errorMsgPass}
-            color={valPasswordRep ? 'danger' : ''}
-            onChange={handlePassword2}
-          />
-        </div>
-        <div className='flex text-tiny text-niceOrange-400 justify-end'>
-          <Link
-            className='no-underline hover:underline'
-            href="/auth/login">
-            {'Do you have an account? '}
-            <span
-              className='font-semibold'
+      {isSignupSucc
+        ? (
+          <SuccessSignUp />
+          )
+        : (
+          <div>
+            <h1 className="text-xl font-bold inline-block mb-3">Sign up</h1>
+            <form
+              className='flex flex-col gap-5'
+              onSubmit={submitForm}
             >
-              Login!
-            </span>
-          </Link>
-        </div>
-        <div className='flex justify-end '>
-          <Button
-            className={'font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800'}
-            fullWidth
-            as={'button'}
-            isLoading={isLoadingBtn}
-            type="submit"
-          >
-            Sign Up
-          </Button>
-        </div>
-        {alert ? <Alert message={alertMsg} type={'error'} /> : ''}
-      </form>
+              <div className='flex flex-col gap-3'>
+                <Input type='text' label="Username" placeholder="Enter your username" size='sm' value={username} autocomplete="off"
+                  color={valUsername ? 'danger' : ''}
+                  isInvalid={valUsername}
+                  errorMessage={valUsername && errorMsgUser}
+                  onChange={handleUsername}
+                />
+
+                <Input label="Email" placeholder="Enter your email" size='sm' value={email} autocomplete="off"
+                  isInvalid={valEmail}
+                  color={valEmail ? 'danger' : ''}
+                  errorMessage={valEmail && errorMsgEmail}
+                  onChange={handleEmail}
+                />
+
+                <Input type='text' label="First name" placeholder="Enter your first name" size='sm' value={firstName}
+                  color={valFirstName ? 'danger' : ''}
+                  isInvalid={valFirstName}
+                  errorMessage={valFirstName && errorMsgFirstName}
+                  onChange={handleFirstName}
+                />
+
+                <Input type='text' label="Last name" placeholder="Enter your last name" size='sm' value={lastName}
+                  isInvalid={valLastName}
+                  errorMessage={valLastName && errorMsgLastName}
+                  color={valLastName ? 'danger' : ''}
+                  onChange={handleLastName}
+                />
+
+                <Input type="password" label="Password" placeholder="Enter your password" size='sm' value={password}
+                  errorMessage={valPassword && errorMsgPass}
+                  color={valPassword ? 'danger' : ''}
+                  onChange={handlePassword}
+                />
+
+                <Input type="password" label="Confirm Password" placeholder="Repeat your password" size='sm' value={passwordRepeat}
+                  errorMessage={valPasswordRep && errorMsgPass}
+                  color={valPasswordRep ? 'danger' : ''}
+                  onChange={handlePassword2}
+                />
+              </div>
+              <div className='flex text-tiny text-niceOrange-400 justify-end'>
+                <Link
+                  className='no-underline hover:underline'
+                  href="/auth/login">
+                  {'Do you have an account? '}
+                  <span
+                    className='font-semibold'
+                  >
+                    Login!
+                  </span>
+                </Link>
+              </div>
+              <div className='flex justify-end '>
+                <Button
+                  className={'font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800'}
+                  fullWidth
+                  as={'button'}
+                  isLoading={isLoadingBtn}
+                  type="submit"
+                >
+                  Sign Up
+                </Button>
+              </div>
+              {alert ? <Alert message={alertMsg} type={'error'} /> : ''}
+            </form>
+          </div>
+          )
+      }
     </>
   )
 }
