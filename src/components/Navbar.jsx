@@ -1,5 +1,5 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button, Skeleton } from '@nextui-org/react'
 import { SearchNormal1 } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
@@ -33,7 +33,9 @@ const NavbarUi = () => {
       <>
         {isLoading
           ? (
-            <p> Loading...</p >
+            <Skeleton className='rounded-full'>
+              <UserDropDown />
+            </Skeleton>
             )
           : (
               session

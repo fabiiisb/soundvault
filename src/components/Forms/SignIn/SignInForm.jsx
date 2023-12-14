@@ -77,8 +77,7 @@ const SignInForm = () => {
         {
           EmailAddress,
           Password,
-          redirect: true,
-          callbackUrl: '/'
+          redirect: false
         }
       )
 
