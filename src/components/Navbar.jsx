@@ -1,15 +1,49 @@
 'use client'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button } from '@nextui-org/react'
 import { SearchNormal1 } from 'iconsax-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
+import { useSession, signOut } from 'next-auth/react'
 
 const NavbarUi = () => {
+  const { data: session, status } = useSession()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const menuItems = [
-    'Top songs',
-    'Top artists'
+    {
+      title: 'Test page',
+      url: '/test'
+    },
+    {
+      title: 'Top artists',
+      url: '/test'
+    }
   ]
+
+  useEffect(() => {
+    if (status === 'loading') {
+      setIsLoading(true)
+    } else {
+      setIsLoading(false)
+    }
+  }, [status])
+
+  const AuthNavItem = () => {
+    return (
+      <>
+        {isLoading
+          ? (
+            <p> Loading...</p >
+            )
+          : (
+              session
+                ? <UserDropDown />
+                : <LoginButtons />
+            )
+        }
+      </>
+    )
+  }
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-transparent backdrop-saturate-1 shadow-medium'>
@@ -29,8 +63,8 @@ const NavbarUi = () => {
         <NavbarContent className='hidden sm:flex gap-3'>
           {menuItems.map((item, index) => (
             <NavbarItem key={index} className='hover:underline hover:underline-offset-[3px] hover:decoration-niceOrange-400 hover:decoration-2'>
-              <Link href="#">
-                {item}
+              <Link href={item.url}>
+                {item.title}
               </Link>
             </NavbarItem>
           ))}
@@ -52,9 +86,8 @@ const NavbarUi = () => {
           type="search"
         />
 
-        {/* <UserDropDown /> */}
         <div className='hidden sm:flex gap-1'>
-          <LoginButtons />
+          <AuthNavItem />
         </div>
       </NavbarContent>
 
@@ -66,16 +99,16 @@ const NavbarUi = () => {
                 index === 2 ? 'primary' : index === menuItems.length - 1 ? 'danger' : 'foreground'
               }
               className="w-full"
-              href="#"
+              href={item.url}
               size="lg"
             >
-              {item}
+              {item.title}
             </Link>
           </NavbarMenuItem>
         ))}
         <NavbarMenuItem>
           <div className='flex flex-col sm:flex gap-2'>
-            <LoginButtons />
+            <AuthNavItem />
           </div>
         </NavbarMenuItem>
       </NavbarMenu>
@@ -83,7 +116,6 @@ const NavbarUi = () => {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
 const UserDropDown = () => {
   return (
     <Dropdown placement="bottom-end">
@@ -99,17 +131,14 @@ const UserDropDown = () => {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">
-        <DropdownItem key="profile" className="h-14 gap-2">
-          <p className="font-semibold">Signed in as</p>
-          <p className="font-semibold">zoey@example.com</p>
+        <DropdownItem key="profile" className="h-14 ">
+          <p className="">Signed in as:</p>
+          <p className="font-semibold">Username</p>
         </DropdownItem>
-        <DropdownItem key="settings">My Settings</DropdownItem>
-        <DropdownItem key="team_settings">Team Settings</DropdownItem>
-        <DropdownItem key="analytics">Analytics</DropdownItem>
-        <DropdownItem key="system">System</DropdownItem>
         <DropdownItem key="configurations">Configurations</DropdownItem>
-        <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-        <DropdownItem key="logout" color="danger">
+        <DropdownItem key="logout" color="danger"
+          onClick={signOut}
+        >
           Log Out
         </DropdownItem>
       </DropdownMenu>

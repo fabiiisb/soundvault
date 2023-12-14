@@ -77,7 +77,8 @@ const SignInForm = () => {
         {
           EmailAddress,
           Password,
-          redirect: false
+          redirect: true,
+          callbackUrl: '/'
         }
       )
 
@@ -99,9 +100,10 @@ const SignInForm = () => {
             setIsLoadingBtn(false)
           )
         }
+      } else {
+        router.push('/')
+        router.refresh()
       }
-
-      router.push('/test')
     }
   }
 
