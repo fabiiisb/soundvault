@@ -28,11 +28,10 @@ export async function POST (request) {
 
       if (isMatch) {
         const data = {
+          id: result.recordset[0].user_id,
           username: result.recordset[0].username,
           email: result.recordset[0].email_address,
-          firstName: result.recordset[0].first_name,
-          lastName: result.recordset[0].last_name,
-          imgUrl: result.recordset[0].image_url
+          image: result.recordset[0].image_url
         }
 
         return respMsgWithData('Login Success!!', false, 200, data)

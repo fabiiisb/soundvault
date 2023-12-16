@@ -18,16 +18,22 @@ const handler = nextAuth({
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/signin`, options
         )
-        const user = await res.json()
+        const response = await res.json()
+        const user = response.data
 
         const backResp = {
-          message: user.message,
-          error: user.error
+          message: response.message,
+          error: response.error
         }
 
-        if (user.error === true) throw backResp
+        if (response.error === true) throw backResp
 
-        return user
+        return {
+          id: user.id,
+          name: user.username,
+          email: user.email,
+          image: user.image
+        }
       }
     })
   ],
