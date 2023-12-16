@@ -23,3 +23,16 @@ export const respValMsg = (msg, isError, statusCode) => {
     }
   )
 }
+
+export const respMsgWithData = (msg, isError, statusCode, data) => {
+  return NextResponse.json(
+    {
+      message: msg,
+      error: isError,
+      data
+    },
+    {
+      status: statusCode
+    }
+  )
+}
