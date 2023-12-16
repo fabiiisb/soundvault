@@ -8,8 +8,8 @@ import Alert from '@/components/Alerts/Alert'
 
 const SignInForm = () => {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('fabiiisb@hotmail.com')
+  const [password, setPassword] = useState('12345a')
 
   const [valEmail, setValEmail] = useState(false)
   const [valPass, setValPass] = useState(false)
@@ -62,6 +62,22 @@ const SignInForm = () => {
     }
   }
 
+  const callbackUrl = async () => {
+    const urlActual = window.location.href
+    const parametros = new URLSearchParams(new URL(urlActual).search)
+    const callbackUrl = parametros.get('callbackUrl')
+
+    if (callbackUrl) {
+      const urlCallback = '/' + new URL(callbackUrl).pathname.split('/').slice(1).join('/')
+
+      router.refresh()
+      router.push(urlCallback)
+    } else {
+      router.refresh()
+      router.push('/')
+    }
+  }
+
   const submitForm = async (ev) => {
     ev.preventDefault()
 
@@ -100,8 +116,7 @@ const SignInForm = () => {
           )
         }
       } else {
-        router.push('/')
-        router.refresh()
+        callbackUrl()
       }
     }
   }
