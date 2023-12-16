@@ -4,11 +4,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 const handler = nextAuth({
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        EmailAddress: { label: 'Email address', type: 'text', placeholder: 'test@test.com' },
-        Password: { label: 'Password', type: 'password' }
-      },
       async authorize (credentials, req) {
         const options = {
           method: 'POST',
