@@ -1,12 +1,13 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button, Skeleton } from '@nextui-org/react'
-import { SearchNormal1 } from 'iconsax-react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, DropdownSection, Button, Skeleton } from '@nextui-org/react'
+import { SearchNormal1, Profile, MusicFilter, MusicPlaylist, Setting2, LogoutCurve, UserSquare } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
 import { useSession, signOut } from 'next-auth/react'
 
 const NavbarUi = () => {
   const { data: session, status } = useSession()
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const menuItems = [
@@ -15,8 +16,8 @@ const NavbarUi = () => {
       url: '/test'
     },
     {
-      title: 'Top artists',
-      url: '/test'
+      title: 'page',
+      url: '/'
     }
   ]
 
@@ -34,12 +35,15 @@ const NavbarUi = () => {
         {isLoading
           ? (
             <Skeleton className='rounded-full'>
-              <UserDropDown />
+              <Avatar
+                isBordered
+                size="sm"
+              />
             </Skeleton>
             )
           : (
-              session
-                ? <UserDropDown />
+              session?.user
+                ? <UserDropDown username={session.user.name} image={session.user.image} />
                 : <LoginButtons />
             )
         }
@@ -87,7 +91,6 @@ const NavbarUi = () => {
           startContent={<SearchNormal1 size={18} />}
           type="search"
         />
-
         <div className='hidden sm:flex gap-1'>
           <AuthNavItem />
         </div>
@@ -118,27 +121,48 @@ const NavbarUi = () => {
   )
 }
 
-const UserDropDown = () => {
+const UserDropDown = ({ username, image }) => {
   return (
     <Dropdown placement="bottom-end">
-      <DropdownTrigger>
+      <DropdownTrigger >
         <Avatar
           isBordered
           as="button"
-          className="transition-transform"
-          color="secondary"
-          name="Jason Hughes"
+          className='bg-niceOrange-400'
           size="sm"
-          src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+          src={image}
         />
       </DropdownTrigger>
-      <DropdownMenu aria-label="Profile Actions" variant="flat">
-        <DropdownItem key="profile" className="h-14 ">
-          <p className="">Signed in as:</p>
-          <p className="font-semibold">Username</p>
-        </DropdownItem>
-        <DropdownItem key="configurations">Configurations</DropdownItem>
+      <DropdownMenu aria-label="Profile Actions" variant="flat"
+        className="w-60"
+      >
+        <DropdownSection showDivider >
+          <DropdownItem
+            startContent={<UserSquare variant='Bulk' />}
+            isReadOnly
+          >
+            <p className="font-semibold">{username}</p>
+          </DropdownItem>
+        </DropdownSection>
+
+        <DropdownSection showDivider className=''>
+          <DropdownItem key="profile" as={Link} href={`/user/${username}`}
+            startContent={<Profile />} >
+            My profile
+          </DropdownItem>
+          <DropdownItem key="albums" as={Link} href={`/user/${username}`} startContent={<MusicPlaylist />}>
+            My albums
+          </DropdownItem>
+          <DropdownItem key="playlists" as={Link} href={`/user/${username}`} startContent={<MusicFilter />}>
+            My playlists
+          </DropdownItem>
+          <DropdownItem key="configurations" as={Link} href={`/user/${username}`} startContent={<Setting2 />}>
+            Configurations
+          </DropdownItem>
+        </DropdownSection>
+
         <DropdownItem key="logout" color="danger"
+          startContent={<LogoutCurve />}
           onClick={signOut}
         >
           Log Out
