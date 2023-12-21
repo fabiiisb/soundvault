@@ -10,12 +10,14 @@ const AlbumCard = ({ id, name, year, src }) => {
       as={Link}
       className='w-full h-full'
     >
-      <Card className='w-full h-full p-3 '>
+      <Card className='w-full h-full p-3 bg-content1/70'>
         <Image
+          width={300}
+          height={300}
           isBlurred
           alt='Song of the mounth'
           className="object-cover h-full w-full"
-          src={src || 'https://media.discordapp.net/attachments/1072899954525356072/1106638969908772984/kingdomcreation_cd_cover_high-resolution_drawing_modern_art_and_5ed8af70-edc7-4fef-94d9-130527a95b3b.png?ex=6532bd5a&is=6520485a&hm=7a2a2af806305066cf45f01b64f60ee3078d3eaeca14edf7b505fd5a8749aa37'}
+          src={src || 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'}
         />
         <div className='flex flex-col gap-1 py-2 '>
           <p
