@@ -244,16 +244,23 @@ const UserPage = () => {
         </h2>
         <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
 
-          {userData[1].slice(0, nuOfElementAlbum).map((item) => (
-            <li key={item.album_id}>
-              <AlbumCard
-                name={item.name}
-                year={new Date(item.creation_date).getFullYear()}
-                id={item.album_id}
-              // src={item.image_url}
-              />
-            </li>
-          ))}
+          {userData[1].length > 0
+            ? (
+                userData[1].slice(0, nuOfElementAlbum).map((item) => (
+                  <li key={item.album_id}>
+                    <AlbumCard
+                      name={item.name}
+                      year={new Date(item.creation_date).getFullYear()}
+                      id={item.album_id}
+                    // src={item.image_url}
+                    />
+                  </li>
+                ))
+              )
+            : (
+               <p>This user has no created albums.</p>
+              )}
+
         </ul>
 
         {
@@ -275,16 +282,21 @@ const UserPage = () => {
         </h2>
         <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
 
-          {userData[2].slice(0, nuOfElementPlaylist).map((item) => (
-            <li key={item.playlist_id}>
-              <PlaylistCard
-                name={item.name}
-                id={item.playlist_id}
-              // src={item.image_url}
-              />
-            </li>
-          ))
-          }
+          {userData[2].length > 0
+            ? (
+                userData[2].slice(0, nuOfElementPlaylist).map((item) => (
+                  <li key={item.playlist_id}>
+                    <PlaylistCard
+                      name={item.name}
+                      id={item.playlist_id}
+                    // src={item.image_url}
+                    />
+                  </li>
+                ))
+              )
+            : (
+               <p>This user has no created playlists.</p>
+              )}
 
         </ul>
 
