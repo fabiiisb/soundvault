@@ -1,5 +1,5 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, DropdownSection, Button, Skeleton } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, DropdownSection, Button, Skeleton } from '@nextui-org/react'
 import { SearchNormal1, Profile, MusicFilter, MusicPlaylist, Setting2, LogoutCurve, UserSquare } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
@@ -19,6 +19,29 @@ const NavbarUi = () => {
       title: 'page',
       url: '/'
     }
+  ]
+
+  const UserMenuItems = [
+
+    {
+      key: 'albums',
+      icon: <MusicPlaylist />,
+      title: 'My albums',
+      url: '/'
+    },
+    {
+      key: 'playlists',
+      icon: <MusicFilter />,
+      title: 'My playlists',
+      url: '/'
+    },
+    {
+      key: 'configurations',
+      icon: <Setting2 />,
+      title: 'Configurations',
+      url: '/'
+    }
+
   ]
 
   useEffect(() => {
@@ -43,7 +66,11 @@ const NavbarUi = () => {
             )
           : (
               session?.user
-                ? <UserDropDown username={session.user.name} image={session.user.image} />
+                ? <UserDropDown
+                username={session.user.name}
+                image={session.user.image}
+                UserMenuItems={UserMenuItems}
+              />
                 : <LoginButtons />
             )
         }
@@ -66,14 +93,9 @@ const NavbarUi = () => {
             </p>
           </Link>
         </NavbarBrand>
-        <NavbarContent className='hidden sm:flex gap-3'>
-          {menuItems.map((item, index) => (
-            <NavbarItem key={index} className='hover:underline hover:underline-offset-[3px] hover:decoration-niceOrange-400 hover:decoration-2'>
-              <Link href={item.url}>
-                {item.title}
-              </Link>
-            </NavbarItem>
-          ))}
+        <NavbarContent className='hidden sm:flex gap-1'>
+
+          <NavLinks menuItems={menuItems} />
 
         </NavbarContent>
       </NavbarContent>
@@ -97,84 +119,107 @@ const NavbarUi = () => {
       </NavbarContent>
 
       <NavbarMenu className='bg-transparent backdrop-saturate-1'>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2 ? 'primary' : index === menuItems.length - 1 ? 'danger' : 'foreground'
-              }
-              className="w-full"
-              href={item.url}
-              size="lg"
-            >
-              {item.title}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-        <NavbarMenuItem>
-          <div className='flex flex-col sm:flex gap-2'>
-            <AuthNavItem />
-          </div>
-        </NavbarMenuItem>
+
+        <NavLinks menuItems={menuItems} />
+
+        <AuthNavItem />
+
       </NavbarMenu>
     </Navbar>
   )
 }
 
-const UserDropDown = ({ username, image }) => {
+const UserDropDown = ({ username, image, UserMenuItems }) => {
   return (
-    <Dropdown placement="bottom-end">
-      <DropdownTrigger >
-        <Avatar
-          isBordered
-          as="button"
-          className='bg-niceOrange-400'
-          size="sm"
-          src={image}
-        />
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Profile Actions" variant="flat"
-        className="w-60"
-      >
-        <DropdownSection showDivider >
-          <DropdownItem
-            startContent={<UserSquare variant='Bulk' />}
-            isReadOnly
+    <>
+      <div className='hidden sm:block'>
+        <Dropdown placement="bottom-end">
+          <DropdownTrigger >
+            <Avatar
+              isBordered
+              as="button"
+              className='bg-niceOrange-400'
+              size="sm"
+              src={image}
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Profile Actions" variant="flat"
+            className=" sm:w-60"
           >
-            <p className="font-semibold">{username}</p>
-          </DropdownItem>
-        </DropdownSection>
+            <DropdownSection showDivider >
+              <DropdownItem
+                startContent={<UserSquare variant='Bulk' />}
+                isReadOnly
+              >
+                <p className="font-semibold">{username}</p>
+              </DropdownItem>
+            </DropdownSection>
 
-        <DropdownSection showDivider className=''>
-          <DropdownItem key="profile" as={Link} href={`/user/${username}`}
-            startContent={<Profile />} >
-            My profile
-          </DropdownItem>
-          <DropdownItem key="albums" as={Link} href={`/user/${username}`} startContent={<MusicPlaylist />}>
-            My albums
-          </DropdownItem>
-          <DropdownItem key="playlists" as={Link} href={`/user/${username}`} startContent={<MusicFilter />}>
-            My playlists
-          </DropdownItem>
-          <DropdownItem key="configurations" as={Link} href={`/user/${username}`} startContent={<Setting2 />}>
-            Configurations
-          </DropdownItem>
-        </DropdownSection>
+            <DropdownSection showDivider className=''>
+              <DropdownItem key="profile" as={Link} href={`/user/${username}`}
+                startContent={<Profile />} >
+                My profile
+              </DropdownItem>
+              {
+                UserMenuItems.map((item) => (
+                  <DropdownItem
+                    key={item.key}
+                    as={Link}
+                    href={item.url}
+                    startContent={item.icon}
+                  >
+                    {item.title}
+                  </DropdownItem>
+                ))
+              }
+            </DropdownSection>
 
-        <DropdownItem key="logout" color="danger"
-          startContent={<LogoutCurve />}
+            <DropdownItem key="logout" color="danger"
+              startContent={<LogoutCurve />}
+              onClick={signOut}
+            >
+              Log Out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+      <div className='flex flex-col gap-2 sm:hidden '>
+
+        <NavbarItem
+          className='hover:bg-default-600/40 hover:text-white text-white/80 rounded-lg px-3 py-3 text-center bg-default-500/20 sm:bg-transparent w-full'
+          key="profile"
+          as={Link}
+          href={`/user/${username}`}
+        >
+          My profile
+        </NavbarItem>
+
+        {UserMenuItems.map((item) => (
+          <NavbarItem
+            className='hover:bg-default-600/40 hover:text-white text-white/80 rounded-lg px-3 py-3 text-center bg-default-500/20 sm:bg-transparent '
+            key={item.key}
+            as={Link}
+            href={item.url}
+          >
+            {item.title}
+          </NavbarItem>
+        ))}
+
+        <NavbarItem
+          className='hover:bg-danger hover:text-white hover:cursor-pointer bg-black/50 text-danger rounded-lg px-3 py-3 text-center sm:bg-transparent '
           onClick={signOut}
         >
           Log Out
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+        </NavbarItem>
+
+      </div>
+    </>
   )
 }
 
 const LoginButtons = () => {
   return (
-    <>
+    <div className='flex gap-2'>
       <Button
         as={Link}
         href='/auth/login'
@@ -192,6 +237,25 @@ const LoginButtons = () => {
       >
         Sign Up
       </Button>
+    </div>
+  )
+}
+
+const NavLinks = ({ menuItems }) => {
+  return (
+    <>
+      {
+        menuItems.map((item, index) => (
+          <NavbarItem
+            className='hover:bg-default-600/40 sm:hover:bg-default-500/20 hover:text-white text-white/80 rounded-lg px-3 py-3 sm:py-1 text-center bg-default-500/20 sm:bg-transparent'
+            key={index}
+            as={Link}
+            href={item.url}
+          >
+            {item.title}
+          </NavbarItem>
+        ))
+      }
     </>
   )
 }
