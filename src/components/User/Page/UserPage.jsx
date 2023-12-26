@@ -43,14 +43,6 @@ const UserPage = () => {
     }
   ]
 
-  const loadMoreAlbums = () => {
-    setNuOfElementAlbum(nuOfElementAlbum + nuOfElementAlbum)
-  }
-
-  const loadMorePlaylists = () => {
-    setNuOfElementPlaylist(nuOfElementPlaylist + nuOfElementPlaylist)
-  }
-
   useEffect(() => {
     fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/${username}`,
@@ -75,6 +67,14 @@ const UserPage = () => {
         console.error(err)
       })
   }, [username])
+
+  const loadMoreAlbums = () => {
+    setNuOfElementAlbum(nuOfElementAlbum + nuOfElementAlbum)
+  }
+
+  const loadMorePlaylists = () => {
+    setNuOfElementPlaylist(nuOfElementPlaylist + nuOfElementPlaylist)
+  }
 
   if (notFound) {
     return (
