@@ -20,7 +20,6 @@ const NavbarUi = () => {
       url: '/'
     }
   ]
-
   const UserMenuItems = [
 
     {
@@ -55,24 +54,25 @@ const NavbarUi = () => {
   const AuthNavItem = () => {
     return (
       <>
-        {isLoading
-          ? (
-            <Skeleton className='rounded-full'>
-              <Avatar
-                isBordered
-                size="sm"
-              />
-            </Skeleton>
-            )
-          : (
-              session?.user
-                ? <UserDropDown
-                username={session.user.name}
-                image={session.user.image}
-                UserMenuItems={UserMenuItems}
-              />
-                : <LoginButtons />
-            )
+        {
+          isLoading
+            ? (
+                <Skeleton className='rounded-full'>
+                  <Avatar
+                    isBordered
+                    size="sm"
+                  />
+                </Skeleton>
+              )
+            : (
+                session?.user
+                  ? <UserDropDown
+                      username={session.user.name}
+                      image={session.user.image}
+                      UserMenuItems={UserMenuItems}
+                    />
+                  : <LoginButtons />
+              )
         }
       </>
     )
