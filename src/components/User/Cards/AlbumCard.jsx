@@ -1,4 +1,3 @@
-'use client'
 import { Card, Image, Link as LinkUi } from '@nextui-org/react'
 import Link from 'next/link'
 import { Calendar } from 'iconsax-react'

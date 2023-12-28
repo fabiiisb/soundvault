@@ -8,17 +8,16 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
   return (
     <div className="border-none rounded-lg">
       <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center">
-
-        <div className="relative col-span-6 sm:col-span-4 ">
+        <div className="col-span-6 sm:col-span-4 sm870:col-span-3">
           <Image
+            isBlurred
             alt="Song image"
             className="object-cover sm:max-h-[250px] "
             src={src}
-            width="100%"
           />
         </div>
 
-        <div className="flex flex-col col-span-6 sm:col-span-8 bg-content1/70 rounded-large shadow-medium p-2 px-3 h-full">
+        <div className="flex flex-col col-span-6 sm:col-span-8 sm870:col-span-9 bg-content1/70 rounded-large shadow-medium p-2 px-3 h-full">
 
           <h1 className="text-2xl minixl:text-3xl font-medium text-white truncate mb-1"
             title={songName}
@@ -30,8 +29,8 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
             {user}
           </Link>
 
-          <div className="flex flex-col gap-4 ">
-            <div className='flex gap-2 text-foreground-50'>
+          <div className="flex flex-col  gap-4 ">
+            <div className='flex flex-wrap gap-2 text-foreground-50'>
               <div className='h-12 w-12 '>
                 <BtnPlaySong className={'h-full w-full text-foreground/80 hover:text-white'} />
               </div>
@@ -55,7 +54,7 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
               </div>
 
             </div>
-            <div className='flex gap-2 text-white/70'>
+            <div className='flex gap-2 flex-wrap text-white/70'>
               <p className='flex items-center'>
                 <Timer1 className='h-4 text-white/90' />
                 {': ' + duration}

@@ -87,7 +87,7 @@ const UserPage = () => {
           <div>
             <Link
               href='/'
-              className='flex justify-center items-center text-blue-500 hover:text-blue-400 text-[17px] font-semibold'
+              className='flex justify-center items-center text-blue-500 hover:text-blue-400 text-[17px] font-semibold border border-blue-400 p-1 rounded-large'
             >
               <ArrowLeft
                 variant='Bold'
@@ -142,7 +142,7 @@ const UserPage = () => {
                 <Card className='w-full h-full p-3 bg-content1/70'>
                   <Skeleton className='rounded-large'>
                     <div
-                      className='h-[125px] '
+                      className='h-[125px]'
                     >
                     </div>
                   </Skeleton>
