@@ -1,6 +1,7 @@
 import { respMsgWithData } from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
+import sql from 'mssql'
 
 export async function GET (request, { params }) {
   let pool
@@ -8,7 +9,7 @@ export async function GET (request, { params }) {
   try {
     pool = await getConn()
     const result = await pool.request()
-      .input('SONG_ID', params.songId)
+      .input('SONG_ID', sql.Int, params.songId)
       .execute('GetSong')
 
     if (result.returnValue === 0) {
