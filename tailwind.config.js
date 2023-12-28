@@ -58,7 +58,8 @@ module.exports = {
       },
       screens: {
         mini: '384px',
-        minixl: '510px'
+        minixl: '510px',
+        sm870: '870px'
       }
     }
   },
