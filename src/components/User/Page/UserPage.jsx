@@ -252,7 +252,7 @@ const UserPage = () => {
                       name={item.name}
                       year={new Date(item.creation_date).getFullYear()}
                       id={item.album_id}
-                    // src={item.image_url}
+                      src={item.image_url}
                     />
                   </li>
                 ))
@@ -289,7 +289,7 @@ const UserPage = () => {
                     <PlaylistCard
                       name={item.name}
                       id={item.playlist_id}
-                    // src={item.image_url}
+                      src={item.image_url}
                     />
                   </li>
                 ))
