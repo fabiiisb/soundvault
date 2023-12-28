@@ -16,7 +16,7 @@ const AlbumCard = ({ id, name, year, src }) => {
           isBlurred
           alt='Song of the mounth'
           className="object-cover h-full w-full"
-          src={src || 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'}
+          src={src}
         />
         <div className='flex flex-col gap-1 py-2 '>
           <p
