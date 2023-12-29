@@ -5,8 +5,8 @@ import { useParams } from 'next/navigation'
 import AlbumCard from '@/components/User/Cards/AlbumCard'
 import { Skeleton, Card } from '@nextui-org/react'
 import { MusicSquareSearch, ArrowLeft } from 'iconsax-react'
-import Link
-  from 'next/link'
+import Link from 'next/link'
+
 const SongPage = () => {
   const songId = useParams().songId
   const [notFound, setNotFound] = useState(false)
@@ -113,7 +113,7 @@ const SongPage = () => {
         <section>
           <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center">
             <Skeleton className='rounded-large col-span-6 sm:col-span-4 sm870:col-span-3'>
-              <div className="w-full h-[414px] sm:h-[226px] sm:w-[226px]" />
+            <div className="w-full h-[314px]  minixl:h-[300px] sm:h-[226px] sm:w-[226px]" />
             </Skeleton>
 
             <Skeleton className='flex flex-col col-span-6 sm:col-span-8 sm870:col-span-9  rounded-large h-full'>

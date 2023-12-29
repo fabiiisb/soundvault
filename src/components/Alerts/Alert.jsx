@@ -1,7 +1,7 @@
 'use client'
 import { CloseSquare, TickSquare } from 'iconsax-react'
 
-const Alert = ({ message, type }) => {
+const Alert = ({ message, type, className }) => {
   const colorStyle = {
     error: 'danger',
     success: 'success'
@@ -19,7 +19,7 @@ const Alert = ({ message, type }) => {
 
   return (
     <div
-      className={`flex backdrop-blur-md bg-content1/50 rounded-medium w-full items-center shadow-medium max-w-[500px] gap-2 p-2 px-3 border-b-2 ${borderStyle[type]}`}
+      className={`flex backdrop-blur-md bg-content1/50 rounded-medium w-full items-center shadow-medium max-w-[500px] gap-2 p-2 px-3 border-b-2 ${borderStyle[type]} ` + className}
     >
       <div>{iconMap[type]}</div>
       <div>
