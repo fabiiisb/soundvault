@@ -18,28 +18,34 @@ const UserPage = () => {
   const popularData = [
     {
       songName: 'The Less I Know The Better',
-      duration: '3:36',
-      id: 'top1'
+      songDuration: '3:36',
+      username: 'user1',
+      songId: 'top1'
     },
     {
       songName: 'Let It Happen',
-      duration: '7:47',
-      id: 'top2'
+      songDuration: '7:47',
+      username: 'user1',
+      songId: 'top2'
     },
     {
       songName: 'Feels Like We Only Go Backwards',
-      duration: '3:12',
-      id: 'top3'
+      songDuration: '3:12',
+      username: 'user1',
+      songId: 'top3'
     },
     {
       songName: 'Elephant',
-      duration: '3:31',
-      id: 'top4'
+      songDuration: '3:31',
+      user: 'user1',
+      username: 'user1',
+      songId: 'top4'
     },
     {
       songName: 'Eventually',
-      duration: '5:19',
-      id: 'top5'
+      songDuration: '5:19',
+      username: 'user1',
+      songId: 'top5'
     }
   ]
 
@@ -231,11 +237,12 @@ const UserPage = () => {
           <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
             Popular songs
           </h2>
+
           <SongUl
-            title={'Popular'}
             songList={popularData}
             gradientColor={'from-blackPurple-900'}
           />
+
         </div>
       </section>
       <section className='mt-10'>
@@ -247,18 +254,18 @@ const UserPage = () => {
           {userData[1].length > 0
             ? (
                 userData[1].slice(0, nuOfElementAlbum).map((item) => (
-                  <li key={item.album_id}>
-                    <AlbumCard
-                      name={item.name}
-                      year={new Date(item.creation_date).getFullYear()}
-                      id={item.album_id}
-                      src={item.image_url}
-                    />
-                  </li>
+                <li key={item.album_id}>
+                  <AlbumCard
+                    name={item.name}
+                    year={new Date(item.creation_date).getFullYear()}
+                    id={item.album_id}
+                    src={item.image_url}
+                  />
+                </li>
                 ))
               )
             : (
-               <p>This user has no created albums.</p>
+              <p>This user has no created albums.</p>
               )}
 
         </ul>
@@ -285,17 +292,17 @@ const UserPage = () => {
           {userData[2].length > 0
             ? (
                 userData[2].slice(0, nuOfElementPlaylist).map((item) => (
-                  <li key={item.playlist_id}>
-                    <PlaylistCard
-                      name={item.name}
-                      id={item.playlist_id}
-                      src={item.image_url}
-                    />
-                  </li>
+                <li key={item.playlist_id}>
+                  <PlaylistCard
+                    name={item.name}
+                    id={item.playlist_id}
+                    src={item.image_url}
+                  />
+                </li>
                 ))
               )
             : (
-               <p>This user has no created playlists.</p>
+              <p>This user has no created playlists.</p>
               )}
 
         </ul>

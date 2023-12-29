@@ -5,7 +5,7 @@ import { Calendar } from 'iconsax-react'
 const AlbumCard = ({ id, name, year, src }) => {
   return (
     <LinkUi
-      href={`/song/${id}`}
+      href={`/album/${id}`}
       as={Link}
       className='w-full h-full'
     >
