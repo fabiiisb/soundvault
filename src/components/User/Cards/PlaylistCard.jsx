@@ -5,7 +5,7 @@ import Link from 'next/link'
 const PlaylistCard = ({ id, name, src }) => {
   return (
     <LinkUi
-      href={`/song/${id}`}
+      href={`/playlist/${id}`}
       as={Link}
       className='w-full h-full'
     >

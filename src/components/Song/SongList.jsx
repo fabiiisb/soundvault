@@ -35,6 +35,12 @@ export const SongLi = ({ song }) => {
               <p className='marquee__content min-w-full flex flex-shrink-0 '>{song.songName}</p>
               <p aria-hidden='true' className='marquee__content min-w-full flex flex-shrink-0'>{song.songName}</p>
             </Link>
+            <Link
+              className='text-tiny hover:text-foreground/80 no-underline hover:underline text-white/70 truncate'
+              href={`/user/${song.ownerUsername}`}
+            >
+              {song.ownerUsername}
+            </Link>
           </div>
         </div>
         <div className='flex items-center justify-end gap-2 ml-5'>

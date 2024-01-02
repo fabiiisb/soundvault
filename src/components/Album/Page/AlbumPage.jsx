@@ -30,8 +30,6 @@ const AlbumPage = () => {
         if (!res.error) {
           const dataAlbum = res.data.recordset[0]
           const dataSongs = res.data.recordsets[1]
-          console.log(dataSongs)
-          console.log(dataAlbum)
 
           setAlbumData(dataAlbum)
           setSongData(dataSongs)
