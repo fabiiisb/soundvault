@@ -1,27 +1,29 @@
 'use client'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, DropdownSection, Button, Skeleton } from '@nextui-org/react'
-import { SearchNormal1, Profile, MusicFilter, MusicPlaylist, Setting2, LogoutCurve, UserSquare } from 'iconsax-react'
+import { SearchNormal1, Profile, MusicFilter, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
 import { useSession, signOut } from 'next-auth/react'
 
 const NavbarUi = () => {
   const { data: session, status } = useSession()
-
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+
   const menuItems = [
     {
       title: 'Test page',
       url: '/test'
-    },
-    {
-      title: 'page',
-      url: '/'
     }
   ]
-  const UserMenuItems = [
 
+  const UserMenuItems = [
+    {
+      key: 'likes',
+      icon: <Lovely />,
+      title: 'My likes',
+      url: '/likes'
+    },
     {
       key: 'albums',
       icon: <MusicPlaylist />,
