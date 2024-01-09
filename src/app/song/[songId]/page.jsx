@@ -1,4 +1,4 @@
-import SongPage from '@/components/Song/Page/SongPage'
+import SongPage from '@/components/pages/SongPage'
 
 const page = () => {
   return <SongPage />

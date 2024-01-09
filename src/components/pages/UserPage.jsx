@@ -1,6 +1,6 @@
 'use client'
-import AlbumCard from '@/components/User/Cards/AlbumCard'
-import PlaylistCard from '@/components/User/Cards/PlaylistCard'
+import AlbumCard from '@/components/Cards/AlbumCard'
+import PlaylistCard from '@/components/Cards/PlaylistCard'
 import { ArrowLeft, TagUser } from 'iconsax-react'
 import { SongUl } from '@/components/Song/SongList'
 import { Skeleton, Image, Card, Chip } from '@nextui-org/react'
@@ -273,7 +273,7 @@ const UserPage = () => {
         {
           userData[1].length > nuOfElementAlbum && (
             <Chip
-              className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer rounded-lg'
+              className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer hover:bg-content1 rounded-lg'
               variant='flat'
               onClick={loadMoreAlbums}
             >
@@ -309,7 +309,7 @@ const UserPage = () => {
 
         {userData[1].length > nuOfElementPlaylist && (
           <Chip
-            className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer rounded-lg'
+            className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer hover:bg-content1 rounded-lg'
             variant='flat'
             onClick={loadMorePlaylists}
           >

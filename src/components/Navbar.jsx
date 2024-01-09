@@ -22,19 +22,19 @@ const NavbarUi = () => {
       key: 'likes',
       icon: <Lovely />,
       title: 'My likes',
-      url: '/likes'
+      url: '/private/likes'
     },
     {
       key: 'albums',
       icon: <MusicPlaylist />,
       title: 'My albums',
-      url: '/'
+      url: '/private/albums'
     },
     {
       key: 'playlists',
       icon: <MusicFilter />,
       title: 'My playlists',
-      url: '/'
+      url: '/private/playlists'
     },
     {
       key: 'configurations',
@@ -176,7 +176,7 @@ const UserDropDown = ({ username, image, UserMenuItems }) => {
               }
             </DropdownSection>
 
-            <DropdownItem key="logout" color="danger"
+            <DropdownItem key="logout" className='text-danger' color="danger"
               startContent={<LogoutCurve />}
               onClick={signOut}
             >

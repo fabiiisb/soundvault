@@ -2,7 +2,7 @@
 import SongView from '@/components/Song/Cards/SongView'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import AlbumCard from '@/components/User/Cards/AlbumCard'
+import AlbumCard from '@/components/Cards/AlbumCard'
 import { Skeleton, Card } from '@nextui-org/react'
 import { MusicSquareSearch, ArrowLeft } from 'iconsax-react'
 import Link from 'next/link'
@@ -176,7 +176,7 @@ const SongPage = () => {
             <li key={item.id}>
               <AlbumCard
                 name={item.songName}
-                year={2023}
+                year={'cambiar albumcard por songcard'}
                 id={item.id}
                 src={item.image_url}
               />

@@ -1,4 +1,4 @@
-import PlaylistPage from '@/components/Playlist/Page/PlaylistPage'
+import PlaylistPage from '@/components/pages/PlaylistPage'
 
 const page = () => {
   return <PlaylistPage />

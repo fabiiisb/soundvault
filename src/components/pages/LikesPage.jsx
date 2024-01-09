@@ -20,7 +20,6 @@ const LikesPage = () => {
       .then(res => {
         if (!res.error) {
           const data = res.data.recordset
-          console.log(data)
           setSongData(data)
         }
       })

@@ -52,7 +52,7 @@ const AlbumPage = () => {
         <div className='mx-auto'>
           <MusicSquareSearch className='mx-auto text-niceOrange-400' size={70} />
           <h2 className='text-2xl my-4 text-white/70'>
-            Song not found
+            Album not found
           </h2>
           <div>
             <Link

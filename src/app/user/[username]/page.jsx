@@ -1,4 +1,4 @@
-import UserPage from '@/components/User/Page/UserPage'
+import UserPage from '@/components/pages/UserPage'
 
 const page = () => {
   return <UserPage />

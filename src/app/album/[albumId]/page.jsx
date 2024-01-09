@@ -1,4 +1,4 @@
-import AlbumPage from '@/components/Album/Page/AlbumPage'
+import AlbumPage from '@/components/pages/AlbumPage'
 
 const page = () => {
   return <AlbumPage />

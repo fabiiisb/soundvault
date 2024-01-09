@@ -1,4 +1,4 @@
-import LikesPage from '@/components/Likes/page/LikesPage'
+import LikesPage from '@/components/pages/LikesPage'
 
 const page = () => {
   return (
