@@ -302,19 +302,19 @@ const SignUpForm = () => {
   const SuccessSignUp = () => {
     return (
       <div className='flex flex-col gap-4'>
-        <div className='text-center flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 text-center'>
           <TickCircle variant='Bulk' size={100} className='mx-auto text-success' />
-          <p className='font-bold text-xl'>
+          <p className='text-xl font-bold'>
             Registration success!
           </p>
         </div>
 
-        <p className='text-center font-semibold text-md text-white/80'>
+        <p className='font-semibold text-center text-md text-white/80'>
           Welcome to Soundvault {username}.
         </p>
 
         <Button as={Link} href='/auth/login'
-          className='bg-bgBlur-900/80 hover:bg-bgBlur-800 font-semibold hover:text-white text-white/80' fullWidth
+          className='font-semibold bg-bgBlur-900/80 hover:bg-bgBlur-800 hover:text-white text-white/80' fullWidth
           endContent={<LoginCurve className='' />}
         >
           Login to my account
@@ -331,7 +331,7 @@ const SignUpForm = () => {
           )
         : (
           <div>
-            <h1 className="text-xl font-bold inline-block mb-3">Sign up</h1>
+            <h1 className="inline-block mb-3 text-xl font-bold">Sign up</h1>
             <form
               className='flex flex-col gap-5'
               onSubmit={submitForm}
@@ -377,7 +377,7 @@ const SignUpForm = () => {
                   onChange={handlePassword2}
                 />
               </div>
-              <div className='flex text-tiny text-niceOrange-400 justify-end'>
+              <div className='flex justify-end text-tiny text-niceOrange-400'>
                 <Link
                   className='no-underline hover:underline'
                   href="/auth/login">

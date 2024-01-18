@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import AlbumCardOption from '../../Cards/AlbumCardOptions'
+import AlbumCardOption from '../../private/AlbumCardOptions'
 import { Skeleton, Button } from '@nextui-org/react'
 import Link from 'next/link'
 
@@ -46,14 +46,14 @@ const PrivAlbums = () => {
                 </Skeleton>
                 <div className='flex flex-col gap-1 py-2 '>
                   <Skeleton className='rounded-large'>
-                    <p className='text-small text-white/80 truncate'>Loading</p>
+                    <p className='truncate text-small text-white/80'>Loading</p>
                   </Skeleton>
-                  <div className='flex gap-1 items-center text-white/60'>
+                  <div className='flex items-center gap-1 text-white/60'>
                     <Skeleton className='rounded-large'>
                       <p className='text-tiny'>Loading</p>
                     </Skeleton>
                   </div>
-                  <div className='flex gap-1 items-center text-white/60'>
+                  <div className='flex items-center gap-1 text-white/60'>
                     <Skeleton className='rounded-large'>
                       <p className='text-tiny'>Loading...</p>
                     </Skeleton>
@@ -73,7 +73,7 @@ const PrivAlbums = () => {
 
         <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My albums</h1>
         <section className='flex flex-col gap-5 '>
-          <div className='mt-2 mx-auto'>
+          <div className='mx-auto mt-2'>
             <p className='text-xl font-semibold'>
               You don&apos;t have any album
             </p>
