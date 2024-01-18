@@ -1,6 +1,17 @@
 import nextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
+export const authOptions = {
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (session.user) {
+        session.user.id = token.sub
+      }
+      return session
+    }
+  }
+}
+
 const handler = nextAuth({
   providers: [
     CredentialsProvider({
