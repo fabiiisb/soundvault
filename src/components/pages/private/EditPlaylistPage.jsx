@@ -253,7 +253,7 @@ const EditPlaylistPage = () => {
       <h1 className='text-2xl font-bold '
       >
         <span className='underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>
-          Edit your playlists:
+          Edit your playlist:
         </span>
         <span>
           {' ' + originalPlaylistName}

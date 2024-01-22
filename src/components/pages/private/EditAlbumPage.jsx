@@ -195,7 +195,12 @@ const EditAlbumPage = () => {
   if (!albumData) {
     return (
       <>
-        <section className='block sm:flex'>
+        <Skeleton className='rounded-large max-w-96'>
+          <h1 className='text-2xl font-bold '>
+            Edit your album: Loading
+          </h1>
+        </Skeleton>
+        <section className='block sm:flex mt-6'>
           <div className='relative flex justify-center w-full mb-3'>
             <Skeleton className='rounded-large'>
               <div className='w-[250px] h-[250px] max-w-full max-h-full'>
@@ -245,7 +250,16 @@ const EditAlbumPage = () => {
   return (
     <>
       <ToastCont />
-      <section className='block sm:flex'>
+      <h1 className='text-2xl font-bold '
+      >
+        <span className='underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>
+          Edit your album:
+        </span>
+        <span>
+          {' ' + originalAlbumName}
+        </span>
+      </h1>
+      <section className='block sm:flex mt-6'>
         <div className='relative flex justify-center w-full mb-3'>
           <Image
             isBlurred
