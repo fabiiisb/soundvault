@@ -82,7 +82,7 @@ const PrivPlaylists = () => {
             <Button
               as={Link}
               href={'/'}
-              className='bg-content1 hover:text-niceOrange-400'
+              className='bg-content2 hover:text-niceOrange-400'
             >
               Create a new playlist
             </Button>
