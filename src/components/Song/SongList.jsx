@@ -26,6 +26,8 @@ export const SongLi = ({ song }) => {
         <div className='flex items-center gap-2 justify-start'>
           <BtnPlaySong
             className={'text-foreground/80 hover:text-white'}
+            songId={song.songId}
+            songUrl={song.songUrl}
           />
           <div className='flex flex-col max-w-[120px] overflow-hidden'>
             <Link

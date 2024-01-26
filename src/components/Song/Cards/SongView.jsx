@@ -4,7 +4,7 @@ import { Image, Button, Tooltip } from '@nextui-org/react'
 import { ArchiveAdd, Timer1, Calendar, Play } from 'iconsax-react'
 import Link from 'next/link'
 
-export default function SongView ({ songName, user, src, duration, date, reproductions, songCount }) {
+export default function SongView ({ songName, user, src, duration, date, reproductions, songCount, songUrl, songId }) {
   return (
     <div className="border-none rounded-lg">
       <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center">
@@ -33,7 +33,11 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
           <div className="flex flex-col  gap-4 ">
             <div className='flex flex-wrap gap-2 text-foreground-50'>
               <div className='h-12 w-12 '>
-                <BtnPlaySong className={'h-full w-full text-foreground/80 hover:text-white'} />
+                <BtnPlaySong
+                  className={'h-full w-full text-foreground/80 hover:text-white'}
+                  songId={songId}
+                  songUrl={songUrl}
+                />
               </div>
               <div className='flex items-center'>
                 <BtnLikeSong />
