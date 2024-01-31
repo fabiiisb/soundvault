@@ -5,32 +5,25 @@ import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
 
 export const BtnPlaySong = ({ className, songId, songUrl }) => {
-  const { activeSong, setActiveSong, handlePlaySong, handlePauseSong, stopCurrentSong, isReproducing } = useContext(playerContext)
+  const { handlePlaySong, handlePauseSong, activeSong, isReproducing } = useContext(playerContext)
 
   const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
     setIsPlaying(activeSong === songId && isReproducing === true)
-  }, [activeSong])
+  }, [activeSong, isReproducing, songId])
 
-  const handlePlayButton = async () => {
+  const handlePlayButton = () => {
     if (activeSong === songId && isPlaying) {
-      console.log('Pausar la canción')
-
+      console.log('%cPause', 'color: #F37338;')
       setIsPlaying(false)
 
-      setActiveSong(activeSong)
-
-      handlePauseSong()
+      handlePauseSong(songId)
     } else {
-      console.log('Reproducir canción')
-
+      console.log('%cPlay', 'color: #48F338;')
       setIsPlaying(true)
 
-      stopCurrentSong(songId)
-      setActiveSong(songId)
-
-      handlePlaySong(songUrl)
+      handlePlaySong(songUrl, songId)
     }
   }
 

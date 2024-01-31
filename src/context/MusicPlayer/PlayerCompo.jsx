@@ -38,13 +38,16 @@ const PlayerCompo = ({ children }) => {
     audioRef.current.pause()
   }
 
-  const handlePlaySong = async (songUrl) => {
+  const handlePlaySong = async (songUrl, songId) => {
     Play(songUrl)
+    stopCurrentSong(activeSong)
+    setActiveSong(songId)
     setIsReproducing(true)
   }
 
-  const handlePauseSong = async () => {
+  const handlePauseSong = async (songId) => {
     Pause()
+    setActiveSong(songId)
     setIsReproducing(false)
   }
 
@@ -84,6 +87,7 @@ const PlayerCompo = ({ children }) => {
         handlePauseSong,
         stopCurrentSong,
         activeSong,
+        urlSong,
         setActiveSong,
         isReproducing,
         replay,
