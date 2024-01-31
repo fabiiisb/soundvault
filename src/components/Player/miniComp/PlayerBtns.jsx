@@ -1,8 +1,55 @@
 'use client'
 import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross } from 'iconsax-react'
 import { Button } from '@nextui-org/react'
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
+
+export const BtnPlaySong = ({ className, songId, songUrl }) => {
+  const { activeSong, setActiveSong, handlePlaySong, handlePauseSong, stopCurrentSong, isReproducing } = useContext(playerContext)
+
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  useEffect(() => {
+    setIsPlaying(activeSong === songId && isReproducing === true)
+  }, [activeSong])
+
+  const handlePlayButton = async () => {
+    if (activeSong === songId && isPlaying) {
+      console.log('Pausar la canción')
+
+      setIsPlaying(false)
+
+      setActiveSong(activeSong)
+
+      handlePauseSong()
+    } else {
+      console.log('Reproducir canción')
+
+      setIsPlaying(true)
+
+      stopCurrentSong(songId)
+      setActiveSong(songId)
+
+      handlePlaySong(songUrl)
+    }
+  }
+
+  return (
+    <Button
+      isIconOnly
+      className={className}
+      radius="full"
+      variant="light"
+      onClick={handlePlayButton}
+    >
+      {
+        isPlaying
+          ? <PauseCircle variant="Bold" size={100} />
+          : <PlayCircle variant="Bold" size={100} />
+      }
+    </Button>
+  )
+}
 
 export const BtnNextSong = () => {
   return (
@@ -28,22 +75,6 @@ export const BtnPrevSong = () => {
       <Previous
         variant="Bold"
       />
-    </Button>
-  )
-}
-
-export const BtnPlaySong = ({ className }) => {
-  const { play, handlePlay } = useContext(playerContext)
-
-  return (
-    <Button
-      isIconOnly
-      className={className}
-      radius="full"
-      variant="light"
-      onClick={handlePlay}
-    >
-      {play ? <PauseCircle variant="Bold" size={100} /> : <PlayCircle variant="Bold" size={100} />}
     </Button>
   )
 }
@@ -112,7 +143,7 @@ export const BtnVolume = ({ className }) => {
       radius="full"
       variant="light"
       onClick={handleMute}>
-      {isMute ? <VolumeCross /> : <VolumeHigh /> }
+      {isMute ? <VolumeCross /> : <VolumeHigh />}
     </Button>
   )
 }

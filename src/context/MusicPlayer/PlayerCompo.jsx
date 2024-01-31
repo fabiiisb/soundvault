@@ -1,16 +1,62 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import playerContext from './playerContext'
 
 const PlayerCompo = ({ children }) => {
-  const [play, setPlay] = useState(false)
+  const [activeSong, setActiveSong] = useState(undefined)
+  const [urlSong, setUrlSong] = useState('')
+  const [isReproducing, setIsReproducing] = useState(false)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
   const [liked, setLiked] = useState(false)
   const [isMute, setMute] = useState(false)
 
-  const handlePlay = () => {
-    setPlay((v) => !v)
+  const audioRef = useRef()
+
+  useEffect(() => {
+    audioRef.current = new Audio(urlSong)
+  }, [urlSong])
+
+  useEffect(() => {
+    manageAudio()
+  })
+
+  const manageAudio = () => {
+    audioRef.current.addEventListener('ended', stopCurrentSong)
+
+    return () => {
+      audioRef.current.removeEventListener('ended', stopCurrentSong)
+    }
+  }
+
+  const Play = async (songUrl) => {
+    await setUrlSong(songUrl)
+    await audioRef.current.play()
+  }
+
+  const Pause = () => {
+    audioRef.current.pause()
+  }
+
+  const handlePlaySong = async (songUrl) => {
+    Play(songUrl)
+    setIsReproducing(true)
+  }
+
+  const handlePauseSong = async () => {
+    Pause()
+    setIsReproducing(false)
+  }
+
+  const stopCurrentSong = (songId) => {
+    if (songId === activeSong) {
+      handlePauseSong()
+    } else {
+      handlePauseSong()
+      audioRef.current.currentTime = 0
+    }
+
+    setActiveSong(undefined)
   }
 
   const handleRandom = () => {
@@ -34,8 +80,12 @@ const PlayerCompo = ({ children }) => {
   return (
     <playerContext.Provider
       value={{
-        play,
-        handlePlay,
+        handlePlaySong,
+        handlePauseSong,
+        stopCurrentSong,
+        activeSong,
+        setActiveSong,
+        isReproducing,
         replay,
         handleReplay,
         random,
