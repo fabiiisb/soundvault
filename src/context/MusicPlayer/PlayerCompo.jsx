@@ -58,8 +58,6 @@ const PlayerCompo = ({ children }) => {
       handlePauseSong()
       audioRef.current.currentTime = 0
     }
-
-    setActiveSong(undefined)
   }
 
   const handleRandom = () => {
