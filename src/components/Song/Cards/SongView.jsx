@@ -1,5 +1,5 @@
 'use client'
-import { BtnLikeSong, BtnPlaySong } from '@/components/Player/miniComp/PlayerBtns'
+import { BtnLikeSong, BtnPlaySong } from '@/components/Player/PlayerBtns'
 import { Image, Button, Tooltip } from '@nextui-org/react'
 import { ArchiveAdd, Timer1, Calendar, Play } from 'iconsax-react'
 import Link from 'next/link'

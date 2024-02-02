@@ -1,6 +1,6 @@
 'use client'
 import { Card, CardBody } from '@nextui-org/react'
-import { BtnLikeSong, BtnPlaySong } from '@/components/Player/miniComp/PlayerBtns'
+import { BtnLikeSong, BtnPlaySong } from '@/components/Player/PlayerBtns'
 import Link from 'next/link'
 
 export const SongUl = ({ songList, gradientColor }) => {

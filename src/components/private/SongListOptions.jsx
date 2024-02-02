@@ -1,6 +1,6 @@
 'use client'
 import { Card, CardBody, Button } from '@nextui-org/react'
-import { BtnPlaySong } from '@/components/Player/miniComp/PlayerBtns'
+import { BtnPlaySong } from '@/components/Player/PlayerBtns'
 import { Edit } from 'iconsax-react'
 import Link from 'next/link'
 
