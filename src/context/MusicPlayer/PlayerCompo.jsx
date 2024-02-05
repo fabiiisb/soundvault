@@ -75,12 +75,17 @@ const PlayerCompo = ({ children }) => {
     setIsReproducing(false)
   }
 
+  const handleResetSong = async () => {
+    pause()
+    setIsReproducing(false)
+    audioRef.current.currentTime = 0
+  }
+
   const stopCurrentSong = (songId) => {
     if (songId === activeSong) {
       handlePauseSong()
     } else {
-      handlePauseSong()
-      audioRef.current.currentTime = 0
+      handleResetSong()
     }
   }
 
