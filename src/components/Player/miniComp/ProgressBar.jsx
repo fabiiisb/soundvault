@@ -20,7 +20,7 @@ const ProgressBar = () => {
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
       <Slider
         classNames={{
           base: 'cursor-default active:!cursor-default',
@@ -32,6 +32,7 @@ const ProgressBar = () => {
         size="sm"
         color='foreground'
         disableThumbScale
+        step={0.5}
         maxValue={songDuration}
         minValue={0}
         value={progressBarValue}
