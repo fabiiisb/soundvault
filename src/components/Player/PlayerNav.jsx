@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useContext } from 'react'
-import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, BtnVolume } from '@/components/Player/PlayerBtns'
+import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, VolumeControl, BtnAddToPlaylist } from '@/components/Player/PlayerBtns'
 import ProgressBar from './miniComp/ProgressBar'
 import playerContext from '@/context/MusicPlayer/playerContext'
 
@@ -8,7 +8,6 @@ const MusicNav = () => {
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
   const [liked, setLiked] = useState(false)
-  const [isMute, setMute] = useState(false)
 
   const { urlSong, activeSong } = useContext(playerContext)
 
@@ -23,22 +22,32 @@ const MusicNav = () => {
             replay={replay}
             setReplay={setReplay}
           />
-          <BtnPrevSong />
+
+          <BtnPrevSong/>
+
           <BtnPlaySong
             songId={activeSong}
             songUrl={urlSong}
           />
+
           <BtnNextSong />
+
           <BtnReplaySong
             replay={replay}
             setReplay={setReplay}
             random={random}
             setRandom={setRandom}
           />
-          <BtnVolume isMute={isMute} setMute={setMute} />
+
+          <BtnAddToPlaylist
+          />
         </div>
-        <div className='w-full sm:pl-10'>
+        <div className='w-full sm:pl-8 sm:pr-8'>
           <ProgressBar />
+        </div>
+
+        <div className='w-[30%] hidden sm:flex'>
+          <VolumeControl className={''} />
         </div>
       </div>
     </nav>

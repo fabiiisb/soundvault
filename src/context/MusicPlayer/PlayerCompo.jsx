@@ -8,10 +8,12 @@ const PlayerCompo = ({ children }) => {
   const [urlSong, setUrlSong] = useState('')
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
+  const [isMute, setMute] = useState(false)
+  const [volume, setVolume] = useState(1)
+  const [oldVolume, setOldVolume] = useState()
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
   const [liked, setLiked] = useState(false)
-  const [isMute, setMute] = useState(false)
 
   const audioRef = useRef()
 
@@ -28,26 +30,38 @@ const PlayerCompo = ({ children }) => {
   })
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener('timeupdate', updateProgressBar)
+    audioRef.current.addEventListener('timeupdate', updateProgressBar)
 
-      return () => {
-        audioRef.current.removeEventListener('timeupdate', updateProgressBar)
-      }
+    return () => {
+      audioRef.current.removeEventListener('timeupdate', updateProgressBar)
     }
   })
 
-  const Play = async (songUrl) => {
+  useEffect(() => {
+    audioRef.current.volume = volume
+  }, [volume, urlSong])
+
+  useEffect(() => {
+    if (volume === 0) {
+      setMute(true)
+    } else {
+      setMute(false)
+    }
+  }, [volume])
+
+  // play button
+
+  const play = async (songUrl) => {
     await setUrlSong(songUrl)
     await audioRef.current.play()
   }
 
-  const Pause = () => {
+  const pause = () => {
     audioRef.current.pause()
   }
 
   const handlePlaySong = async (songUrl, songId) => {
-    Play(songUrl)
+    play(songUrl)
     stopCurrentSong(activeSong)
     setActiveSong(songId)
     setIsReproducing(true)
@@ -56,7 +70,7 @@ const PlayerCompo = ({ children }) => {
   }
 
   const handlePauseSong = async (songId) => {
-    Pause()
+    pause()
     setActiveSong(songId)
     setIsReproducing(false)
   }
@@ -85,19 +99,38 @@ const PlayerCompo = ({ children }) => {
     setSongDuration(durationInSeconds)
   }
 
+  // progress bar
+
   const updateProgressBar = () => {
-    if (audioRef.current) {
-      setProgressBarValue(audioRef.current.currentTime)
-    }
+    setProgressBarValue(audioRef.current.currentTime)
   }
 
   const handleSliderChange = (value) => {
     setProgressBarValue(value)
 
-    if (audioRef.current) {
-      audioRef.current.currentTime = value
-    }
+    audioRef.current.currentTime = value
   }
+
+  // volume
+
+  const handleMute = () => {
+    if (isMute) {
+      // Si estaba silenciado
+      setVolume(oldVolume)
+    } else {
+      // Si no estaba silenciado
+      setOldVolume(volume)
+      setVolume(0)
+    }
+
+    setMute((prevMute) => !prevMute)
+  }
+
+  const handleSetVolume = (value) => {
+    setVolume(value)
+  }
+
+  //
 
   const handleRandom = () => {
     if (replay) setReplay((v) => !v)
@@ -111,10 +144,6 @@ const PlayerCompo = ({ children }) => {
 
   const handleLike = () => {
     setLiked((v) => !v)
-  }
-
-  const handleMute = () => {
-    setMute((v) => !v)
   }
 
   return (
@@ -131,14 +160,17 @@ const PlayerCompo = ({ children }) => {
         progressBarValue,
         setProgressBarValue,
         handleSliderChange,
+        isMute,
+        handleMute,
+        volume,
+        setVolume,
+        handleSetVolume,
         replay,
         handleReplay,
         random,
         handleRandom,
         liked,
-        handleLike,
-        isMute,
-        handleMute
+        handleLike
       }}
     >
       {children}

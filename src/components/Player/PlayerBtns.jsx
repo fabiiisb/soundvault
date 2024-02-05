@@ -1,8 +1,9 @@
 'use client'
-import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross } from 'iconsax-react'
+import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross, ArchiveAdd } from 'iconsax-react'
 import { Button } from '@nextui-org/react'
 import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
+import VolumeBar from './miniComp/VolumeBar'
 
 export const BtnPlaySong = ({ className, songId, songUrl }) => {
   const { handlePlaySong, handlePauseSong, activeSong, isReproducing } = useContext(playerContext)
@@ -126,17 +127,38 @@ export const BtnLikeSong = ({ className, size }) => {
   )
 }
 
-export const BtnVolume = ({ className }) => {
+export const VolumeControl = ({ className }) => {
   const { isMute, handleMute } = useContext(playerContext)
 
   return (
+    <div className={'flex justify-center items-center w-[97%]' + className}>
+      <Button
+        isIconOnly
+        className={'text-default-900/60 data-[hover]:bg-foreground/10 '}
+        radius="full"
+        variant="light"
+        onClick={handleMute}>
+        {isMute
+          ? <VolumeCross className='text-niceOrange-400' />
+          : <VolumeHigh />
+        }
+      </Button>
+
+      <VolumeBar />
+    </div>
+
+  )
+}
+
+export const BtnAddToPlaylist = ({ className }) => {
+  return (
     <Button
-      isIconOnly
-      className={'text-default-900/60 data-[hover]:bg-foreground/10 ' + className}
-      radius="full"
-      variant="light"
-      onClick={handleMute}>
-      {isMute ? <VolumeCross /> : <VolumeHigh />}
-    </Button>
+    isIconOnly
+    className={'text-default-900/60 data-[hover]:bg-foreground/10 ' + className}
+    radius="full"
+    variant="light"
+  >
+    <ArchiveAdd />
+  </Button>
   )
 }
