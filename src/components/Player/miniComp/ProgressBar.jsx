@@ -22,21 +22,16 @@ const ProgressBar = () => {
 
   return (
     <div className="flex flex-col ">
-      <div className='flex mx-auto px-1'>
-        <div className='flex flex-col max-w-[320px] overflow-hidden '>
-          <Link
-            className='flex gap-4 marquee text-tiny text-foreground/80 tracking-wider hover:text-foreground'
-            href={`/song/${activeSong}`}
-          >
-            <p className='marquee__content min-w-full flex flex-shrink-0'>
-              {songName || 'Undefined'}
-            </p>
-            <p aria-hidden='true' className='marquee__content min-w-full flex flex-shrink-0'>
-              {songName || 'Undefined'}
-            </p>
-          </Link>
-        </div>
+      <div className='flex px-1'>
+        <Link
+          className='text-tiny text-foreground/80 tracking-wider hover:text-foreground truncate mx-auto'
+          href={`/song/${activeSong}`}
+          title={songName}
+        >
+          {songName || 'Undefined'}
+        </Link>
       </div>
+
       <div className='flex justify-center items-center text-tiny text-foreground/50 gap-3'>
         <p>{formatToMinutes(progressBarValue) || '00:00'}</p>
         <Slider
