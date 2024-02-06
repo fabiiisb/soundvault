@@ -71,7 +71,6 @@ const PlayerCompo = ({ children }) => {
 
   const handlePauseSong = async (songId) => {
     pause()
-    setActiveSong(songId)
     setIsReproducing(false)
   }
 
