@@ -3,9 +3,10 @@ import { useState, useRef, useEffect } from 'react'
 import playerContext from './playerContext'
 
 const PlayerCompo = ({ children }) => {
-  const [isReproducing, setIsReproducing] = useState(false)
   const [activeSong, setActiveSong] = useState(undefined)
+  const [isReproducing, setIsReproducing] = useState(false)
   const [urlSong, setUrlSong] = useState('')
+  const [songName, setSongName] = useState('')
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
@@ -60,11 +61,12 @@ const PlayerCompo = ({ children }) => {
     audioRef.current.pause()
   }
 
-  const handlePlaySong = async (songUrl, songId) => {
+  const handlePlaySong = async (songUrl, songId, songName) => {
     play(songUrl)
     stopCurrentSong(activeSong)
     setActiveSong(songId)
     setIsReproducing(true)
+    setSongName(songName)
 
     if (activeSong !== songId) getTotalDuration(songUrl)
   }
@@ -160,6 +162,7 @@ const PlayerCompo = ({ children }) => {
         urlSong,
         setActiveSong,
         isReproducing,
+        songName,
         songDuration,
         progressBarValue,
         setProgressBarValue,

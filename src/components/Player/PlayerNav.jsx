@@ -9,12 +9,12 @@ const MusicNav = () => {
   const [random, setRandom] = useState(false)
   const [liked, setLiked] = useState(false)
 
-  const { urlSong, activeSong } = useContext(playerContext)
+  const { urlSong, activeSong, songName } = useContext(playerContext)
 
   return (
     <nav className='bg-content1 text-white w-full fixed bottom-0 left-0 z-10 shadow-medium'>
       <div className='block sm:flex justify-center max-w-[1024px] mx-auto py-2 px-[24px]'>
-        <div className='flex justify-center sm:justify-start'>
+        <div className='flex justify-center items-center sm:justify-start'>
           <BtnLikeSong liked={liked} setLiked={setLiked} />
           <BtnRandomSong
             random={random}
@@ -23,11 +23,12 @@ const MusicNav = () => {
             setReplay={setReplay}
           />
 
-          <BtnPrevSong/>
+          <BtnPrevSong />
 
           <BtnPlaySong
             songId={activeSong}
             songUrl={urlSong}
+            songName={songName}
           />
 
           <BtnNextSong />

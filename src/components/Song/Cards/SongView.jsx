@@ -37,6 +37,7 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
                   className={'h-full w-full text-foreground/80 hover:text-white'}
                   songId={songId}
                   songUrl={songUrl}
+                  songName={songName}
                 />
               </div>
               <div className='flex items-center'>

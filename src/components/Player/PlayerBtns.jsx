@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
 import VolumeBar from './miniComp/VolumeBar'
 
-export const BtnPlaySong = ({ className, songId, songUrl }) => {
+export const BtnPlaySong = ({ className, songId, songUrl, songName }) => {
   const { handlePlaySong, handlePauseSong, activeSong, isReproducing } = useContext(playerContext)
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -20,7 +20,7 @@ export const BtnPlaySong = ({ className, songId, songUrl }) => {
       handlePauseSong()
     } else {
       setIsPlaying(true)
-      handlePlaySong(songUrl, songId)
+      handlePlaySong(songUrl, songId, songName)
     }
   }
 
