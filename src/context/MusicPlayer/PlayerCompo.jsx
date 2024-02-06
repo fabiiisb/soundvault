@@ -69,7 +69,7 @@ const PlayerCompo = ({ children }) => {
     if (activeSong !== songId) getTotalDuration(songUrl)
   }
 
-  const handlePauseSong = async (songId) => {
+  const handlePauseSong = async () => {
     pause()
     setIsReproducing(false)
   }

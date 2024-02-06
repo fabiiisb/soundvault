@@ -16,14 +16,10 @@ export const BtnPlaySong = ({ className, songId, songUrl }) => {
 
   const handlePlayButton = () => {
     if (activeSong === songId && isPlaying) {
-      console.log('%cPause', 'color: #F37338;')
       setIsPlaying(false)
-
-      handlePauseSong(songId)
+      handlePauseSong()
     } else {
-      console.log('%cPlay', 'color: #48F338;')
       setIsPlaying(true)
-
       handlePlaySong(songUrl, songId)
     }
   }
