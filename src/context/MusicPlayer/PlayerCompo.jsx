@@ -10,7 +10,7 @@ const PlayerCompo = ({ children }) => {
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
-  const [volume, setVolume] = useState(1)
+  const [volume, setVolume] = useState(0.6)
   const [oldVolume, setOldVolume] = useState()
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
@@ -51,7 +51,6 @@ const PlayerCompo = ({ children }) => {
   }, [volume])
 
   // play button
-
   const play = async (songUrl) => {
     await setUrlSong(songUrl)
     await audioRef.current.play()
@@ -106,7 +105,6 @@ const PlayerCompo = ({ children }) => {
   }
 
   // progress bar
-
   const updateProgressBar = () => {
     setProgressBarValue(audioRef.current.currentTime)
   }
@@ -118,13 +116,10 @@ const PlayerCompo = ({ children }) => {
   }
 
   // volume
-
   const handleMute = () => {
     if (isMute) {
-      // Si estaba silenciado
       setVolume(oldVolume)
     } else {
-      // Si no estaba silenciado
       setOldVolume(volume)
       setVolume(0)
     }
