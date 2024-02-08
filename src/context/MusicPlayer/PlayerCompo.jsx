@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from 'react'
 import playerContext from './playerContext'
 
 const PlayerCompo = ({ children }) => {
+  const [songArray, setSongArray] = useState([])
+  const [actualSongIndex, setActualSongIndex] = useState(-1)
   const [activeSong, setActiveSong] = useState(undefined)
   const [isReproducing, setIsReproducing] = useState(false)
   const [urlSong, setUrlSong] = useState('')
@@ -17,7 +19,7 @@ const PlayerCompo = ({ children }) => {
   const [liked, setLiked] = useState(false)
 
   const audioRef = useRef()
-
+  // useffect play
   useEffect(() => {
     audioRef.current = new Audio(urlSong)
   }, [urlSong])
@@ -30,6 +32,7 @@ const PlayerCompo = ({ children }) => {
     }
   })
 
+  // useffect progress bar
   useEffect(() => {
     audioRef.current.addEventListener('timeupdate', updateProgressBar)
 
@@ -38,6 +41,7 @@ const PlayerCompo = ({ children }) => {
     }
   })
 
+  // useffect volume
   useEffect(() => {
     audioRef.current.volume = volume
   }, [volume, urlSong])
@@ -60,7 +64,7 @@ const PlayerCompo = ({ children }) => {
     audioRef.current.pause()
   }
 
-  const handlePlaySong = async (songUrl, songId, songName) => {
+  const handlePlaySong = async (songUrl, songId, songName, songList) => {
     play(songUrl)
     stopCurrentSong(activeSong)
     setActiveSong(songId)
@@ -68,6 +72,12 @@ const PlayerCompo = ({ children }) => {
     setSongName(songName)
 
     if (activeSong !== songId) getTotalDuration(songUrl)
+
+    if (songList !== undefined) {
+      const result = findActualSongIndex(songList, songId)
+      setActualSongIndex(result)
+      setSongArray(songList)
+    }
   }
 
   const handlePauseSong = async () => {
@@ -89,6 +99,42 @@ const PlayerCompo = ({ children }) => {
     }
   }
 
+  // next song
+  const handleNextSong = () => {
+    nextSong()
+  }
+
+  const findActualSongIndex = (array, id) => {
+    const result = array.findIndex(song => song.songId === id)
+    return result
+  }
+
+  const nextSong = () => {
+    if (actualSongIndex + 1 < songArray.length) {
+      const nextSongIndex = actualSongIndex + 1
+      const nextSong = songArray[nextSongIndex]
+
+      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, songArray)
+    }
+  }
+
+  // prev song
+  const handlePrevSong = () => {
+    prevSong()
+  }
+
+  const prevSong = () => {
+    if (actualSongIndex > 0) {
+      const nextSongIndex = actualSongIndex - 1
+      const nextSong = songArray[nextSongIndex]
+
+      console.log()
+
+      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, songArray)
+    }
+  }
+
+  // progress bar
   const getTotalDuration = async (songUrl) => {
     const audioElement = new Audio(songUrl)
 
@@ -104,7 +150,6 @@ const PlayerCompo = ({ children }) => {
     setSongDuration(durationInSeconds)
   }
 
-  // progress bar
   const updateProgressBar = () => {
     setProgressBarValue(audioRef.current.currentTime)
   }
@@ -152,13 +197,13 @@ const PlayerCompo = ({ children }) => {
       value={{
         handlePlaySong,
         handlePauseSong,
-        stopCurrentSong,
+        isReproducing,
         activeSong,
         urlSong,
-        setActiveSong,
-        isReproducing,
         songName,
         songDuration,
+        handleNextSong,
+        handlePrevSong,
         progressBarValue,
         setProgressBarValue,
         handleSliderChange,

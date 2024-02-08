@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
 import VolumeBar from './miniComp/VolumeBar'
 
-export const BtnPlaySong = ({ className, songId, songUrl, songName }) => {
+export const BtnPlaySong = ({ className, songId, songUrl, songName, songList }) => {
   const { handlePlaySong, handlePauseSong, activeSong, isReproducing } = useContext(playerContext)
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -20,7 +20,7 @@ export const BtnPlaySong = ({ className, songId, songUrl, songName }) => {
       handlePauseSong()
     } else {
       setIsPlaying(true)
-      handlePlaySong(songUrl, songId, songName)
+      handlePlaySong(songUrl, songId, songName, songList)
     }
   }
 
@@ -42,12 +42,15 @@ export const BtnPlaySong = ({ className, songId, songUrl, songName }) => {
 }
 
 export const BtnNextSong = () => {
+  const { handleNextSong } = useContext(playerContext)
   return (
     <Button
       isIconOnly
       className="data-[hover]:bg-foreground/10 text-white/95"
       radius="full"
-      variant="light">
+      variant="light"
+      onClick={handleNextSong}
+    >
       <Next
         variant="Bold"
       />
@@ -56,12 +59,15 @@ export const BtnNextSong = () => {
 }
 
 export const BtnPrevSong = () => {
+  const { handlePrevSong } = useContext(playerContext)
   return (
     <Button
       isIconOnly
       className="data-[hover]:bg-foreground/10 text-white/95"
       radius="full"
-      variant="light">
+      variant="light"
+      onClick={handlePrevSong}
+    >
       <Previous
         variant="Bold"
       />

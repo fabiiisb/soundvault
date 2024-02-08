@@ -10,14 +10,14 @@ export const SongUl = ({ songList, gradientColor }) => {
         className={`flex relative gap-3 backdrop-blur-lg bg-content1/70  bg-gradient-to-r ${gradientColor} to-70% sm:to-40%`}
       >
         {songList.map((song) => (
-          <SongLi key={song.songId} song={song} />
+          <SongLi key={song.songId} song={song} songList={songList} />
         ))}
       </Card>
     </div>
   )
 }
 
-export const SongLi = ({ song }) => {
+export const SongLi = ({ song, songList }) => {
   return (
     <CardBody
       className='group px-3 py-1 first:mt-2 last:mb-2 hover:bg-default-500/20 z-10'
@@ -26,6 +26,7 @@ export const SongLi = ({ song }) => {
         <div className='flex items-center gap-2 justify-start'>
           <BtnPlaySong
             className={'text-foreground/80 hover:text-white'}
+            songList={songList}
             songId={song.songId}
             songUrl={song.songUrl}
             songName={song.songName}
