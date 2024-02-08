@@ -21,16 +21,14 @@ const ProgressBar = () => {
   }
 
   return (
-    <div className="flex flex-col ">
-      <div className='flex px-1'>
+    <div className="flex flex-col">
         <Link
-          className='text-tiny text-foreground/80 tracking-wider hover:text-foreground truncate mx-auto'
+          className='text-tiny text-foreground/80 tracking-wider hover:text-foreground text-center line-clamp-1'
           href={`/song/${activeSong}`}
           title={songName}
         >
           {songName || 'Undefined'}
         </Link>
-      </div>
 
       <div className='flex justify-center items-center text-tiny text-foreground/50 gap-3'>
         <p>{formatToMinutes(progressBarValue) || '00:00'}</p>
