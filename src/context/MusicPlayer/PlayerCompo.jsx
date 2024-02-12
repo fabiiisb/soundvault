@@ -12,7 +12,7 @@ const PlayerCompo = ({ children }) => {
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
-  const [volume, setVolume] = useState(0.6)
+  const [volume, setVolume] = useState(1)
   const [oldVolume, setOldVolume] = useState()
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
@@ -21,8 +21,8 @@ const PlayerCompo = ({ children }) => {
   const audioRef = useRef()
   // useffect play
   useEffect(() => {
-    audioRef.current = new Audio(urlSong)
-  }, [urlSong])
+    audioRef.current = new Audio()
+  }, [])
 
   useEffect(() => {
     audioRef.current.addEventListener('ended', stopCurrentSong)
@@ -57,16 +57,20 @@ const PlayerCompo = ({ children }) => {
   // play button
   const play = async (songUrl) => {
     await setUrlSong(songUrl)
-    await audioRef.current.play()
+    audioRef.current.play()
   }
 
   const pause = () => {
     audioRef.current.pause()
+    setIsReproducing(false)
   }
 
-  const handlePlaySong = async (songUrl, songId, songName, songList) => {
+  const handlePlaySong = (songUrl, songId, songName, songList) => {
+    handlePauseSong()
     play(songUrl)
-    stopCurrentSong(activeSong)
+
+    if (songId !== activeSong) audioRef.current = new Audio(songUrl)
+
     setActiveSong(songId)
     setIsReproducing(true)
     setSongName(songName)
@@ -80,23 +84,18 @@ const PlayerCompo = ({ children }) => {
     }
   }
 
-  const handlePauseSong = async () => {
+  const handlePauseSong = () => {
     pause()
-    setIsReproducing(false)
   }
 
-  const handleResetSong = async () => {
+  const handleResetSong = () => {
     pause()
-    setIsReproducing(false)
     audioRef.current.currentTime = 0
   }
 
-  const stopCurrentSong = (songId) => {
-    if (songId === activeSong) {
-      handlePauseSong()
-    } else {
-      handleResetSong()
-    }
+  const stopCurrentSong = () => {
+    handleResetSong()
+    handleNextSong()
   }
 
   // next song
@@ -113,6 +112,8 @@ const PlayerCompo = ({ children }) => {
     if (actualSongIndex + 1 < songArray.length) {
       const nextSongIndex = actualSongIndex + 1
       const nextSong = songArray[nextSongIndex]
+
+      setActualSongIndex(nextSongIndex)
 
       handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, songArray)
     }
