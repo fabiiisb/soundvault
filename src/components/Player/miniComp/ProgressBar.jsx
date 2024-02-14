@@ -1,6 +1,7 @@
 import { Slider } from '@nextui-org/react'
 import playerContext from '@/context/MusicPlayer/playerContext'
 import { useContext, useEffect } from 'react'
+import { formatToMinutes } from '@/utils/functions'
 import Link from 'next/link'
 
 const ProgressBar = () => {
@@ -9,16 +10,6 @@ const ProgressBar = () => {
   useEffect(() => {
     setProgressBarValue(0)
   }, [songDuration])
-
-  const formatToMinutes = (duration) => {
-    const minutes = Math.floor(duration / 60)
-    const seconds = Math.round(duration % 60)
-
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`
-    const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`
-
-    return `${formattedMinutes}:${formattedSeconds}`
-  }
 
   return (
     <div className="flex flex-col">
