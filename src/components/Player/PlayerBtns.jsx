@@ -59,14 +59,23 @@ export const BtnNextSong = () => {
 }
 
 export const BtnPrevSong = () => {
-  const { handlePrevSong } = useContext(playerContext)
+  const { handlePrevSong, handleResetSong, progressBarValue } = useContext(playerContext)
+
+  const handleResetOrPrev = () => {
+    if (progressBarValue < 2.5) {
+      handlePrevSong()
+    } else {
+      handleResetSong()
+    }
+  }
+
   return (
     <Button
       isIconOnly
       className="data-[hover]:bg-foreground/10 text-white/95"
       radius="full"
       variant="light"
-      onClick={handlePrevSong}
+      onClick={handleResetOrPrev}
     >
       <Previous
         variant="Bold"

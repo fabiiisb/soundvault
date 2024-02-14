@@ -69,7 +69,7 @@ const PlayerCompo = ({ children }) => {
     handlePauseSong()
     play(songUrl)
 
-    if (songId !== activeSong) audioRef.current = new Audio(songUrl)
+    if (activeSong !== songId) audioRef.current = new Audio(songUrl)
 
     setActiveSong(songId)
     setIsReproducing(true)
@@ -89,12 +89,12 @@ const PlayerCompo = ({ children }) => {
   }
 
   const handleResetSong = () => {
-    pause()
     audioRef.current.currentTime = 0
   }
 
   const stopCurrentSong = () => {
-    handleResetSong()
+    pause()
+    audioRef.current.currentTime = 0
     handleNextSong()
   }
 
@@ -205,6 +205,7 @@ const PlayerCompo = ({ children }) => {
         songDuration,
         handleNextSong,
         handlePrevSong,
+        handleResetSong,
         progressBarValue,
         setProgressBarValue,
         handleSliderChange,
