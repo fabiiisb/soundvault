@@ -93,9 +93,14 @@ const PlayerCompo = ({ children }) => {
   }
 
   const stopCurrentSong = () => {
-    pause()
-    audioRef.current.currentTime = 0
-    handleNextSong()
+    if (replay === true) {
+      audioRef.current.currentTime = 0
+      audioRef.current.play()
+    } else {
+      pause()
+      audioRef.current.currentTime = 0
+      handleNextSong()
+    }
   }
 
   // next song
