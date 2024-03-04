@@ -13,13 +13,14 @@ const PlayerCompo = ({ children }) => {
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
-  const [volume, setVolume] = useState(1)
+  const [volume, setVolume] = useState(0.1)
   const [oldVolume, setOldVolume] = useState(1)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
   const [liked, setLiked] = useState(false)
 
   const audioRef = useRef()
+
   // useffect play
   useEffect(() => {
     audioRef.current = new Audio()
@@ -54,6 +55,10 @@ const PlayerCompo = ({ children }) => {
       setMute(false)
     }
   }, [volume])
+
+  useEffect(() => {
+
+  }, [random])
 
   // play button
   const play = async (songUrl) => {
@@ -246,6 +251,15 @@ const PlayerCompo = ({ children }) => {
 
   const handleReplay = () => {
     if (random) setRandom((v) => !v)
+
+    if (random === false) {
+      const result = findActualSongIndex(randomSongArray, activeSong)
+      setActualSongIndex(result)
+    } else {
+      const result = findActualSongIndex(songArray, activeSong)
+      setActualSongIndex(result)
+    }
+
     setReplay((v) => !v)
   }
 
