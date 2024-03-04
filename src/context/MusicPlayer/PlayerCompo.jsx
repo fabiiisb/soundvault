@@ -4,6 +4,7 @@ import playerContext from './playerContext'
 
 const PlayerCompo = ({ children }) => {
   const [songArray, setSongArray] = useState([])
+  const [randomSongArray, setRandomSongArray] = useState([])
   const [actualSongIndex, setActualSongIndex] = useState(-1)
   const [activeSong, setActiveSong] = useState(undefined)
   const [isReproducing, setIsReproducing] = useState(false)
@@ -13,7 +14,7 @@ const PlayerCompo = ({ children }) => {
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
   const [volume, setVolume] = useState(1)
-  const [oldVolume, setOldVolume] = useState()
+  const [oldVolume, setOldVolume] = useState(1)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
   const [liked, setLiked] = useState(false)
@@ -65,22 +66,26 @@ const PlayerCompo = ({ children }) => {
     setIsReproducing(false)
   }
 
-  const handlePlaySong = (songUrl, songId, songName, songList) => {
+  const handlePlaySong = async (songUrl, songId, songName, songList) => {
     handlePauseSong()
     play(songUrl)
 
-    if (activeSong !== songId) audioRef.current = new Audio(songUrl)
+    if (activeSong !== songId) {
+      audioRef.current = new Audio(songUrl)
+      getTotalDuration(songUrl)
+    }
 
     setActiveSong(songId)
     setIsReproducing(true)
     setSongName(songName)
 
-    if (activeSong !== songId) getTotalDuration(songUrl)
-
     if (songList !== undefined) {
       const result = findActualSongIndex(songList, songId)
       setActualSongIndex(result)
-      setSongArray(songList)
+
+      if (!random || !songArray.length) setSongArray(songList)
+
+      if (random === false || !randomSongArray.length) randomizeSongArray(songList, songId)
     }
   }
 
@@ -103,14 +108,37 @@ const PlayerCompo = ({ children }) => {
     }
   }
 
-  // next song
-  const handleNextSong = () => {
-    nextSong()
-  }
-
   const findActualSongIndex = (array, id) => {
     const result = array.findIndex(song => song.songId === id)
     return result
+  }
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]
+    }
+    return array
+  }
+
+  const randomizeSongArray = async (array, id) => {
+    const newArray = [...array]
+    const randomArray = await shuffleArray(newArray)
+
+    const initialSong = newArray.find(song => song.songId === id)
+    const filterRandomArray = randomArray.filter(song => song.songId !== id)
+    filterRandomArray.unshift(initialSong)
+
+    setRandomSongArray(filterRandomArray)
+  }
+
+  // next song
+  const handleNextSong = () => {
+    if (random === true) {
+      nextRandomSong()
+    } else {
+      nextSong()
+    }
   }
 
   const nextSong = () => {
@@ -124,9 +152,36 @@ const PlayerCompo = ({ children }) => {
     }
   }
 
+  const nextRandomSong = () => {
+    if (actualSongIndex + 1 < randomSongArray.length) {
+      const nextSongIndex = actualSongIndex + 1
+      const nextSong = randomSongArray[nextSongIndex]
+
+      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, randomSongArray)
+    }
+  }
+
+  const handleRandom = () => {
+    if (replay) setReplay((v) => !v)
+
+    setRandom((v) => !v)
+
+    if (random === false) {
+      const result = findActualSongIndex(randomSongArray, activeSong)
+      setActualSongIndex(result)
+    } else {
+      const result = findActualSongIndex(songArray, activeSong)
+      setActualSongIndex(result)
+    }
+  }
+
   // prev song
   const handlePrevSong = () => {
-    prevSong()
+    if (random === true) {
+      prevRandomSong()
+    } else {
+      prevSong()
+    }
   }
 
   const prevSong = () => {
@@ -134,9 +189,16 @@ const PlayerCompo = ({ children }) => {
       const nextSongIndex = actualSongIndex - 1
       const nextSong = songArray[nextSongIndex]
 
-      console.log()
-
       handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, songArray)
+    }
+  }
+
+  const prevRandomSong = () => {
+    if (actualSongIndex > 0) {
+      const nextSongIndex = actualSongIndex - 1
+      const nextSong = randomSongArray[nextSongIndex]
+
+      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, randomSongArray)
     }
   }
 
@@ -182,13 +244,6 @@ const PlayerCompo = ({ children }) => {
     setVolume(value)
   }
 
-  //
-
-  const handleRandom = () => {
-    if (replay) setReplay((v) => !v)
-    setRandom((v) => !v)
-  }
-
   const handleReplay = () => {
     if (random) setRandom((v) => !v)
     setReplay((v) => !v)
@@ -223,6 +278,8 @@ const PlayerCompo = ({ children }) => {
         handleReplay,
         random,
         handleRandom,
+        randomizeSongArray,
+        setActualSongIndex,
         liked,
         handleLike
       }}
