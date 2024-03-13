@@ -1,27 +1,24 @@
 'use client'
-import React, { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { BtnPrevSong, BtnNextSong, BtnPlaySong, BtnReplaySong, BtnRandomSong, BtnLikeSong, VolumeControl, BtnAddToPlaylist } from '@/components/Player/PlayerBtns'
 import ProgressBar from './miniComp/ProgressBar'
 import playerContext from '@/context/MusicPlayer/playerContext'
 
 const MusicNav = () => {
-  const [replay, setReplay] = useState(false)
-  const [random, setRandom] = useState(false)
-  const [liked, setLiked] = useState(false)
-
   const { urlSong, activeSong, songName } = useContext(playerContext)
 
+  if (activeSong === undefined) {
+    return null
+  }
+
   return (
-    <nav className='bg-content1 text-white w-full fixed bottom-0 left-0 z-10 shadow-medium'>
+    <nav className=' bg-content1 text-white w-full fixed bottom-0 left-0 z-10 shadow-medium'>
       <div className='block sm:flex justify-center max-w-[1024px] mx-auto py-2 px-[24px]'>
         <div className='flex justify-center items-center sm:justify-start'>
-          <BtnLikeSong liked={liked} setLiked={setLiked} />
-          <BtnRandomSong
-            random={random}
-            setRandom={setRandom}
-            replay={replay}
-            setReplay={setReplay}
-          />
+
+          <BtnLikeSong songId={activeSong} />
+
+          <BtnRandomSong />
 
           <BtnPrevSong />
 
@@ -33,22 +30,16 @@ const MusicNav = () => {
 
           <BtnNextSong />
 
-          <BtnReplaySong
-            replay={replay}
-            setReplay={setReplay}
-            random={random}
-            setRandom={setRandom}
-          />
+          <BtnReplaySong />
 
-          <BtnAddToPlaylist
-          />
+          <BtnAddToPlaylist />
         </div>
         <div className='w-full sm:pl-8 sm:pr-8'>
           <ProgressBar />
         </div>
 
         <div className='w-[30%] hidden sm:flex'>
-          <VolumeControl className={''} />
+          <VolumeControl />
         </div>
       </div>
     </nav>

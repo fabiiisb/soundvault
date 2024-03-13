@@ -13,11 +13,10 @@ const PlayerCompo = ({ children }) => {
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
-  const [volume, setVolume] = useState(0.1)
+  const [volume, setVolume] = useState(0.02)
   const [oldVolume, setOldVolume] = useState(1)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
-  const [liked, setLiked] = useState(false)
 
   const audioRef = useRef()
 
@@ -33,6 +32,10 @@ const PlayerCompo = ({ children }) => {
       audioRef.current.removeEventListener('ended', stopCurrentSong)
     }
   })
+
+  // useEffect(() => {
+  //   console.log(songArray)
+  // }, [songArray])
 
   // useffect progress bar
   useEffect(() => {
@@ -55,10 +58,6 @@ const PlayerCompo = ({ children }) => {
       setMute(false)
     }
   }, [volume])
-
-  useEffect(() => {
-
-  }, [random])
 
   // play button
   const play = async (songUrl) => {
@@ -263,10 +262,6 @@ const PlayerCompo = ({ children }) => {
     setReplay((v) => !v)
   }
 
-  const handleLike = () => {
-    setLiked((v) => !v)
-  }
-
   return (
     <playerContext.Provider
       value={{
@@ -293,9 +288,8 @@ const PlayerCompo = ({ children }) => {
         random,
         handleRandom,
         randomizeSongArray,
-        setActualSongIndex,
-        liked,
-        handleLike
+        setActualSongIndex
+
       }}
     >
       {children}

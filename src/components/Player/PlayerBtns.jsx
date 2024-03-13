@@ -3,6 +3,7 @@ import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, Vo
 import { Button } from '@nextui-org/react'
 import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
+import likeContext from '@/context/LikeButton/likeContext'
 import VolumeBar from './miniComp/VolumeBar'
 
 export const BtnPlaySong = ({ className, songId, songUrl, songName, songList }) => {
@@ -125,8 +126,18 @@ export const BtnReplaySong = ({ className }) => {
   )
 }
 
-export const BtnLikeSong = ({ className, size }) => {
-  const { liked, handleLike } = useContext(playerContext)
+export const BtnLikeSong = ({ className, size, songId }) => {
+  const { songList, handleLikeSong } = useContext(likeContext)
+  const [like, setLike] = useState(false)
+
+  useEffect(() => {
+    const song = songList.find(song => song.songId === songId)
+    setLike(song.isLiked)
+  }, [songId, songList])
+
+  const handleLikeButton = () => {
+    handleLikeSong(songId)
+  }
 
   return (
     <Button
@@ -134,11 +145,11 @@ export const BtnLikeSong = ({ className, size }) => {
       className={'text-default-900/60 data-[hover]:bg-foreground/10 ' + className}
       radius="full"
       variant="light"
-      onClick={handleLike}
+      onClick={handleLikeButton}
     >
       <Heart
-        variant={liked ? 'Bold' : 'Linear'}
-        className={liked ? 'text-niceOrange-400' : 'text-inherit'}
+        variant={like ? 'Bold' : 'Linear'}
+        className={like ? 'text-niceOrange-400' : 'text-inherit'}
         size={size}
       />
     </Button>
