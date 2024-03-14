@@ -41,7 +41,7 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
                 />
               </div>
               <div className='flex items-center'>
-                <BtnLikeSong />
+                <BtnLikeSong songId={songId}/>
               </div>
               <div className='flex items-center'>
                 <Tooltip
