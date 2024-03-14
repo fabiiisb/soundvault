@@ -127,16 +127,20 @@ export const BtnReplaySong = ({ className }) => {
 }
 
 export const BtnLikeSong = ({ className, size, songId }) => {
-  const { songList, handleLikeSong } = useContext(likeContext)
+  const { likedList, addToLikePlaylist, removeFromLikePlaylist } = useContext(likeContext)
   const [like, setLike] = useState(false)
 
   useEffect(() => {
-    const song = songList.find(song => song.songId === songId)
-    setLike(song.isLiked)
-  }, [songId, songList])
+    const isLiked = likedList.some(song => song.songId === songId)
+    setLike(isLiked)
+  }, [songId, likedList])
 
-  const handleLikeButton = () => {
-    handleLikeSong(songId)
+  const likeSong = (songId) => {
+    if (like === true) {
+      removeFromLikePlaylist(songId)
+    } else {
+      addToLikePlaylist(songId)
+    }
   }
 
   return (
@@ -145,7 +149,7 @@ export const BtnLikeSong = ({ className, size, songId }) => {
       className={'text-default-900/60 data-[hover]:bg-foreground/10 ' + className}
       radius="full"
       variant="light"
-      onClick={handleLikeButton}
+      onClick={() => likeSong(songId)}
     >
       <Heart
         variant={like ? 'Bold' : 'Linear'}

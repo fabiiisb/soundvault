@@ -1,69 +1,60 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import likeContext from './likeContext'
-
+import { FetchAddLike, FetchRemoveLike } from '@/utils/fetchs'
 const LikeCompo = ({ children }) => {
-  const [songList, setSongList] = useState([
-    {
-      songId: 1,
-      songName: 'Lorem ipsum dolor sit, amet consectetur adipisicda',
-      songDuration: '3:36',
-      ownerUsername: 'Fabiiisb',
-      songUrl: 'https://audiocdn.epidemicsound.com/ES_ITUNES/The%20Postman/ES_The%20Postman.mp3',
-      isLiked: false
-    },
-    {
-      songId: 2,
-      songName: 'The Storyteller',
-      songDuration: '3:36',
-      ownerUsername: 'user1',
-      songUrl: 'https://audiocdn.epidemicsound.com/ES_ITUNES/The%20Storyteller/ES_The%20Storyteller.mp3',
-      isLiked: true
-    },
-    {
-      songId: 3,
-      songName: 'Secrets of the Mind',
-      songDuration: '7:47',
-      ownerUsername: 'user2',
-      songUrl: 'https://audiocdn.epidemicsound.com/ES_ITUNES/0koJZQ_Secrets%20of%20the%20Mind/ES_Secrets%20of%20the%20Mind.mp3',
-      isLiked: false
-    },
-    {
-      songId: 4,
-      songName: 'corto',
-      songDuration: '0:13',
-      ownerUsername: 'fabiiisb',
-      songUrl: 'https://audiocdn.epidemicsound.com/ES_ITUNES/Multimedia%20770/ES_Multimedia%20770.mp3',
-      isLiked: true
+  const [likedList, setLikedList] = useState([])
+
+  useEffect(() => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/private/likes`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        if (!res.error) {
+          const data = res.data.recordset
+          setLikedList(data)
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, [])
+
+  const addToLikePlaylist = async (songId) => {
+    const exists = likedList.some(item => item.songId === songId)
+    if (!exists) {
+      await FetchAddLike(songId)
+
+      setLikedList(prevList => [...prevList, { songId }])
     }
-  ])
+  }
 
-  const handleLikeSong = (songId) => {
-    const updatedList = songList.map(song =>
-      song.songId === songId ? { ...song, isLiked: !song.isLiked } : song
-    )
-    setSongList(updatedList)
+  const removeFromLikePlaylist = async (songId) => {
+    const updatedList = likedList.filter(item => item.songId !== songId)
+    if (updatedList.length !== likedList.length) {
+      await FetchRemoveLike(songId)
 
-    const selectedSong = updatedList.find(song => song.songId === songId)
-
-    console.log(
-      '%cLa canción: %c' + songId + '%c cambiara su like a: %c' + selectedSong.isLiked,
-      'color: #09F76CA4;',
-      'color: royalblue;',
-      'color: #09F76CA4;',
-      'color: royalblue;'
-    )
+      setLikedList(updatedList)
+    }
   }
 
   return (
-  <likeContext.Provider
-    value={{
-      songList,
-      handleLikeSong
-    }}
-  >
-    {children}
-  </likeContext.Provider>
+    <likeContext.Provider
+      value={{
+        likedList,
+        addToLikePlaylist,
+        removeFromLikePlaylist
+      }}
+    >
+      {children}
+    </likeContext.Provider>
   )
 }
 
