@@ -5,6 +5,8 @@ import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
 import likeContext from '@/context/LikeButton/likeContext'
 import VolumeBar from './miniComp/VolumeBar'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export const BtnPlaySong = ({ className, songId, songUrl, songName, songList }) => {
   const { handlePlaySong, handlePauseSong, activeSong, isReproducing, randomizeSongArray, random, setActualSongIndex } = useContext(playerContext)
@@ -127,6 +129,8 @@ export const BtnReplaySong = ({ className }) => {
 }
 
 export const BtnLikeSong = ({ className, size, songId }) => {
+  const router = useRouter()
+  const { data: session } = useSession()
   const { likedList, addToLikePlaylist, removeFromLikePlaylist } = useContext(likeContext)
   const [like, setLike] = useState(false)
 
@@ -136,10 +140,14 @@ export const BtnLikeSong = ({ className, size, songId }) => {
   }, [songId, likedList])
 
   const likeSong = (songId) => {
-    if (like === true) {
-      removeFromLikePlaylist(songId)
+    if (session?.user) {
+      if (like === true) {
+        removeFromLikePlaylist(songId)
+      } else {
+        addToLikePlaylist(songId)
+      }
     } else {
-      addToLikePlaylist(songId)
+      router.push('/auth/login')
     }
   }
 

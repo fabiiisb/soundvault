@@ -2,10 +2,17 @@
 import { useState, useEffect } from 'react'
 import likeContext from './likeContext'
 import { FetchAddLike, FetchRemoveLike } from '@/utils/fetchs'
+import { useSession } from 'next-auth/react'
+
 const LikeCompo = ({ children }) => {
+  const { data: session } = useSession()
   const [likedList, setLikedList] = useState([])
 
   useEffect(() => {
+    if (session?.user !== undefined || null) fetchGetLikes()
+  }, [session?.user.name])
+
+  const fetchGetLikes = () => {
     fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/private/likes`,
       {
@@ -25,7 +32,7 @@ const LikeCompo = ({ children }) => {
       .catch(err => {
         console.error(err)
       })
-  }, [])
+  }
 
   const addToLikePlaylist = async (songId) => {
     const exists = likedList.some(item => item.songId === songId)
