@@ -59,7 +59,6 @@ const LikesPage = () => {
 
   return (
     <div>
-      {console.log(songData)}
       <SongUl
         songList={songData}
         gradientColor={'from-bgBlur-700'}
