@@ -18,42 +18,42 @@ const SongPage = () => {
       user: 'Eminem',
       duration: '6:03',
       id: 'similarsong1',
-      image_url: 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'
+      image_url: 'https://placehold.co/500x500'
     },
     {
       songName: 'Lose Yourself',
       user: 'Eminem',
       duration: '5:26',
       id: 'similarsong2',
-      image_url: 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'
+      image_url: 'https://placehold.co/500x500'
     },
     {
       songName: 'Juicy',
       user: 'The Notorious B.I.G.',
       duration: '5:02',
       id: 'similarsong3',
-      image_url: 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'
+      image_url: 'https://placehold.co/500x500'
     },
     {
       songName: 'Nuthin\' But a \'G\' Thang asd asdasd asd asdasd as dasda sdasd xd',
       user: 'Dr. Dre',
       duration: '3:58',
       id: 'similarsong4',
-      image_url: 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'
+      image_url: 'https://placehold.co/500x500'
     },
     {
       songName: 'Gin and Juice',
       user: 'Snoop Dogg',
       duration: '3:31',
       id: 'similarsong5',
-      image_url: 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'
+      image_url: 'https://placehold.co/500x500'
     },
     {
       songName: 'Gin and Juice 2',
       user: 'Snoop Dogg',
       duration: '3:31',
       id: 'similarsong6',
-      image_url: 'https://media.discordapp.net/attachments/945077390839787570/1121637709765681213/reinboughshawty_AlaSka_Ska_Covers_Unleashed_Visualize_the_vibra_20ba48f3-0cda-41c3-9360-acfa4b06e8f1.png?ex=6556d905&is=65446405&hm=845b3ceb01e66054b973bf696819f830eab5b24a20b3bdefc54572c36edfbdb6&=&width=671&height=671'
+      image_url: 'https://placehold.co/500x500'
     }
   ]
 
