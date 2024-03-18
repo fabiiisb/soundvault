@@ -34,7 +34,7 @@ const LikeCompo = ({ children }) => {
       })
   }
 
-  const addToLikePlaylist = async (songId) => {
+  const addToUserLikeList = async (songId) => {
     const exists = likedList.some(item => item.songId === songId)
     if (!exists) {
       await FetchAddLike(songId)
@@ -43,7 +43,7 @@ const LikeCompo = ({ children }) => {
     }
   }
 
-  const removeFromLikePlaylist = async (songId) => {
+  const removeFromUserLikeList = async (songId) => {
     const updatedList = likedList.filter(item => item.songId !== songId)
     if (updatedList.length !== likedList.length) {
       await FetchRemoveLike(songId)
@@ -56,8 +56,8 @@ const LikeCompo = ({ children }) => {
     <likeContext.Provider
       value={{
         likedList,
-        addToLikePlaylist,
-        removeFromLikePlaylist
+        addToUserLikeList,
+        removeFromUserLikeList
       }}
     >
       {children}

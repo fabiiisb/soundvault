@@ -2,22 +2,37 @@
 import { Card, CardBody } from '@nextui-org/react'
 import { BtnLikeSong, BtnPlaySong } from '@/components/Player/PlayerBtns'
 import Link from 'next/link'
+import { useState } from 'react'
 
-export const SongUl = ({ songList, gradientColor }) => {
+export const SongUl = ({ songList, gradientColor, deleteOnDislike }) => {
+  const [updatedSongList, setUpdatedSongList] = useState(songList)
+
+  const removeSongFromList = (songId) => {
+    if (deleteOnDislike) {
+      const filteredList = updatedSongList.filter((song) => song.songId !== songId)
+
+      setUpdatedSongList(filteredList)
+    }
+  }
+
   return (
     <div>
       <Card
         className={`flex relative gap-3 backdrop-blur-lg bg-content1/70  bg-gradient-to-r ${gradientColor} to-70% sm:to-40%`}
       >
-        {songList.map((song) => (
-          <SongLi key={song.songId} song={song} songList={songList}/>
+        {updatedSongList.map((song) => (
+          <SongLi
+            key={song.songId}
+            song={song}
+            songList={songList}
+            removeSongFromList={removeSongFromList} />
         ))}
       </Card>
     </div>
   )
 }
 
-export const SongLi = ({ song, songList }) => {
+export const SongLi = ({ song, songList, removeSongFromList }) => {
   return (
     <CardBody
       className='group px-3 py-1 first:mt-2 last:mb-2 hover:bg-default-500/20 z-10'
@@ -55,7 +70,7 @@ export const SongLi = ({ song, songList }) => {
           <BtnLikeSong
             songId={song.songId}
             className={' group-hover:visible'} // invisible
-            isLiked={song.isLiked}
+            removeSongFromList={removeSongFromList}
           />
           <p className='text-small text-foreground/80'>
             {song.songDuration}

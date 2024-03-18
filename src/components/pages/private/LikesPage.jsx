@@ -62,6 +62,7 @@ const LikesPage = () => {
       <SongUl
         songList={songData}
         gradientColor={'from-bgBlur-700'}
+        deleteOnDislike={true}
       />
     </div>
   )

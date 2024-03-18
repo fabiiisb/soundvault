@@ -128,10 +128,10 @@ export const BtnReplaySong = ({ className }) => {
   )
 }
 
-export const BtnLikeSong = ({ className, size, songId }) => {
+export const BtnLikeSong = ({ className, size, songId, removeSongFromList }) => {
   const router = useRouter()
   const { data: session } = useSession()
-  const { likedList, addToLikePlaylist, removeFromLikePlaylist } = useContext(likeContext)
+  const { likedList, addToUserLikeList, removeFromUserLikeList } = useContext(likeContext)
   const [like, setLike] = useState(false)
 
   useEffect(() => {
@@ -142,9 +142,11 @@ export const BtnLikeSong = ({ className, size, songId }) => {
   const likeSong = (songId) => {
     if (session?.user) {
       if (like === true) {
-        removeFromLikePlaylist(songId)
+        removeFromUserLikeList(songId)
+
+        removeSongFromList(songId)
       } else {
-        addToLikePlaylist(songId)
+        addToUserLikeList(songId)
       }
     } else {
       router.push('/auth/login')
