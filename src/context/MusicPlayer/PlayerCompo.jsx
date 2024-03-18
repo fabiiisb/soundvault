@@ -33,10 +33,6 @@ const PlayerCompo = ({ children }) => {
     }
   })
 
-  // useEffect(() => {
-  //   console.log(songArray)
-  // }, [songArray])
-
   // useffect progress bar
   useEffect(() => {
     audioRef.current.addEventListener('timeupdate', updateProgressBar)
@@ -156,15 +152,7 @@ const PlayerCompo = ({ children }) => {
     }
   }
 
-  const nextRandomSong = () => {
-    if (actualSongIndex + 1 < randomSongArray.length) {
-      const nextSongIndex = actualSongIndex + 1
-      const nextSong = randomSongArray[nextSongIndex]
-
-      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, randomSongArray)
-    }
-  }
-
+  // random
   const handleRandom = () => {
     if (replay) setReplay((v) => !v)
 
@@ -176,6 +164,24 @@ const PlayerCompo = ({ children }) => {
     } else {
       const result = findActualSongIndex(songArray, activeSong)
       setActualSongIndex(result)
+    }
+  }
+
+  const nextRandomSong = () => {
+    if (actualSongIndex + 1 < randomSongArray.length) {
+      const nextSongIndex = actualSongIndex + 1
+      const nextSong = randomSongArray[nextSongIndex]
+
+      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, randomSongArray)
+    }
+  }
+
+  const prevRandomSong = () => {
+    if (actualSongIndex > 0) {
+      const nextSongIndex = actualSongIndex - 1
+      const nextSong = randomSongArray[nextSongIndex]
+
+      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, randomSongArray)
     }
   }
 
@@ -194,15 +200,6 @@ const PlayerCompo = ({ children }) => {
       const nextSong = songArray[nextSongIndex]
 
       handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, songArray)
-    }
-  }
-
-  const prevRandomSong = () => {
-    if (actualSongIndex > 0) {
-      const nextSongIndex = actualSongIndex - 1
-      const nextSong = randomSongArray[nextSongIndex]
-
-      handlePlaySong(nextSong.songUrl, nextSong.songId, nextSong.songName, randomSongArray)
     }
   }
 
@@ -248,14 +245,15 @@ const PlayerCompo = ({ children }) => {
     setVolume(value)
   }
 
+  // replay
   const handleReplay = () => {
     if (random) setRandom((v) => !v)
 
     if (random === false) {
-      const result = findActualSongIndex(randomSongArray, activeSong)
+      const result = findActualSongIndex(songArray, activeSong)
       setActualSongIndex(result)
     } else {
-      const result = findActualSongIndex(songArray, activeSong)
+      const result = findActualSongIndex(randomSongArray, activeSong)
       setActualSongIndex(result)
     }
 
