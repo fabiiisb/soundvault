@@ -144,7 +144,7 @@ export const BtnLikeSong = ({ className, size, songId, removeSongFromList }) => 
       if (like === true) {
         removeFromUserLikeList(songId)
 
-        removeSongFromList(songId)
+        if (removeSongFromList) removeSongFromList(songId)
       } else {
         addToUserLikeList(songId)
       }
