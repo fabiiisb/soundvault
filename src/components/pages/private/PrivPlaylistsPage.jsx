@@ -32,7 +32,7 @@ const PrivPlaylists = () => {
   if (!playlistData) {
     return (
       <>
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My playlists</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit playlists</h1>
 
         <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
           {Array.from({ length: 10 }, (_, index) => (
@@ -71,7 +71,7 @@ const PrivPlaylists = () => {
     return (
       <>
 
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My playlists</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit playlists</h1>
         <section className='flex flex-col gap-5 '>
           <div className='mx-auto mt-2'>
             <p className='text-xl font-semibold'>
@@ -95,7 +95,7 @@ const PrivPlaylists = () => {
 
   return (
     <>
-      <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My playlists</h1>
+      <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit playlists</h1>
 
       <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
         {playlistData.map((playlist) => (

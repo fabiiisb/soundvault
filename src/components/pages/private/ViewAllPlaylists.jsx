@@ -1,15 +1,15 @@
 'use client'
 import { useEffect, useState } from 'react'
-import AlbumCardOption from '../../private/AlbumCardOptions'
+import PlaylistCard from '@/components/Cards/PlaylistCard'
 import { Skeleton, Button } from '@nextui-org/react'
 import Link from 'next/link'
 
-const PrivAlbums = () => {
-  const [albumData, setAlbumData] = useState()
+const ViewAllPlaylists = () => {
+  const [playlistData, setPlaylistData] = useState()
 
   useEffect(() => {
     fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/private/album`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/private/playlist`,
       {
         method: 'GET',
         headers: {
@@ -21,7 +21,7 @@ const PrivAlbums = () => {
       .then(res => {
         if (!res.error) {
           const data = res.data.recordset
-          setAlbumData(data)
+          setPlaylistData(data)
         }
       })
       .catch(err => {
@@ -29,10 +29,10 @@ const PrivAlbums = () => {
       })
   }, [])
 
-  if (!albumData) {
+  if (!playlistData) {
     return (
       <>
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit albums</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My playlists</h1>
 
         <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
           {Array.from({ length: 10 }, (_, index) => (
@@ -67,15 +67,14 @@ const PrivAlbums = () => {
     )
   }
 
-  if (albumData.length === 0) {
+  if (playlistData.length === 0) {
     return (
       <>
-
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit albums</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My playlists</h1>
         <section className='flex flex-col gap-5 '>
           <div className='mx-auto mt-2'>
             <p className='text-xl font-semibold'>
-              You don&apos;t have any album
+              You don&apos;t have any playlist
             </p>
           </div>
           <div className='mx-auto'>
@@ -84,28 +83,27 @@ const PrivAlbums = () => {
               href={'/'}
               className='bg-content2 hover:text-niceOrange-400'
             >
-              Create a new album
+              Create a new playlist
             </Button>
           </div>
         </section>
-
       </>
     )
   }
 
   return (
     <>
-      <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit albums</h1>
+      <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My playlists</h1>
 
       <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
-        {albumData.map((album) => (
-          <li key={album.album_id}>
-            <AlbumCardOption
-              name={album.name}
-              year={new Date(album.creation_date).getFullYear()}
-              id={album.album_id}
-              src={album.image_url}
-              visible={album.visible}
+        {playlistData.map((playlist) => (
+          <li key={playlist.playlist_id}>
+            <PlaylistCard
+              name={playlist.name}
+              year={new Date(playlist.creation_date).getFullYear()}
+              id={playlist.playlist_id}
+              src={playlist.image_url}
+              visible={playlist.visible}
             />
           </li>
         ))}
@@ -115,4 +113,4 @@ const PrivAlbums = () => {
   )
 }
 
-export default PrivAlbums
+export default ViewAllPlaylists

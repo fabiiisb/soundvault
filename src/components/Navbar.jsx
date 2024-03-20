@@ -1,6 +1,6 @@
 'use client'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, DropdownSection, Button, Skeleton } from '@nextui-org/react'
-import { SearchNormal1, Profile, MusicFilter, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely } from 'iconsax-react'
+import { SearchNormal1, Profile, MessageEdit, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
 import { useSession, signOut } from 'next-auth/react'
@@ -25,16 +25,16 @@ const NavbarUi = () => {
       url: '/private/likes'
     },
     {
-      key: 'albums',
+      key: 'collections',
       icon: <MusicPlaylist />,
-      title: 'My albums',
-      url: '/private/albums'
+      title: 'My collections',
+      url: '/private/collections'
     },
     {
-      key: 'playlists',
-      icon: <MusicFilter />,
-      title: 'My playlists',
-      url: '/private/playlists'
+      key: 'editCollections',
+      icon: <MessageEdit />,
+      title: 'Edit my collections',
+      url: '/private/editCollections'
     },
     {
       key: 'configurations',

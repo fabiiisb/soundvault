@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import AlbumCardOption from '../../private/AlbumCardOptions'
+import AlbumCard from '@/components/Cards/AlbumCard'
 import { Skeleton, Button } from '@nextui-org/react'
 import Link from 'next/link'
 
-const PrivAlbums = () => {
+const ViewAllAlbums = () => {
   const [albumData, setAlbumData] = useState()
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const PrivAlbums = () => {
   if (!albumData) {
     return (
       <>
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit albums</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My albums</h1>
 
         <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
           {Array.from({ length: 10 }, (_, index) => (
@@ -71,7 +71,7 @@ const PrivAlbums = () => {
     return (
       <>
 
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit albums</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My albums</h1>
         <section className='flex flex-col gap-5 '>
           <div className='mx-auto mt-2'>
             <p className='text-xl font-semibold'>
@@ -95,12 +95,11 @@ const PrivAlbums = () => {
 
   return (
     <>
-      <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Edit albums</h1>
-
+      <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>My albums</h1>
       <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
         {albumData.map((album) => (
           <li key={album.album_id}>
-            <AlbumCardOption
+            <AlbumCard
               name={album.name}
               year={new Date(album.creation_date).getFullYear()}
               id={album.album_id}
@@ -109,10 +108,9 @@ const PrivAlbums = () => {
             />
           </li>
         ))}
-
       </ul>
     </>
   )
 }
 
-export default PrivAlbums
+export default ViewAllAlbums
