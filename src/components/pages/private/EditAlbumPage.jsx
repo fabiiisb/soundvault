@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { Image, Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/react'
 import { Calendar, Eye, EyeSlash, DocumentUpload, ArrowLeft, MusicPlaylist } from 'iconsax-react'
-import SongListOptions from '@/components/private/SongListOptions'
+import AlbumSongListOptions from '@/components/private/AlbumSongListOptions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
 
 const EditAlbumPage = () => {
@@ -346,7 +346,7 @@ const EditAlbumPage = () => {
 
       <section className='mt-10'>
         {songData.length >= 1
-          ? <SongListOptions songList={songData} />
+          ? <AlbumSongListOptions songList={songData} />
           : ''
         }
       </section>

@@ -1,10 +1,11 @@
 'use client'
-import { Card, CardBody, Button } from '@nextui-org/react'
+import { Card, CardBody, Button, Tooltip } from '@nextui-org/react'
 import { BtnPlaySong } from '@/components/Player/PlayerBtns'
-import { Edit } from 'iconsax-react'
+import { SaveRemove } from 'iconsax-react'
+
 import Link from 'next/link'
 
-const SongListOptions = ({ songList }) => {
+const PlaylistSongListOptions = ({ songList }) => {
   return (
     <div>
       <Card
@@ -54,15 +55,17 @@ const SongLi = ({ song }) => {
             radius="full"
             variant="light"
           >
-            <Edit />
+            <Tooltip content="Remove from playlist" delay={200} closeDelay={1}>
+              <SaveRemove className='text-danger/80'/>
+            </Tooltip>
           </Button>
           <p className='text-small text-foreground/80'>
             {song.songDuration}
           </p>
         </div>
       </div>
-    </CardBody>
+    </CardBody >
   )
 }
 
-export default SongListOptions
+export default PlaylistSongListOptions
