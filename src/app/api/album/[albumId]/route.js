@@ -13,7 +13,7 @@ export async function GET (request, { params }) {
     pool = await getConn()
     const result = await pool.request()
       .input('ALBUM_ID', sql.Int, params.albumId)
-      .input('USER_ID', sql.VarChar(20), session?.user?.id)
+      .input('USER_ID', sql.Int, session?.user?.id)
       .execute('GetAlbumWithSongs')
 
     if (result.returnValue === 0) {
