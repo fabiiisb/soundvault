@@ -1,6 +1,6 @@
 'use client'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, DropdownSection, Button, Skeleton } from '@nextui-org/react'
-import { SearchNormal1, Profile, MessageEdit, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely } from 'iconsax-react'
+import { SearchNormal1, MessageEdit, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
 import { useSession, signOut } from 'next-auth/react'
@@ -150,18 +150,16 @@ const UserDropDown = ({ username, image, UserMenuItems }) => {
           >
             <DropdownSection showDivider >
               <DropdownItem
+                as={Link} href={`/user/${username}`}
                 startContent={<UserSquare variant='Bulk' />}
                 isReadOnly
+
               >
                 <p className="font-semibold">{username}</p>
               </DropdownItem>
             </DropdownSection>
 
             <DropdownSection showDivider className=''>
-              <DropdownItem key="profile" as={Link} href={`/user/${username}`}
-                startContent={<Profile />} >
-                My profile
-              </DropdownItem>
               {
                 UserMenuItems.map((item) => (
                   <DropdownItem
