@@ -1,5 +1,5 @@
 'use client'
-import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross, ArchiveAdd } from 'iconsax-react'
+import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross, Add } from 'iconsax-react'
 import { Button } from '@nextui-org/react'
 import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
@@ -7,6 +7,7 @@ import likeContext from '@/context/LikeButton/likeContext'
 import VolumeBar from './miniComp/VolumeBar'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import AddToPlaylistModal from '../Modals/AddToPlaylistModal'
 
 export const BtnPlaySong = ({ className, songId, songUrl, songName, songList }) => {
   const { handlePlaySong, handlePauseSong, activeSong, isReproducing, randomizeSongArray, random, setActualSongIndex } = useContext(playerContext)
@@ -162,11 +163,31 @@ export const BtnLikeSong = ({ className, size, songId, removeSongFromList }) => 
       onClick={() => likeSong(songId)}
     >
       <Heart
-        variant={like ? 'Bold' : 'Linear'}
-        className={like ? 'text-niceOrange-400' : 'text-inherit'}
+
+        className={like ? 'text-niceOrange-400 fill-niceOrange-400' : 'text-inherit'}
         size={size}
       />
     </Button>
+  )
+}
+
+export const BtnCreateNewPlaylist = () => {
+  return (
+    <Button
+      className={'bg-foreground/10 data-[hover]:text-niceOrange-400' }
+      variant="light"
+    >
+      Create new playlist <Add />
+    </Button>
+  )
+}
+
+export const BtnAddToPlaylist = ({ songId }) => {
+  return (
+    <AddToPlaylistModal
+      songId={songId}
+    >
+    </AddToPlaylistModal>
   )
 }
 
@@ -190,18 +211,5 @@ export const VolumeControl = ({ className }) => {
       <VolumeBar />
     </div>
 
-  )
-}
-
-export const BtnAddToPlaylist = ({ className }) => {
-  return (
-    <Button
-    isIconOnly
-    className={'text-default-900/60 data-[hover]:bg-foreground/10 ' + className}
-    radius="full"
-    variant="light"
-  >
-    <ArchiveAdd />
-  </Button>
   )
 }

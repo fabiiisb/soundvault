@@ -4,6 +4,7 @@ import NavbarUi from '@/components/Navbar'
 import MusicNav from '@/components/Player/PlayerNav'
 import PlayerCompo from '@/context/MusicPlayer/PlayerCompo'
 import LikeCompo from '@/context/LikeButton/LikeCompo'
+import PlaylistCompo from '@/context/PlaylistsContext/PlaylistCompo'
 
 export const metadata = {
   title: 'Soundvault',
@@ -18,13 +19,15 @@ export default function RootLayout ({ children }) {
         <Providers>
           <PlayerCompo>
             <LikeCompo>
-            <NavbarUi />
-            <main
-              className='relative max-w-[1024px] mx-auto mb-[96px] sm:mb-[56px] px-6 py-5 z-10 '
-            >
-              {children}
-            </main>
-            <MusicNav />
+              <PlaylistCompo>
+                <NavbarUi />
+                <main
+                  className='relative max-w-[1024px] mx-auto mb-[96px] sm:mb-[56px] px-6 py-5 z-10 '
+                >
+                  {children}
+                </main>
+                <MusicNav />
+              </PlaylistCompo>
             </LikeCompo>
           </PlayerCompo>
         </Providers>

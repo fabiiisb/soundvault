@@ -1,7 +1,8 @@
 'use client'
-import { BtnLikeSong, BtnPlaySong } from '@/components/Player/PlayerBtns'
-import { Image, Button, Tooltip } from '@nextui-org/react'
-import { ArchiveAdd, Timer1, Calendar, Play } from 'iconsax-react'
+import { BtnPlaySong } from '@/components/Player/PlayerBtns'
+import { Image } from '@nextui-org/react'
+import { Timer1, Calendar, Play } from 'iconsax-react'
+
 import Link from 'next/link'
 
 export default function SongView ({ songName, user, src, duration, date, reproductions, songCount, songUrl, songId }) {
@@ -26,11 +27,13 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
             {songName}
           </h1>
 
-          <Link className="text-white/70 no-underline hover:underline mb-4" href={`/user/${user}`}>
-            {user}
-          </Link>
+          <div>
+            <Link className="text-white/70 no-underline hover:underline mb-4" href={`/user/${user}`}>
+              {user}
+            </Link>
+          </div>
 
-          <div className="flex flex-col  gap-4 ">
+          <div className="flex flex-col gap-4 mt-2">
             <div className='flex flex-wrap gap-2 text-foreground-50'>
               <div className='h-12 w-12 '>
                 <BtnPlaySong
@@ -39,24 +42,6 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
                   songUrl={songUrl}
                   songName={songName}
                 />
-              </div>
-              <div className='flex items-center'>
-                <BtnLikeSong songId={songId}/>
-              </div>
-              <div className='flex items-center'>
-                <Tooltip
-                  content={'Add to playlist'}
-                  closeDelay={100}
-                >
-                  <Button
-                    isIconOnly
-                    className={'text-default-900/60 data-[hover]:bg-foreground/10 '}
-                    radius="full"
-                    variant="light"
-                  >
-                    <ArchiveAdd />
-                  </Button>
-                </Tooltip>
               </div>
 
             </div>
