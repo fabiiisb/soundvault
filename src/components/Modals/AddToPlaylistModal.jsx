@@ -60,7 +60,7 @@ export default function AddToPlaylistModal ({ children, songId }) {
         </Button>
       </Tooltip>
 
-      <Modal isOpen={isOpen} onClose={onClose} backdrop='blur' scrollBehavior={'inside'}>
+      <Modal isOpen={isOpen} onClose={onClose} backdrop='blur' scrollBehavior={'inside'} placement={'center'}>
         <ModalContent>
           <ModalHeader className="flex flex-col gap-1">
             Add to playlist
@@ -139,7 +139,9 @@ const AllPlaylists = ({ list, songId }) => {
 
   return (
     <ul className='flex flex-col gap-1 bg-content2 shadow-medium rounded-medium p-2 '>
-      {list.map((playlist, index) => (
+
+      { list.length !== 0
+        ? list.map((playlist, index) => (
         <li
           key={playlist.playlist_id}
           className={playlist.visible === false ? 'hidden ' : ' ' + 'p-2 rounded-lg hover:bg-content1 hover:shadow-medium'}
@@ -164,7 +166,9 @@ const AllPlaylists = ({ list, songId }) => {
             </Button>
           </div>
         </li>
-      ))}
+        ))
+        : <p className='mx-auto font-semibold'>You don&apos;t have any playlists created</p>
+      }
     </ul>
   )
 }

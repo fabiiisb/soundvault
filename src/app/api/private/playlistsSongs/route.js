@@ -1,4 +1,4 @@
-import { respMsgWithData } from '@/utils/respMsg'
+import { respMsgWithData, respMsg } from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
 import { getServerSession } from 'next-auth'
@@ -40,7 +40,7 @@ export async function POST (request) {
       .input('USER_ID', sql.Int, session.user.id)
       .execute('PrivateAddSongToPlaylist')
     if (result.returnValue === 0) {
-      return respMsgWithData('Success', false, 200, result)
+      return respMsg('Success', false, 200)
     }
   } catch (err) {
     return dbError(err, pool)
@@ -65,7 +65,7 @@ export async function DELETE (request) {
       .execute('PrivateRemoveSongFromPlaylist')
 
     if (result.returnValue === 0) {
-      return respMsgWithData('Success', false, 200, result)
+      return respMsg('Success', false, 200)
     }
   } catch (err) {
     return dbError(err, pool)
