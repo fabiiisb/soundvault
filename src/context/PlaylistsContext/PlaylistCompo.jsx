@@ -29,7 +29,6 @@ const PlaylistCompo = ({ children }) => {
           const parsedData = JSON.parse(Object.values(data)[0])
 
           setUserPlaylists(parsedData)
-          console.log(parsedData)
         }
       })
       .catch(err => {
