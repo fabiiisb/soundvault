@@ -26,3 +26,27 @@ export async function GET () {
     }
   }
 }
+
+export async function POST (request) {
+  let pool
+  const session = await getServerSession(authOptions)
+  const playlistName = await request.json()
+
+  try {
+    pool = await getConn()
+    const result = await pool.request()
+      .input('PLAYLIST_NAME', sql.VarChar(50), playlistName)
+      .input('USER_ID', sql.Int, session.user.id)
+      .execute('PrivateCreateNewPlaylist')
+
+    if (result.returnValue === 0) {
+      return respMsgWithData('Success', false, 200, result)
+    }
+  } catch (err) {
+    return dbError(err, pool)
+  } finally {
+    if (pool) {
+      pool.close()
+    }
+  }
+}

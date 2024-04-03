@@ -1,5 +1,5 @@
 'use client'
-import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross, Add } from 'iconsax-react'
+import { RepeateOne, Previous, PauseCircle, PlayCircle, Next, Shuffle, Heart, VolumeHigh, VolumeCross } from 'iconsax-react'
 import { Button } from '@nextui-org/react'
 import { useContext, useState, useEffect } from 'react'
 import playerContext from '@/context/MusicPlayer/playerContext'
@@ -167,17 +167,6 @@ export const BtnLikeSong = ({ className, size, songId, removeSongFromList }) => 
         className={like ? 'text-niceOrange-400 fill-niceOrange-400' : 'text-inherit'}
         size={size}
       />
-    </Button>
-  )
-}
-
-export const BtnCreateNewPlaylist = () => {
-  return (
-    <Button
-      className={'bg-foreground/10 data-[hover]:text-niceOrange-400' }
-      variant="light"
-    >
-      Create new playlist <Add />
     </Button>
   )
 }
