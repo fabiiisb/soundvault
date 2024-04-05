@@ -6,6 +6,7 @@ import { Image, Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/
 import { Calendar, Eye, EyeSlash, DocumentUpload, ArrowLeft, MusicPlaylist } from 'iconsax-react'
 import PlaylistSongListOptions from '@/components/private/PlaylistSongListOptions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
+import DeletePlaylistModal from '@/components/Modals/DeletePlaylistModal'
 
 const EditPlaylistPage = () => {
   const playlistId = useParams().playlistId
@@ -30,7 +31,6 @@ const EditPlaylistPage = () => {
     fontWeight: 600,
     fontSize: '1.15rem',
     lineHeight: '1.75',
-    textAlign: 'center',
     width: '100%'
   }
 
@@ -253,10 +253,10 @@ const EditPlaylistPage = () => {
       <h1 className='text-2xl font-bold '
       >
         <span className='underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>
-          Edit your playlist:
+          Edit playlist:
         </span>
         <span>
-          {' ' + originalPlaylistName}
+          {' ' + '"' + originalPlaylistName + '"'}
         </span>
       </h1>
       <section className='block sm:flex mt-6'>
@@ -284,18 +284,16 @@ const EditPlaylistPage = () => {
 
         </div>
 
-        <div className='w-full text-center'>
-          <div className='flex items-center justify-center mt-5 sm:mt-0'>
-            <p className='font-semibold text-niceOrange-400'>
-              Actual data&nbsp;
-            </p>:&nbsp;
+        <div className='w-full'>
+          <div className='w-full flex items-center mt-5 sm:mt-0'>
             <IconsWithData
               visibility={originalVisibility}
               date={playlistData.playlist_creation_date}
+              playlistId={playlistId}
+              playlistName={playlistData.playlist_name}
             />
           </div>
-
-          <form className='flex flex-col gap-6 mt-6'>
+          <form className='flex flex-col gap-5 mt-5'>
             <Input
               style={inputStyles}
               placeholder="Enter your playlist name"
@@ -346,8 +344,23 @@ const EditPlaylistPage = () => {
 
       <section className='mt-10'>
         {songData.length >= 1
-          ? <PlaylistSongListOptions songList={songData} />
-          : ''
+          ? <PlaylistSongListOptions songList={songData} playlistId={playlistId} />
+          : <section className='flex flex-col gap-5 '>
+            <div className='mx-auto mt-2'>
+              <p className='text-xl font-semibold'>
+                You don&apos;t have any song on this playlist
+              </p>
+            </div>
+            <div className='mx-auto'>
+              <Button
+                as={Link}
+                href={'/'}
+                className='bg-content2 hover:text-niceOrange-400'
+              >
+                Go explore!
+              </Button>
+            </div>
+          </section>
         }
       </section>
 
@@ -355,10 +368,14 @@ const EditPlaylistPage = () => {
   )
 }
 
-const IconsWithData = ({ date, visibility }) => {
+const IconsWithData = ({ date, visibility, playlistId, playlistName }) => {
   return (
-    <div className='flex justify-center gap-3 text-small text-white/80 '>
+    <div className='w-full flex gap-2 text-small text-white/80 items-center bg-content1 rounded-medium pl-3'>
       <div className="flex items-center gap-1">
+        <p className='font-semibold text-niceOrange-400'>
+          Playlist data:
+        </p>
+
         {visibility === 'visible'
           ? (
             <p className='flex items-center gap-1'>
@@ -374,12 +391,14 @@ const IconsWithData = ({ date, visibility }) => {
             )
         }
       </div>
-      /
       <div className="flex items-center gap-1" >
         <Calendar size={15} className='text-white' />
         <p>
           {new Date(date).getFullYear()}
         </p>
+      </div>
+      <div className='ml-auto'>
+        <DeletePlaylistModal playlistId={playlistId} playlistName={playlistName}/>
       </div>
     </div>
   )

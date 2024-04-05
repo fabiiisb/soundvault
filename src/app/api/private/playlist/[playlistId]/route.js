@@ -59,3 +59,26 @@ export async function PUT (request, { params }) {
     }
   }
 }
+
+export async function DELETE (request, { params }) {
+  let pool
+  const session = await getServerSession(authOptions)
+
+  try {
+    pool = await getConn()
+    const result = await pool.request()
+      .input('PLAYLIST_ID', sql.Int, params.playlistId)
+      .input('USER_ID', sql.Int, session.user.id)
+      .execute('PrivateDeletePlaylist')
+
+    if (result.returnValue === 0) {
+      return respMsg('Success', false, 200)
+    }
+  } catch (err) {
+    return dbError(err, pool)
+  } finally {
+    if (pool) {
+      pool.close()
+    }
+  }
+}

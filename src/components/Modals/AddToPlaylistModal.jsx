@@ -232,13 +232,6 @@ const AllPlaylists = ({ list, songId }) => {
     if (bool === true) {
       removeFromPlaylist(playlistId, songId)
 
-      const updatedUserPlaylists = [...userPlaylists]
-      const updatedPlaylist = updatedUserPlaylists.find(
-        (playlist) => playlist.playlist_id === playlistId
-      )
-      updatedPlaylist.songs = updatedPlaylist.songs.filter((song) => song !== songId)
-      setUserPlaylists(updatedUserPlaylists)
-
       const updatedIsOnPlaylist = [...isOnPlaylist]
       updatedIsOnPlaylist[index] = false
       setIsOnPlaylist(updatedIsOnPlaylist)

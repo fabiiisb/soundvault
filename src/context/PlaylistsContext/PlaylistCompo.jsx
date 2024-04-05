@@ -36,12 +36,29 @@ const PlaylistCompo = ({ children }) => {
       })
   }
 
+  const deleteObjectFromPlaylist = async (playlistId) => {
+    const newPlaylist = await userPlaylists.filter(playlist => playlist.playlist_id !== playlistId)
+
+    setUserPlaylists(newPlaylist)
+  }
+
+  const deleteSongFromPlaylist = async (songId, playlistId) => {
+    const updatedUserPlaylists = [...userPlaylists]
+    const updatedPlaylist = updatedUserPlaylists.find(
+      (playlist) => playlist.playlist_id === playlistId
+    )
+    updatedPlaylist.songs = updatedPlaylist.songs.filter((song) => song !== songId)
+    setUserPlaylists(updatedUserPlaylists)
+  }
+
   const addToPlaylist = async (playlistId, songId) => {
     await FetchAddToPlaylist(playlistId, songId)
   }
 
   const removeFromPlaylist = async (playlistId, songId) => {
     await FetchRemoveFromPlaylist(playlistId, songId)
+
+    deleteSongFromPlaylist(parseInt(songId), parseInt(playlistId))
   }
 
   return (
@@ -50,7 +67,8 @@ const PlaylistCompo = ({ children }) => {
         setUserPlaylists,
         userPlaylists,
         addToPlaylist,
-        removeFromPlaylist
+        removeFromPlaylist,
+        deleteObjectFromPlaylist
       }}
     >
       {children}
