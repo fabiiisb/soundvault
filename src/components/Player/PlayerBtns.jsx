@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import AddToPlaylistModal from '../Modals/AddToPlaylistModal'
 
-export const BtnPlaySong = ({ className, songId, songUrl, songName, songList }) => {
+export const BtnPlaySong = ({ className, songId, songUrl, songName, songList, isAvaible }) => {
   const { handlePlaySong, handlePauseSong, activeSong, isReproducing, randomizeSongArray, random, setActualSongIndex } = useContext(playerContext)
 
   const [isPlaying, setIsPlaying] = useState(false)
@@ -42,6 +42,7 @@ export const BtnPlaySong = ({ className, songId, songUrl, songName, songList }) 
       radius="full"
       variant="light"
       onClick={handlePlayButton}
+      isDisabled={isAvaible}
     >
       {
         isPlaying

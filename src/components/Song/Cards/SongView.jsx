@@ -5,7 +5,7 @@ import { Timer1, Calendar, Play } from 'iconsax-react'
 
 import Link from 'next/link'
 
-export default function SongView ({ songName, user, src, duration, date, reproductions, songCount, songUrl, songId }) {
+export default function SongView ({ songName, user, src, duration, date, reproductions, songCount, songUrl, songId, isAvaible }) {
   return (
     <div className="border-none rounded-lg">
       <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center">
@@ -41,6 +41,7 @@ export default function SongView ({ songName, user, src, duration, date, reprodu
                   songId={songId}
                   songUrl={songUrl}
                   songName={songName}
+                  isAvaible={isAvaible}
                 />
               </div>
 

@@ -3,7 +3,7 @@ import SongView from '@/components/Song/Cards/SongView'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { SongUl } from '@/components/Song/SongList'
-import { Skeleton } from '@nextui-org/react'
+import { Skeleton, Button } from '@nextui-org/react'
 import { MusicSquareSearch, ArrowLeft } from 'iconsax-react'
 import Link from 'next/link'
 import Alert from '@/components/Alerts/Alert'
@@ -96,9 +96,7 @@ const PlaylistPage = () => {
 
         </section>
         <section className='mt-10'>
-          <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Songs</h1>
           <Skeleton className='rounded-large h-[400px]'>
-
           </Skeleton>
         </section>
       </>
@@ -114,15 +112,33 @@ const PlaylistPage = () => {
           src={playlistData.playlist_image_url}
           date={new Date(playlistData.playlist_creation_date).getFullYear()}
           songCount={songData.length}
+          isAvaible={songData.length === 0}
         />
       </section>
       <section className='mt-10'>
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Songs</h1>
+        {songData.length === 0
+          ? <section className='flex flex-col gap-5 '>
+            <div className='mx-auto mt-2'>
+              <p className='text-xl font-semibold'>
+                This playlist does not contain any songs
+              </p>
+            </div>
+            <div className='mx-auto'>
+              <Button
+                as={Link}
+                href={'/'}
+                className='bg-content2 hover:text-niceOrange-400'
+              >
+                Go home!
+              </Button>
+            </div>
+          </section>
+          : <SongUl
+            songList={songData}
+            gradientColor={'from-niceOrange-600'}
+          />
 
-        <SongUl
-          songList={songData}
-          gradientColor={'from-niceOrange-600'}
-        />
+        }
 
       </section>
     </>
