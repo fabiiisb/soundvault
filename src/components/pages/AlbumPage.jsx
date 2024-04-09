@@ -97,7 +97,6 @@ const AlbumPage = () => {
         </section>
         <section className='mt-10'>
           <Skeleton className='rounded-large h-[400px]'>
-
           </Skeleton>
         </section>
       </>
