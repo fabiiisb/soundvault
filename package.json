@@ -11,6 +11,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.1.13",
     "bcrypt": "5.1.1",
+    "cloudinary": "2.2.0",
     "cors": "^2.8.5",
     "framer-motion": "10.16.4",
     "iconsax-react": "0.0.8",
@@ -20,7 +21,8 @@
     "picocolors": "1.0.0",
     "react": "18",
     "react-dom": "18",
-    "react-toastify": "^10.0.3",
+    "react-easy-crop": "^5.0.6",
+    "react-toastify": "10.0.3",
     "zod": "3.22.4"
   },
   "devDependencies": {
