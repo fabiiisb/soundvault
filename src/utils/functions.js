@@ -7,3 +7,27 @@ export const formatToMinutes = (duration) => {
 
   return `${formattedMinutes}:${formattedSeconds}`
 }
+
+export const getDuration = async (src) => {
+  const audio = new Audio(src)
+  return new Promise((resolve) => {
+    audio.addEventListener('loadedmetadata', () => {
+      resolve(formatToMinutes(audio.duration))
+    })
+  })
+}
+
+export const urlToFile = async (url) => {
+  const response = await fetch(url)
+  const blob = await response.blob()
+  const file = new File([blob], 'image', { type: blob.type })
+
+  return file
+}
+
+export const fileToBuffer = async (file) => {
+  const bytes = await file.arrayBuffer()
+  const bufferFile = Buffer.from(bytes)
+
+  return bufferFile
+}
