@@ -1,17 +1,10 @@
-import { respMsg, respMsgWithData } from '@/utils/respMsg'
+import { respMsgWithData } from '@/utils/respMsg'
 import { getConn } from '@/utils/db/dbConn'
 import { dbError } from '@/utils/db/dbErrors'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import sql, { MAX } from 'mssql'
-import { v2 as cloudinary } from 'cloudinary'
-import { fileToBuffer } from '@/utils/functions'
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
-})
+import { uploadSongCloudinary, uploadImageCloudinary } from '@/utils/cloundinaryUtils'
 
 export async function POST (request) {
   let pool
@@ -23,42 +16,8 @@ export async function POST (request) {
   const image = songData.get('croppedImgUrl')
   const song = songData.get('newSongUrl')
 
-  const imgBuffer = await fileToBuffer(image)
-  const songBuffer = await fileToBuffer(song)
-
-  const responseImg = await new Promise((resolve, reject) => {
-    cloudinary.uploader.upload_stream({
-      resource_type: 'image',
-      folder: 'singleImage',
-      transformation: [
-        { width: 250, height: 250, crop: 'fill' }
-      ]
-    }, (err, res) => {
-      if (err) {
-        reject(err)
-        return respMsg(err, true, 400)
-      }
-
-      resolve(res)
-    }).end(imgBuffer)
-  })
-
-  const responseSong = await new Promise((resolve, reject) => {
-    cloudinary.uploader.upload_stream({
-      resource_type: 'video',
-      folder: 'singles',
-      transformation: [
-        { audio_codec: 'mp3', bit_rate: '64k' }
-      ]
-    }, (err, res) => {
-      if (err) {
-        reject(err)
-        return respMsg(err, true, 400)
-      }
-
-      resolve(res)
-    }).end(songBuffer)
-  })
+  const responseImg = await uploadImageCloudinary(image, 'singleImage')
+  const responseSong = await uploadSongCloudinary(song, 'singles')
 
   const imgSecureUrl = responseImg.secure_url
   const imgPublicId = responseImg.public_id

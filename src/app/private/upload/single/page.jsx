@@ -146,9 +146,6 @@ const UploadSingle = () => {
       )
         .then(res => res.json())
         .then(res => {
-          console.log('respuesta front')
-          console.log(res)
-
           SuccessNotify('Song created successfully!')
           router.push(`/song/${res.data}`)
 
@@ -156,7 +153,6 @@ const UploadSingle = () => {
           setLoading(false)
         })
         .catch((err) => {
-          console.log('error front')
           console.log(err)
 
           ErrorNotify()

@@ -20,7 +20,7 @@ export const getDuration = async (src) => {
 export const urlToFile = async (url) => {
   const response = await fetch(url)
   const blob = await response.blob()
-  const file = new File([blob], 'image', { type: blob.type })
+  const file = new File([blob], 'file', { type: blob.type })
 
   return file
 }
