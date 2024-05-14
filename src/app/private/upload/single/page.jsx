@@ -67,7 +67,9 @@ const UploadSingle = () => {
     const file = e.target.files[0]
     if (!file) return
 
-    const songUrl = URL.createObjectURL(file)
+    setSongUrl(null)
+
+    const songUrl = await URL.createObjectURL(file)
 
     setSelectedSong(file.name)
     setSongUrl(songUrl)
@@ -264,7 +266,6 @@ const UploadSingle = () => {
               <div>
                 <audio controls className='mx-auto'>
                   <source src={songUrl} type="audio/mp3" />
-                  Your browser does not support the audio element.
                 </audio>
               </div>
             )}
