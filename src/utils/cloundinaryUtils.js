@@ -53,3 +53,19 @@ export const uploadSongCloudinary = async (song, folderName) => {
 
   return response
 }
+
+export const uploadMultipleSongsCloudinary = async (songs, folderName) => {
+  const uploadPromises = songs.map(async (song) => {
+    const uploadResult = await uploadSongCloudinary(song.file, folderName)
+
+    return {
+      ...uploadResult,
+      name: song.name,
+      duration: song.duration
+    }
+  })
+
+  const uploadResults = await Promise.all(uploadPromises)
+
+  return uploadResults
+}
