@@ -81,10 +81,9 @@ export async function POST (request) {
     if (result.returnValue === 0) {
       return respMsgWithData('Success', false, 200, result.recordset[0].albumId)
     } else {
-      console.log(result)
+      throw new Error(result)
     }
   } catch (err) {
-    console.log(err)
     return dbError(err, pool)
   } finally {
     if (pool) {
