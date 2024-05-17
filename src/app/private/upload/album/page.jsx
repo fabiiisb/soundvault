@@ -153,7 +153,7 @@ const UploadAlbum = () => {
       )
         .then(res => res.json())
         .then(res => {
-          SuccessNotify('Song created successfully!')
+          SuccessNotify('Album created successfully!')
           router.push(`/album/${res.data}`)
           setBtnDisabled(true)
           setLoading(false)
