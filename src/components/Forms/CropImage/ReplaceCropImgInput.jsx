@@ -6,7 +6,7 @@ import { DocumentUpload } from 'iconsax-react'
 import { urlToFile } from '@/utils/functions'
 import { ErrorNotify, SuccessNotify } from '@/components/Alerts/Toasts'
 
-const ReplaceCropImgInput = ({ actualImage, id }) => {
+const AlbumReplaceCropImgInput = ({ actualImage, id }) => {
   const [croppedImage, setCroppedImage] = useState(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [imgUrl, setImgUrl] = useState(null)
@@ -134,4 +134,4 @@ const ReplaceCropImgInput = ({ actualImage, id }) => {
   )
 }
 
-export default ReplaceCropImgInput
+export default AlbumReplaceCropImgInput

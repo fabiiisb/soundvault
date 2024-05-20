@@ -6,7 +6,7 @@ import { Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/react'
 import { Calendar, Eye, EyeSlash, ArrowLeft, MusicPlaylist } from 'iconsax-react'
 import AlbumSongListOptions from '@/components/private/AlbumSongListOptions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
-import ReplaceCropImgInput from '@/components/Forms/CropImage/ReplaceCropImgInput'
+import AlbumReplaceCropImgInput from '@/components/Forms/CropImage/ReplaceCropImgInput'
 
 const EditAlbumPage = () => {
   const albumId = useParams().albumId
@@ -261,7 +261,7 @@ const EditAlbumPage = () => {
       </h1>
       <section className='block sm:flex mt-6'>
 
-        <ReplaceCropImgInput
+        <AlbumReplaceCropImgInput
           id={albumId}
           actualImage={albumData.album_image_url}
         />
