@@ -69,3 +69,28 @@ export const uploadMultipleSongsCloudinary = async (songs, folderName) => {
 
   return uploadResults
 }
+
+export const updateImageCloudinary = async (img, publicId) => {
+  const imgBuffer = await fileToBuffer(img)
+
+  const response = await new Promise((resolve, reject) => {
+    cloudinary.uploader.upload_stream({
+      public_id: publicId,
+      resource_type: 'image',
+      overwrite: true,
+      invalidate: true,
+      transformation: [
+        { width: 250, height: 250, crop: 'fill' }
+      ]
+    }, (err, res) => {
+      if (err) {
+        reject(err)
+        return respMsg(err, true, 400)
+      }
+
+      return resolve(res)
+    }).end(imgBuffer)
+  })
+
+  return response
+}

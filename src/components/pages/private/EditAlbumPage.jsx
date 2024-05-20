@@ -2,10 +2,11 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
-import { Image, Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/react'
-import { Calendar, Eye, EyeSlash, DocumentUpload, ArrowLeft, MusicPlaylist } from 'iconsax-react'
+import { Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/react'
+import { Calendar, Eye, EyeSlash, ArrowLeft, MusicPlaylist } from 'iconsax-react'
 import AlbumSongListOptions from '@/components/private/AlbumSongListOptions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
+import ReplaceCropImgInput from '@/components/Forms/CropImage/ReplaceCropImgInput'
 
 const EditAlbumPage = () => {
   const albumId = useParams().albumId
@@ -16,7 +17,6 @@ const EditAlbumPage = () => {
   const [visibility, setVisibility] = useState()
   const [originalAlbumName, setOriginalAlbumName] = useState()
   const [originalVisibility, setOriginalVisibility] = useState()
-
   // manejo de errores
   const [valAlbumName, setValAlbumName] = useState(false)
   const [valVisibility, setValVisibility] = useState(false)
@@ -260,29 +260,11 @@ const EditAlbumPage = () => {
         </span>
       </h1>
       <section className='block sm:flex mt-6'>
-        <div className='relative flex justify-center w-full mb-3'>
-          <Image
-            isBlurred
-            src={albumData.album_image_url}
-            alt='album image'
-            width={250}
-            height={250}
-          />
 
-          <div
-            className='hover:bg-black/45 absolute w-[250px] max-w-full h-full z-10 rounded-large group'
-          >
-            <div className='flex items-center justify-center invisible w-full h-full group-hover:visible'>
-
-              <DocumentUpload className='text-white drop-shadow-md w-[30%] h-[30%]' />
-              <input
-                type="file"
-                className='absolute w-full h-full opacity-0 cursor-pointer file:cursor-pointer'
-              />
-            </div>
-          </div>
-
-        </div>
+        <ReplaceCropImgInput
+          id={albumId}
+          actualImage={albumData.album_image_url}
+        />
 
         <div className='w-full text-center'>
           <div className='flex items-center justify-center mt-5 sm:mt-0'>
