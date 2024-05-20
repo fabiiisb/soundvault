@@ -256,7 +256,7 @@ const EditPlaylistPage = () => {
           Edit playlist:
         </span>
         <span>
-          {' ' + '"' + originalPlaylistName + '"'}
+          {' ' + originalPlaylistName }
         </span>
       </h1>
       <section className='block sm:flex mt-6'>

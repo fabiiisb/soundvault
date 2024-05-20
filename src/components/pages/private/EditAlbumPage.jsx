@@ -250,12 +250,12 @@ const EditAlbumPage = () => {
   return (
     <>
       <ToastCont />
-      <h1 className='text-2xl font-bold '
+      <h1 className='text-2xl font-bold truncate'
       >
         <span className='underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>
-          Edit your album:
+          Edit album:
         </span>
-        <span>
+        <span className=''>
           {' ' + originalAlbumName}
         </span>
       </h1>
