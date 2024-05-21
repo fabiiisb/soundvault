@@ -2,11 +2,12 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
-import { Image, Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/react'
-import { Calendar, Eye, EyeSlash, DocumentUpload, ArrowLeft, MusicPlaylist } from 'iconsax-react'
+import { Input, Button, Select, SelectItem, Skeleton } from '@nextui-org/react'
+import { Calendar, Eye, EyeSlash, ArrowLeft, MusicPlaylist } from 'iconsax-react'
 import PlaylistSongListOptions from '@/components/private/PlaylistSongListOptions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
 import DeletePlaylistModal from '@/components/Modals/DeletePlaylistModal'
+import PlaylistReplaceCropImgInput from '@/components/Forms/CropImage/PlaylistReplaceCropImgInput'
 
 const EditPlaylistPage = () => {
   const playlistId = useParams().playlistId
@@ -260,29 +261,10 @@ const EditPlaylistPage = () => {
         </span>
       </h1>
       <section className='block sm:flex mt-6'>
-        <div className='relative flex justify-center w-full mb-3'>
-          <Image
-            isBlurred
-            src={playlistData.playlist_image_url}
-            alt='playlist image'
-            width={250}
-            height={250}
-          />
-
-          <div
-            className='hover:bg-black/45 absolute w-[250px] max-w-full h-full z-10 rounded-large group'
-          >
-            <div className='flex items-center justify-center invisible w-full h-full group-hover:visible'>
-
-              <DocumentUpload className='text-white drop-shadow-md w-[30%] h-[30%]' />
-              <input
-                type="file"
-                className='absolute w-full h-full opacity-0 cursor-pointer file:cursor-pointer'
-              />
-            </div>
-          </div>
-
-        </div>
+        <PlaylistReplaceCropImgInput
+          actualImage={playlistData.playlist_image_url}
+          id={playlistId}
+        />
 
         <div className='w-full'>
           <div className='w-full flex items-center mt-5 sm:mt-0'>
