@@ -70,12 +70,13 @@ export const uploadMultipleSongsCloudinary = async (songs, folderName) => {
   return uploadResults
 }
 
-export const updateImageCloudinary = async (img, publicId) => {
+export const updateImageCloudinary = async (img, publicId, folderName) => {
   const imgBuffer = await fileToBuffer(img)
 
   const response = await new Promise((resolve, reject) => {
     cloudinary.uploader.upload_stream({
       public_id: publicId,
+      folder: folderName,
       resource_type: 'image',
       overwrite: true,
       invalidate: true,

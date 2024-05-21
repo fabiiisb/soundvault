@@ -23,7 +23,7 @@ export async function PUT (request, { params }) {
     if (result.returnValue === 0) {
       const publicId = await result.recordset[0].cloud_img_public_id
 
-      const response = await updateImageCloudinary(fileImage, publicId)
+      const response = await updateImageCloudinary(fileImage, publicId, 'albumImage')
 
       if (response && response.public_id && response.secure_url) {
         const result = await pool.request()
