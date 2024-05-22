@@ -1,12 +1,19 @@
 'use client'
 import React from 'react'
 import { Tabs, Tab } from '@nextui-org/react'
-import { MusicFilter, MusicPlaylist } from 'iconsax-react'
+import { MusicFilter, MusicPlaylist, Music } from 'iconsax-react'
 import ViewAllAlbums from './private/ViewAllAlbums'
 import ViewAllPlaylists from './private/ViewAllPlaylists'
+import ViewAllSingles from './private/ViewAllSingles'
 
 const CollectionsPage = () => {
   const tabs = [
+    {
+      id: 'singles',
+      label: 'Singles',
+      icon: <Music />,
+      content: <ViewAllSingles />
+    },
     {
       id: 'playlist',
       label: 'Playlists',
@@ -15,7 +22,7 @@ const CollectionsPage = () => {
     },
     {
       id: 'albums',
-      label: 'Album',
+      label: 'Albums',
       icon: <MusicPlaylist />,
       content: <ViewAllAlbums />
     }
