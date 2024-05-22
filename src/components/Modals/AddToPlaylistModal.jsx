@@ -3,6 +3,8 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import { ArchiveAdd, AddCircle, CloseCircle, Add, Minus } from 'iconsax-react'
 import { useState, useContext, useEffect } from 'react'
 import playlistContext from '@/context/PlaylistsContext/playlistContext'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function AddToPlaylistModal ({ songId }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -15,12 +17,15 @@ export default function AddToPlaylistModal ({ songId }) {
   const [valPlaylistName, setValPlaylistName] = useState(false)
   const [errorPlaylistName, setErrorPlaylistName] = useState('')
 
+  const router = useRouter()
+  const { data: session } = useSession()
+
   useEffect(() => {
     const isSaved = userPlaylists.some(playlist => playlist.songs.includes(songId))
     setSaved(isSaved)
   }, [songId, userPlaylists])
 
-  const getAllPlaylists = () => {
+  const fetchGetAllPlaylists = () => {
     fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/private/playlist`,
       {
@@ -40,6 +45,15 @@ export default function AddToPlaylistModal ({ songId }) {
       .catch(err => {
         console.error(err)
       })
+  }
+
+  const getAllPlaylists = () => {
+    if (session?.user) {
+      onOpen()
+      fetchGetAllPlaylists()
+    } else {
+      router.push('/auth/login')
+    }
   }
 
   const handleCreatePlaylistClick = () => {
@@ -134,7 +148,6 @@ export default function AddToPlaylistModal ({ songId }) {
         closeDelay={100}
       >
         <Button
-          onPress={onOpen}
           isIconOnly
           className={'text-default-900/60 data-[hover]:bg-foreground/10 '}
           radius="full"
