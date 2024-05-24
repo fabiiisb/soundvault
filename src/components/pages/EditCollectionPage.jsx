@@ -1,12 +1,19 @@
 'use client'
 import React from 'react'
 import { Tabs, Tab } from '@nextui-org/react'
-import { MusicFilter, MusicPlaylist } from 'iconsax-react'
+import { MusicFilter, MusicPlaylist, Music } from 'iconsax-react'
 import PrivAlbums from './private/PrivAlbumsPage'
 import PrivPlaylists from './private/PrivPlaylistsPage'
+import PrivSingles from './private/PrivSinglesPage'
 
 const EditCollectionPage = () => {
   const tabs = [
+    {
+      id: 'singles',
+      label: 'Singles',
+      icon: <Music />,
+      content: <PrivSingles />
+    },
     {
       id: 'playlist',
       label: 'Playlists',
