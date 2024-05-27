@@ -22,7 +22,7 @@ const EditCollectionPage = () => {
     },
     {
       id: 'albums',
-      label: 'Album',
+      label: 'Albums',
       icon: <MusicPlaylist />,
       content: <PrivAlbums />
     }
