@@ -4,6 +4,7 @@ import { dbError } from '@/utils/db/dbErrors'
 import sql from 'mssql'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { deleteImageCloudinary, deleteSongCloudinary } from '@/utils/cloundinaryUtils'
 
 export async function GET (request, { params }) {
   let pool
@@ -63,13 +64,30 @@ export async function DELETE (request, { params }) {
 
   try {
     pool = await getConn()
-    const result = await pool.request()
-      .input('SONG_ID', sql.Int, params.singleId)
+    const publicIdResult = await pool.request()
       .input('USER_ID', sql.Int, session.user.id)
-      .execute('PrivateDeleteSong')
+      .input('SONG_ID', sql.Int, params.singleId)
+      .execute('PrivateGetSinglePublicsIds')
 
-    if (result.returnValue === 0) {
-      return respMsg('Success', false, 200)
+    const imgPublicId = publicIdResult.recordset[0].cloud_img_public_id
+
+    const songPublicId = publicIdResult.recordset[0].cloud_song_public_id
+
+    const resDeleteImg = await deleteImageCloudinary(imgPublicId, 'singleImage')
+
+    const resDeleteSong = await deleteSongCloudinary(songPublicId, 'singles')
+
+    if (resDeleteImg.deleted[imgPublicId] === 'deleted' && resDeleteSong.deleted[songPublicId] === 'deleted') {
+      const result = await pool.request()
+        .input('SONG_ID', sql.Int, params.singleId)
+        .input('USER_ID', sql.Int, session.user.id)
+        .execute('PrivateDeleteSong')
+
+      if (result.returnValue === 0) {
+        return respMsg('Success', false, 200)
+      }
+    } else {
+      throw new Error('Unexpected error')
     }
   } catch (err) {
     console.log(err)

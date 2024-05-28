@@ -95,3 +95,41 @@ export const updateImageCloudinary = async (img, publicId, folderName) => {
 
   return response
 }
+
+export const deleteImageCloudinary = async (publicId, folderName) => {
+  const response = await new Promise((resolve, reject) => {
+    cloudinary.api.delete_resources(publicId, {
+      type: 'upload',
+      folder: folderName,
+      resource_type: 'image'
+    }, (err, res) => {
+      if (err) {
+        reject(err)
+        return respMsg(err, true, 400)
+      }
+
+      return resolve(res)
+    })
+  })
+
+  return response
+}
+
+export const deleteSongCloudinary = async (publicId, folderName) => {
+  const response = await new Promise((resolve, reject) => {
+    cloudinary.api.delete_resources(publicId, {
+      type: 'upload',
+      folder: folderName,
+      resource_type: 'video'
+    }, (err, res) => {
+      if (err) {
+        reject(err)
+        return respMsg(err, true, 400)
+      }
+
+      return resolve(res)
+    })
+  })
+
+  return response
+}
