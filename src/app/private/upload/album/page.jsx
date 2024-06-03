@@ -1,6 +1,6 @@
 'use client'
 import { Input, Button } from '@nextui-org/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BagCross, MusicSquareAdd } from 'iconsax-react'
 import { getDuration, urlToFile } from '@/utils/functions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
@@ -22,6 +22,10 @@ const UploadAlbum = () => {
   const [valCropped, setValCropped] = useState(false)
   const [valSong, setValSong] = useState(false)
   // errors
+
+  useEffect(() => (
+    console.log(songs)
+  ), [songs])
 
   const onChangeInputSong = async (e) => {
     const files = Array.from(e.target.files)
@@ -51,24 +55,16 @@ const UploadAlbum = () => {
   }
 
   const handleSongNameChange = (index, newSongName) => {
-    // Crea una copia del array existente
     const updatedSongs = [...songs]
 
-    // Modifica el elemento específico
     updatedSongs[index].song_name = newSongName
 
-    // Establece el nuevo estado
     setSongs(updatedSongs)
   }
 
   const handleDeleteSong = (index) => {
-    // Copia el estado actual
     const updatedSongs = [...songs]
-
-    // Elimina el elemento por índice
     updatedSongs.splice(index, 1)
-
-    // Establece el nuevo estado
     setSongs(updatedSongs)
   }
 
@@ -214,7 +210,8 @@ const UploadAlbum = () => {
             </label>
           </div>
 
-          {(croppedImage || (songs.length !== 0)) && <section className='flex flex-col gap-4 border-2 border-content2 rounded-large p-2'>
+          {(croppedImage || (songs.length !== 0)) &&
+            <section className='flex flex-col gap-4 border-2 border-content2 rounded-large p-2'>
             <h3 className='text-niceOrange-400 font-semibold text-center tracking-wide'>
               Preview
             </h3>
@@ -236,7 +233,7 @@ const UploadAlbum = () => {
               {songs && songs.length > 0 &&
                 (
                   songs.map((song, index) => (
-                    <div key={index} className="my-4  bg-content2 p-2 rounded-medium">
+                    <div key={index + song.song_name} className="my-4  bg-content2 p-2 rounded-medium">
 
                       <div className='flex justify-between items-center mb-1'>
                         <p className='text-[12px] pl-1 text-white/60 truncate'>
