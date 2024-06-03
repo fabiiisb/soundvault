@@ -7,6 +7,7 @@ import { Calendar, Eye, EyeSlash, ArrowLeft, MusicPlaylist } from 'iconsax-react
 import AlbumSongListOptions from '@/components/private/AlbumSongListOptions'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
 import AlbumReplaceCropImgInput from '@/components/Forms/CropImage/AlbumReplaceCropImgInput'
+import DeleteAlbumModal from '@/components/Modals/DeleteAlbumModal'
 
 const EditAlbumPage = () => {
   const albumId = useParams().albumId
@@ -30,7 +31,6 @@ const EditAlbumPage = () => {
     fontWeight: 600,
     fontSize: '1.15rem',
     lineHeight: '1.75',
-    textAlign: 'center',
     width: '100%'
   }
 
@@ -268,12 +268,11 @@ const EditAlbumPage = () => {
 
         <div className='w-full text-center'>
           <div className='flex items-center justify-center mt-5 sm:mt-0'>
-            <p className='font-semibold text-niceOrange-400'>
-              Actual data&nbsp;
-            </p>:&nbsp;
             <IconsWithData
               visibility={originalVisibility}
               date={albumData.album_creation_date}
+              albumName={albumData.album_name}
+              albumId={albumId}
             />
           </div>
 
@@ -337,10 +336,14 @@ const EditAlbumPage = () => {
   )
 }
 
-const IconsWithData = ({ date, visibility }) => {
+const IconsWithData = ({ date, visibility, albumId, albumName }) => {
   return (
-    <div className='flex justify-center gap-3 text-small text-white/80 '>
+    <div className='w-full flex gap-2 text-small text-white/80 items-center bg-content1 rounded-medium pl-3'>
       <div className="flex items-center gap-1">
+        <p className='font-semibold text-niceOrange-400'>
+          Album data:
+        </p>
+
         {visibility === 'visible'
           ? (
             <p className='flex items-center gap-1'>
@@ -356,12 +359,14 @@ const IconsWithData = ({ date, visibility }) => {
             )
         }
       </div>
-      /
       <div className="flex items-center gap-1" >
         <Calendar size={15} className='text-white' />
         <p>
           {new Date(date).getFullYear()}
         </p>
+      </div>
+      <div className='ml-auto'>
+        <DeleteAlbumModal albumId={albumId} albumName={albumName}/>
       </div>
     </div>
   )
