@@ -109,7 +109,7 @@ const AlbumPage = () => {
         <SongView
           user={albumData.user_username}
           songName={albumData.album_name}
-          src={albumData.album_image_url}
+          img={albumData.album_image_url}
           date={new Date(albumData.album_creation_date).getFullYear()}
           songCount={songData.length}
           isAvaible={songData.length === 0}

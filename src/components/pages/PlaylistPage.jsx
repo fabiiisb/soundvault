@@ -109,7 +109,7 @@ const PlaylistPage = () => {
         <SongView
           user={playlistData.user_username}
           songName={playlistData.playlist_name}
-          src={playlistData.playlist_image_url}
+          img={playlistData.playlist_image_url}
           date={new Date(playlistData.playlist_creation_date).getFullYear()}
           songCount={songData.length}
           isAvaible={songData.length === 0}

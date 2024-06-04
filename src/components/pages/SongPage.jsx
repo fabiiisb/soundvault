@@ -162,12 +162,13 @@ const SongPage = () => {
         <SongView
           songId={songData.song_id}
           songName={songData.name}
-          src={songData.image_url}
+          img={songData.image_url}
           user={songData.username}
           duration={songData.duration}
           date={new Date(songData.creation_date).getFullYear()}
           reproductions={songData.total_play_cont}
           songUrl={songData.songUrl}
+          isSingle={true}
         />
       </section>
       <section className='mt-10'>
