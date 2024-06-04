@@ -51,7 +51,7 @@ export const SongLi = ({ song, songList, removeSongFromList }) => {
               className='marquee text-small hover:text-foreground/80 text-white flex gap-4'
               href={`/song/${song.songId}`}
             >
-              <p className='marquee__content min-w-full flex flex-shrink-0 font-semibold'>
+              <p className='marquee__content min-w-full flex flex-shrink-0 font-semibold select-none'>
                 {song.songName}
               </p>
               <p aria-hidden='true' className='marquee__content min-w-full flex flex-shrink-0 font-semibold'>
@@ -59,20 +59,20 @@ export const SongLi = ({ song, songList, removeSongFromList }) => {
               </p>
             </Link>
             <Link
-              className='text-tiny hover:text-foreground/80 no-underline hover:underline text-white/70 truncate'
+              className='text-tiny hover:text-foreground/80 no-underline hover:underline text-white/70 truncate select-none'
               href={`/user/${song.ownerUsername}`}
             >
               {song.ownerUsername}
             </Link>
           </div>
         </div>
-        <div className='flex items-center justify-end gap-2 ml-5'>
+        <div className='hidden items-center justify-end gap-2 ml-5 mini350:flex'>
           <BtnLikeSong
             songId={song.songId}
-            className={' group-hover:visible'} // invisible
+            className={'invisible group-hover:visible'}
             removeSongFromList={removeSongFromList}
           />
-          <p className='text-small text-foreground/80'>
+          <p className='text-small text-foreground/80 select-none'>
             {song.songDuration}
           </p>
         </div>
