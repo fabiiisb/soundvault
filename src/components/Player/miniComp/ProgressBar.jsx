@@ -14,7 +14,7 @@ const ProgressBar = () => {
   return (
     <div className="flex flex-col">
         <Link
-          className='text-tiny text-foreground/80 tracking-wider hover:text-foreground text-center line-clamp-1'
+          className='hidden text-tiny text-foreground/80 tracking-wider hover:text-foreground text-center line-clamp-1 sm:block'
           href={`/song/${activeSong}`}
           title={songName}
         >
