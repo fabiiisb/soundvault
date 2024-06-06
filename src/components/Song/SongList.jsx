@@ -4,7 +4,7 @@ import { BtnLikeSong, BtnPlaySong } from '@/components/Player/PlayerBtns'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export const SongUl = ({ songList, gradientColor, deleteOnDislike }) => {
+export const SongUl = ({ songList, gradientColor, deleteOnDislike, styles }) => {
   const [updatedSongList, setUpdatedSongList] = useState(songList)
 
   const removeSongFromList = (songId) => {
@@ -18,7 +18,7 @@ export const SongUl = ({ songList, gradientColor, deleteOnDislike }) => {
   return (
     <div>
       <Card
-        className={`flex relative gap-3 backdrop-blur-lg bg-content1/70  bg-gradient-to-r ${gradientColor} to-70% sm:to-40%`}
+        className={`flex relative gap-3 backdrop-blur-lg bg-content1/70  bg-gradient-to-r ${gradientColor} to-70% sm:to-40% ${styles} `}
       >
         {updatedSongList.map((song) => (
           <SongLi
