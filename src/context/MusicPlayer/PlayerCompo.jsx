@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import playerContext from './playerContext'
+import { useSession } from 'next-auth/react'
 
 const PlayerCompo = ({ children }) => {
   const [songArray, setSongArray] = useState([])
@@ -17,6 +18,7 @@ const PlayerCompo = ({ children }) => {
   const [oldVolume, setOldVolume] = useState(1)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)
+  const { data: session } = useSession()
 
   const audioRef = useRef()
 
@@ -66,9 +68,28 @@ const PlayerCompo = ({ children }) => {
     setIsReproducing(false)
   }
 
+  const fetchIncrementReproductions = (songId) => {
+    if (session?.user !== undefined || null) {
+      fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/private/playCount`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(songId)
+      }
+      ).then(res => res.json())
+        .catch(err => {
+          console.error(err)
+        })
+    }
+  }
+
   const handlePlaySong = async (songUrl, songId, songName, songList) => {
     handlePauseSong()
     play(songUrl)
+    fetchIncrementReproductions(songId)
 
     if (activeSong !== songId) {
       audioRef.current = new Audio(songUrl)
