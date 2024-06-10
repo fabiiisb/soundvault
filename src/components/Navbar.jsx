@@ -144,10 +144,9 @@ const UserDropDown = ({ username, image, UserMenuItems }) => {
         <Dropdown placement="bottom-end">
           <DropdownTrigger >
             <Avatar
-              isBordered
               as="button"
               className='bg-niceOrange-400'
-              size="sm"
+              size="md"
               src={image}
             />
           </DropdownTrigger>

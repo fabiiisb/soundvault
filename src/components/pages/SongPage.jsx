@@ -166,7 +166,7 @@ const SongPage = () => {
           user={songData.username}
           duration={songData.duration}
           date={new Date(songData.creation_date).getFullYear()}
-          reproductions={songData.total_play_cont}
+          reproductions={songData.total_play_count}
           songUrl={songData.songUrl}
           isSingle={true}
         />

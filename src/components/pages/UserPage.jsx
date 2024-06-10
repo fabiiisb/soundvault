@@ -40,12 +40,6 @@ const UserPage = () => {
       user: 'user1',
       username: 'user1',
       songId: 'top4'
-    },
-    {
-      songName: 'Eventually',
-      songDuration: '5:19',
-      username: 'user1',
-      songId: 'top5'
     }
   ]
 
@@ -118,7 +112,7 @@ const UserPage = () => {
               </Skeleton>
             </h2>
             <Skeleton className='rounded-large'>
-              <div className='h-[300px] mini:h-[304px] mini:w-[190px]'>
+              <div className='h-[250px] mini:h-[250px] mini:w-[250px]'>
                 asd
               </div>
             </Skeleton>
@@ -133,6 +127,7 @@ const UserPage = () => {
               <SongUl
                 title={'Popular'}
                 songList={popularData}
+                styles={'h-[250px]'}
                 gradientColor={'from-blackPurple-900'}
               />
             </Skeleton>
@@ -220,37 +215,35 @@ const UserPage = () => {
   return (
     <>
       <section className='flex flex-col gap-5 sm:flex-row'>
-        <div>
-          <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
+        <div className="flex-shrink-0">
+          <h2 className='text-xl pb-2 font-bold text-niceOrange-400 inline-block'>
             {userData[0][0].username}
           </h2>
+
           <Image
-            width={250}
-            height={300}
-            isBlurred
-            alt="Song image"
-            className='object-cover mini:h-[304px] '
+            alt="User image"
+            className="w-[250px] h-[250px] object-cover"
             src={userData[0][0].image_url}
           />
         </div>
-        <div className='w-full'>
+        <div className="flex-grow">
           <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
-            Popular songs
+            Top songs
           </h2>
 
           <SongUl
-            songList={popularData}
+            songList={userData[3]}
+            styles={'h-[250px]'}
             gradientColor={'from-blackPurple-900'}
           />
-
         </div>
       </section>
+
       <section className='mt-10'>
         <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
           Albums
         </h2>
-        <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
-
+        <ul className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
           {userData[1].length > 0
             ? (
                 userData[1].slice(0, nuOfElementAlbum).map((item) => (
@@ -267,28 +260,24 @@ const UserPage = () => {
             : (
               <p>This user has no created albums.</p>
               )}
-
         </ul>
 
-        {
-          userData[1].length > nuOfElementAlbum && (
-            <Chip
-              className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer hover:bg-content1 rounded-lg'
-              variant='flat'
-              onClick={loadMoreAlbums}
-            >
-              View more...
-            </Chip>
-          )
-        }
-
+        {userData[1].length > nuOfElementAlbum && (
+          <Chip
+            className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer hover:bg-content1 rounded-lg'
+            variant='flat'
+            onClick={loadMoreAlbums}
+          >
+            View more...
+          </Chip>
+        )}
       </section>
+
       <section className='mt-10'>
         <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
           Playlists
         </h2>
-        <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
-
+        <ul className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
           {userData[2].length > 0
             ? (
                 userData[2].slice(0, nuOfElementPlaylist).map((item) => (
@@ -304,7 +293,6 @@ const UserPage = () => {
             : (
               <p>This user has no created playlists.</p>
               )}
-
         </ul>
 
         {userData[1].length > nuOfElementPlaylist && (
@@ -316,8 +304,8 @@ const UserPage = () => {
             View more...
           </Chip>
         )}
-
       </section>
+
     </>
   )
 }
