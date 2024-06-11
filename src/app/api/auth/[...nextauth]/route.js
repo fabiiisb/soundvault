@@ -50,6 +50,20 @@ const handler = nextAuth({
   ],
   pages: {
     signIn: '/auth/login'
+  },
+  callbacks: {
+    async jwt ({ token, trigger, session }) {
+      if (trigger === 'update' && session?.image) {
+        token.image = session.image
+      }
+      return token
+    },
+    async session ({ session, token }) {
+      if (session.user) {
+        session.user.image = token.image
+      }
+      return session
+    }
   }
 })
 
