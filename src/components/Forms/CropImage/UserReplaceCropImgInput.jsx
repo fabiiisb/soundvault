@@ -4,7 +4,6 @@ import Cropper from 'react-easy-crop'
 import { getCroppedImg } from '@/utils/canvasUtils'
 import { DocumentUpload } from 'iconsax-react'
 import { urlToFile } from '@/utils/functions'
-import { ErrorNotify, SuccessNotify } from '@/components/Alerts/Toasts'
 import { useSession } from 'next-auth/react'
 
 const UserReplaceCropImgInput = ({ actualImage }) => {
@@ -36,9 +35,7 @@ const UserReplaceCropImgInput = ({ actualImage }) => {
       .then(res => res.json())
       .then(res => {
         if (!res.error) {
-          console.log()
           update({ image: res.data })
-          SuccessNotify('Image changed successfully!')
           setCroppedImage(img)
         } else {
           throw new Error('Undexpected error')
@@ -46,7 +43,6 @@ const UserReplaceCropImgInput = ({ actualImage }) => {
       })
       .catch(err => {
         console.error(err)
-        ErrorNotify(err)
       })
   }
 
