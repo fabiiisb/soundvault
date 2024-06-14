@@ -1,7 +1,7 @@
 'use client'
 import { useSession } from 'next-auth/react'
 import UserReplaceCropImgInput from '@/components/Forms/CropImage/UserReplaceCropImgInput'
-import { Spinner, Input, Button, Modal, useDisclosure, ModalFooter, ModalBody, ModalHeader, ModalContent } from '@nextui-org/react'
+import { Spinner, Input, Button, Modal, useDisclosure, ModalFooter, ModalBody, ModalHeader, ModalContent, Skeleton, Image } from '@nextui-org/react'
 import { useState, useEffect } from 'react'
 import { ErrorNotify, SuccessNotify, ToastCont } from '@/components/Alerts/Toasts'
 
@@ -165,7 +165,45 @@ const page = () => {
   if (!userData) {
     return (
       <div>
-        loading
+
+        <Skeleton className='w-40 rounded-lg mb-2'>
+          <p className="text-2xl inline">
+            Configurations
+          </p>
+        </Skeleton>
+
+        <Skeleton className='flex mx-auto max-w-[250px] rounded-lg'>
+          <Image width={250} height={250} />
+        </Skeleton>
+
+        <div
+          className='mt-3 flex flex-col gap-3 max-w-[500px] mx-auto'
+        >
+          <Skeleton className='w-40 h-8 rounded-lg'>
+            <p> Personal information </p>
+          </Skeleton>
+
+          <Skeleton className='rounded-lg'>
+            <div className='h-12'>input</div>
+          </Skeleton>
+
+          <Skeleton className='rounded-lg'>
+            <div className='h-12'>input</div>
+          </Skeleton>
+
+          <Skeleton className='rounded-lg'>
+            <div className='h-12'>input</div>
+          </Skeleton>
+
+          <Skeleton className='rounded-lg'>
+            <div className='h-12'>input</div>
+          </Skeleton>
+
+          <Skeleton className='rounded-lg'>
+            <div className='h-12'>button</div>
+          </Skeleton>
+        </div>
+
       </div>
     )
   }
@@ -175,7 +213,7 @@ const page = () => {
       <h1 className="text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2">Configurations
       </h1>
 
-      <ToastCont containerId={'configs'}/>
+      <ToastCont containerId={'configs'} />
 
       {session?.user
         ? < UserReplaceCropImgInput
