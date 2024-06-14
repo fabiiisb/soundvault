@@ -11,10 +11,6 @@ const NavbarUi = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   const menuItems = [
-    {
-      title: 'Test page',
-      url: '/test'
-    }
   ]
 
   const UserMenuItems = [
@@ -46,7 +42,7 @@ const NavbarUi = () => {
       key: 'configurations',
       icon: <Setting2 />,
       title: 'Configurations',
-      url: '/'
+      url: '/private/configuration'
     }
 
   ]
@@ -68,7 +64,7 @@ const NavbarUi = () => {
                 <Skeleton className='rounded-full'>
                   <Avatar
                     isBordered
-                    size="sm"
+                    size="md"
                   />
                 </Skeleton>
               )
@@ -87,7 +83,7 @@ const NavbarUi = () => {
   }
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-transparent backdrop-saturate-1 shadow-medium'>
+    <Navbar onMenuOpenChange={setIsMenuOpen} className='bg-blackPurple-950/85 sm:bg-transparent backdrop-saturate-1 shadow-medium'>
       <NavbarContent justify="start" className='data-[justify=start] flex-[none]'>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -114,7 +110,7 @@ const NavbarUi = () => {
             base: 'max-w-full sm:max-w-[10rem] h-10',
             mainWrapper: 'h-full',
             input: 'text-small',
-            inputWrapper: 'h-full font-normal text-default-500 dark:bg-default-500/20'
+            inputWrapper: 'h-full font-normal text-default-500 bg-content2'
           }}
           placeholder="Search..."
           size="sm"
@@ -126,7 +122,7 @@ const NavbarUi = () => {
         </div>
       </NavbarContent>
 
-      <NavbarMenu className='bg-transparent backdrop-saturate-1'>
+      <NavbarMenu className='bg-blackPurple-950/85 backdrop-saturate-1'>
 
         <NavLinks menuItems={menuItems} />
 
@@ -158,7 +154,6 @@ const UserDropDown = ({ username, image, UserMenuItems }) => {
                 as={Link} href={`/user/${username}`}
                 startContent={<UserSquare variant='Bulk' />}
                 isReadOnly
-
               >
                 <p className="font-semibold">{username}</p>
               </DropdownItem>
@@ -190,32 +185,35 @@ const UserDropDown = ({ username, image, UserMenuItems }) => {
       </div>
       <div className='flex flex-col gap-2 sm:hidden '>
 
-        <NavbarItem
-          className='hover:bg-default-600/40 hover:text-white text-white/80 rounded-lg px-3 py-3 text-center bg-default-500/20 sm:bg-transparent w-full'
+        <Button
+          className='hover:bg-default-600/40 hover:text-white text-white/80 rounded-lg px-3 py-3 text-center bg-default sm:bg-transparent w-full'
           key="profile"
           as={Link}
           href={`/user/${username}`}
+          startContent={<UserSquare variant='Bulk'/>}
         >
           My profile
-        </NavbarItem>
+        </Button>
 
         {UserMenuItems.map((item) => (
-          <NavbarItem
-            className='hover:bg-default-600/40 hover:text-white text-white/80 rounded-lg px-3 py-3 text-center bg-default-500/20 sm:bg-transparent '
+          <Button
+            className='hover:bg-default-600/40 hover:text-white text-white/80 rounded-lg px-3 py-3 text-center bg-default sm:bg-transparent '
             key={item.key}
             as={Link}
             href={item.url}
+            startContent={item.icon}
           >
             {item.title}
-          </NavbarItem>
-        ))}
+          </Button>
+        )) }
 
-        <NavbarItem
-          className='hover:bg-danger hover:text-white hover:cursor-pointer bg-black/50 text-danger rounded-lg px-3 py-3 text-center sm:bg-transparent '
+        <Button
+          className='hover:bg-danger hover:text-white hover:cursor-pointer bg-danger/40 text-danger rounded-lg px-3 py-3 text-center sm:bg-transparent '
           onClick={signOut}
+          startContent={<LogoutCurve />}
         >
           Log Out
-        </NavbarItem>
+        </Button>
 
       </div>
     </>
