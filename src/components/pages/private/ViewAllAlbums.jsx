@@ -81,7 +81,7 @@ const ViewAllAlbums = () => {
           <div className='mx-auto'>
             <Button
               as={Link}
-              href={'/'}
+              href={'/private/upload'}
               className='bg-content2 hover:text-niceOrange-400'
             >
               Create a new album

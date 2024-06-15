@@ -84,7 +84,7 @@ const PrivPlaylists = () => {
               href={'/'}
               className='bg-content2 hover:text-niceOrange-400'
             >
-              Create a new playlist
+             Go explore!
             </Button>
           </div>
         </section>
