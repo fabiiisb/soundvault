@@ -1,7 +1,7 @@
 'use client'
 import AlbumCard from '@/components/Cards/AlbumCard'
 import PlaylistCard from '@/components/Cards/PlaylistCard'
-import { ArrowLeft, TagUser } from 'iconsax-react'
+import { ArrowLeft, TagUser, FolderCross } from 'iconsax-react'
 import { SongUl } from '@/components/Song/SongList'
 import { Skeleton, Image, Card, Chip } from '@nextui-org/react'
 import { useParams } from 'next/navigation'
@@ -14,34 +14,6 @@ const UserPage = () => {
   const [notFound, setNotFound] = useState(false)
   const [nuOfElementAlbum, setNuOfElementAlbum] = useState(6)
   const [nuOfElementPlaylist, setNuOfElementPlaylist] = useState(6)
-
-  const popularData = [
-    {
-      songName: 'The Less I Know The Better',
-      songDuration: '3:36',
-      username: 'user1',
-      songId: 'top1'
-    },
-    {
-      songName: 'Let It Happen',
-      songDuration: '7:47',
-      username: 'user1',
-      songId: 'top2'
-    },
-    {
-      songName: 'Feels Like We Only Go Backwards',
-      songDuration: '3:12',
-      username: 'user1',
-      songId: 'top3'
-    },
-    {
-      songName: 'Elephant',
-      songDuration: '3:31',
-      user: 'user1',
-      username: 'user1',
-      songId: 'top4'
-    }
-  ]
 
   useEffect(() => {
     fetch(
@@ -126,7 +98,6 @@ const UserPage = () => {
             <Skeleton className='rounded-large'>
               <SongUl
                 title={'Popular'}
-                songList={popularData}
                 styles={'h-[250px]'}
                 gradientColor={'from-blackPurple-900'}
               />
@@ -243,10 +214,13 @@ const UserPage = () => {
         <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
           Albums
         </h2>
-        <ul className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
-          {userData[1].length > 0
-            ? (
-                userData[1].slice(0, nuOfElementAlbum).map((item) => (
+
+        {userData[1].length > 0
+          ? (
+            <ul
+              className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'
+            >
+              {userData[1].slice(0, nuOfElementAlbum).map((item) => (
                 <li key={item.album_id}>
                   <AlbumCard
                     name={item.name}
@@ -255,12 +229,22 @@ const UserPage = () => {
                     src={item.image_url}
                   />
                 </li>
-                ))
-              )
-            : (
-              <p>This user has no created albums.</p>
-              )}
-        </ul>
+              ))
+              }
+            </ul>
+            )
+          : (
+            <div className='flex flex-col justify-center items-center'>
+              <p className='text-white/70 '>
+                This user has no created albums... {' '}
+              </p>
+              <FolderCross
+                className='text-niceOrange-400 mt-2'
+                variant='TwoTone'
+                size={30}
+              />
+            </div>
+            )}
 
         {userData[1].length > nuOfElementAlbum && (
           <Chip
@@ -277,10 +261,13 @@ const UserPage = () => {
         <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
           Playlists
         </h2>
-        <ul className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
-          {userData[2].length > 0
-            ? (
-                userData[2].slice(0, nuOfElementPlaylist).map((item) => (
+
+        {userData[2].length > 0
+          ? (
+            <ul
+              className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'
+            >
+              {userData[2].slice(0, nuOfElementPlaylist).map((item) => (
                 <li key={item.playlist_id}>
                   <PlaylistCard
                     name={item.name}
@@ -288,12 +275,22 @@ const UserPage = () => {
                     src={item.image_url}
                   />
                 </li>
-                ))
-              )
-            : (
-              <p>This user has no created playlists.</p>
-              )}
-        </ul>
+              ))
+              }
+            </ul>
+            )
+          : (
+            <div className='flex flex-col justify-center items-center'>
+              <p className='text-white/70 '>
+                This user has no created playlists... {' '}
+              </p>
+              <FolderCross
+                className='text-niceOrange-400 mt-2'
+                variant='TwoTone'
+                size={30}
+              />
+            </div>
+            )}
 
         {userData[1].length > nuOfElementPlaylist && (
           <Chip

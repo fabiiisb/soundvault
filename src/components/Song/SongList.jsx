@@ -3,14 +3,14 @@ import { Card, CardBody } from '@nextui-org/react'
 import { BtnLikeSong, BtnPlaySong } from '@/components/Player/PlayerBtns'
 import Link from 'next/link'
 import { useState } from 'react'
+import { MusicSquareRemove } from 'iconsax-react'
 
 export const SongUl = ({ songList, gradientColor, deleteOnDislike, styles }) => {
-  const [updatedSongList, setUpdatedSongList] = useState(songList)
+  const [updatedSongList, setUpdatedSongList] = useState(songList || [])
 
   const removeSongFromList = (songId) => {
     if (deleteOnDislike) {
       const filteredList = updatedSongList.filter((song) => song.songId !== songId)
-
       setUpdatedSongList(filteredList)
     }
   }
@@ -20,13 +20,26 @@ export const SongUl = ({ songList, gradientColor, deleteOnDislike, styles }) => 
       <Card
         className={`flex relative gap-3 backdrop-blur-lg bg-content1/70  bg-gradient-to-r ${gradientColor} to-70% sm:to-40% ${styles} `}
       >
-        {updatedSongList.map((song) => (
-          <SongLi
-            key={song.songId}
-            song={song}
-            songList={songList}
-            removeSongFromList={removeSongFromList} />
-        ))}
+        {updatedSongList.length === 0
+          ? (
+          <div className="flex flex-col items-center p-4 text-center text-white/50 font-semibold ">
+              <p>This user has no songs...</p>
+              <MusicSquareRemove
+                className='text-niceOrange-400 mt-2'
+                variant='TwoTone'
+                size={30}
+              />
+          </div>
+            )
+          : (
+              updatedSongList.map((song) => (
+            <SongLi
+              key={song.songId}
+              song={song}
+              songList={songList}
+              removeSongFromList={removeSongFromList} />
+              ))
+            )}
       </Card>
     </div>
   )
