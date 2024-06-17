@@ -2,60 +2,16 @@
 import SongView from '@/components/Song/Cards/SongView'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import AlbumCard from '@/components/Cards/AlbumCard'
 import { Skeleton, Card } from '@nextui-org/react'
 import { MusicSquareSearch, ArrowLeft } from 'iconsax-react'
 import Link from 'next/link'
+import SingleCard from '../Cards/SingleCard'
 
 const SongPage = () => {
   const songId = useParams().songId
   const [notFound, setNotFound] = useState(false)
   const [songData, setSongData] = useState()
-
-  const similarSongs = [
-    {
-      songName: 'Rap God',
-      user: 'Eminem',
-      duration: '6:03',
-      id: 'similarsong1',
-      image_url: 'https://placehold.co/500x500'
-    },
-    {
-      songName: 'Lose Yourself',
-      user: 'Eminem',
-      duration: '5:26',
-      id: 'similarsong2',
-      image_url: 'https://placehold.co/500x500'
-    },
-    {
-      songName: 'Juicy',
-      user: 'The Notorious B.I.G.',
-      duration: '5:02',
-      id: 'similarsong3',
-      image_url: 'https://placehold.co/500x500'
-    },
-    {
-      songName: 'Nuthin\' But a \'G\' Thang asd asdasd asd asdasd as dasda sdasd xd',
-      user: 'Dr. Dre',
-      duration: '3:58',
-      id: 'similarsong4',
-      image_url: 'https://placehold.co/500x500'
-    },
-    {
-      songName: 'Gin and Juice',
-      user: 'Snoop Dogg',
-      duration: '3:31',
-      id: 'similarsong5',
-      image_url: 'https://placehold.co/500x500'
-    },
-    {
-      songName: 'Gin and Juice 2',
-      user: 'Snoop Dogg',
-      duration: '3:31',
-      id: 'similarsong6',
-      image_url: 'https://placehold.co/500x500'
-    }
-  ]
+  const [moreSongs, setMoreSongs] = useState()
 
   useEffect(() => {
     fetch(
@@ -71,8 +27,10 @@ const SongPage = () => {
       .then(res => {
         if (!res.error) {
           const data = res.data.recordset[0]
+          const moreSongs = res.data.recordsets[1]
           setNotFound(false)
           setSongData(data)
+          setMoreSongs(moreSongs)
         } else {
           setNotFound(true)
         }
@@ -123,7 +81,8 @@ const SongPage = () => {
 
         </section>
         <section className='mt-10'>
-          <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Similar songs</h1>
+          <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>More songs from this user
+          </h1>
           <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
 
             {Array.from({ length: 6 }, (_, index) => (
@@ -172,15 +131,15 @@ const SongPage = () => {
         />
       </section>
       <section className='mt-10'>
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>Similar songs</h1>
+        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>More songs from this user</h1>
         <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
 
-          {similarSongs.map((item) => (
-            <li key={item.id}>
-              <AlbumCard
-                name={item.songName}
-                year={'cambiar albumcard por songcard'}
-                id={item.id}
+          {moreSongs.map((item) => (
+            <li key={item.song_id}>
+              <SingleCard
+                name={item.name}
+                year={new Date(item.creation_date).getFullYear()}
+                id={item.song_id}
                 src={item.image_url}
               />
             </li>
