@@ -112,6 +112,46 @@ const UserPage = () => {
         </section>
         <section className='mt-10'>
           <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
+            Singles
+          </h2>
+          <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
+            {Array.from({ length: 6 }, (_, index) => (
+              <li key={index}>
+                <Card className='w-full h-full p-3 bg-content1/70'>
+                  <Skeleton className='rounded-large'>
+                    <div
+                      className='h-[125px]'
+                    >
+                    </div>
+                  </Skeleton>
+                  <div className='flex flex-col gap-1 py-2 '>
+                    <Skeleton className='rounded-large'>
+                      <p className='text-small text-white/80 truncate'>Loading</p>
+                    </Skeleton>
+                    <div className='flex gap-1 items-center text-white/60'>
+                      <Skeleton className='rounded-large'>
+                        <p className='text-tiny'>Loading</p>
+                      </Skeleton>
+                    </div>
+                  </div>
+                </Card>
+              </li>
+            ))
+            }
+          </ul>
+          <Chip
+            className='mt-[10px]  bg-content1/70 rounded-lg'
+            variant='flat'
+            onClick={loadMoreAlbums}
+          >
+            <Skeleton className='rounded-large'>
+              View more...
+            </Skeleton>
+          </Chip>
+
+        </section>
+        <section className='mt-10'>
+          <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
             Albums
           </h2>
           <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
