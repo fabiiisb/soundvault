@@ -7,6 +7,7 @@ import { Skeleton, Image, Card, Chip } from '@nextui-org/react'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import SingleCard from '../Cards/SingleCard'
 
 const UserPage = () => {
   const username = useParams().username
@@ -14,6 +15,7 @@ const UserPage = () => {
   const [notFound, setNotFound] = useState(false)
   const [nuOfElementAlbum, setNuOfElementAlbum] = useState(6)
   const [nuOfElementPlaylist, setNuOfElementPlaylist] = useState(6)
+  const [nuOfElementSingle, setNuOfElementSingle] = useState(6)
 
   useEffect(() => {
     fetch(
@@ -46,6 +48,10 @@ const UserPage = () => {
 
   const loadMorePlaylists = () => {
     setNuOfElementPlaylist(nuOfElementPlaylist + nuOfElementPlaylist)
+  }
+
+  const loadMoreSingles = () => {
+    setNuOfElementSingle(nuOfElementSingle + nuOfElementSingle)
   }
 
   if (notFound) {
@@ -203,11 +209,58 @@ const UserPage = () => {
           </h2>
 
           <SongUl
-            songList={userData[3]}
+            songList={userData[4]}
             styles={'h-[250px]'}
             gradientColor={'from-blackPurple-900'}
           />
         </div>
+      </section>
+
+      <section className='mt-10'>
+        <h2 className='text-xl pb-2 font-bold text-niceOrange-400'>
+          Singles
+        </h2>
+
+        {userData[3].length > 0
+          ? (
+            <ul
+              className='grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'
+            >
+              {userData[3].slice(0, nuOfElementSingle).map((item) => (
+                <li key={item.song_id}>
+                  <SingleCard
+                    id={item.song_id}
+                    name={item.name}
+                    year={new Date(item.creation_date).getFullYear()}
+                    src={item.image_url}
+                  />
+                </li>
+              ))
+              }
+            </ul>
+            )
+          : (
+            <div className='flex flex-col justify-center items-center'>
+              <p className='text-white/70 '>
+                This user has no created singles... {' '}
+              </p>
+              <FolderCross
+                className='text-niceOrange-400 mt-2'
+                variant='TwoTone'
+                size={30}
+              />
+            </div>
+            )}
+
+        {userData[3].length > nuOfElementSingle && (
+          <Chip
+            className='mt-[10px] text-niceOrange-400 bg-content1/70 hover:cursor-pointer hover:bg-content1 rounded-lg'
+            variant='flat'
+            onClick={loadMoreSingles}
+          >
+            View more...
+          </Chip>
+        )}
       </section>
 
       <section className='mt-10'>
