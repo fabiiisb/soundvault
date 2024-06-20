@@ -17,9 +17,9 @@ export default function HomeSongCard ({ href, src, name }) {
           src={src}
         />
         <div
-          className='absolute bottom-0 left-0 w-full bg-black bg-opacity-50 backdrop-blur-[1px]'
+          className='absolute bottom-0 left-0 w-full backdrop-blur-[1px] bg-gradient-to-t from-[#000000]  to-transparent '
         >
-          <p className='p-2 text-sm text-white truncate'>
+          <p className='p-2 text-sm text-white/90 truncate'>
             {name}
           </p>
         </div>
