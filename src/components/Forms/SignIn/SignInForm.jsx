@@ -8,8 +8,8 @@ import Alert from '@/components/Alerts/Alert'
 
 const SignInForm = () => {
   const router = useRouter()
-  const [email, setEmail] = useState('fabiiisb@hotmail.com')
-  const [password, setPassword] = useState('12345a')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const [valEmail, setValEmail] = useState(false)
   const [valPass, setValPass] = useState(false)
@@ -145,13 +145,7 @@ const SignInForm = () => {
             errorMessage={valPass && errorMsgPass}
           />
         </div>
-        <div className='flex gap-2 text-tiny text-niceOrange-400 justify-between'>
-          <Link
-            className='no-underline hover:underline'
-            href="/">
-            Password forgotten?
-          </Link>
-
+        <div className='flex gap-2 text-tiny text-niceOrange-400 justify-end'>
           <Link
             className='no-underline hover:underline'
             href="/auth/signup">

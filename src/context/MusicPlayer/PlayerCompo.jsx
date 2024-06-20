@@ -14,7 +14,7 @@ const PlayerCompo = ({ children }) => {
   const [songDuration, setSongDuration] = useState('')
   const [progressBarValue, setProgressBarValue] = useState(0)
   const [isMute, setMute] = useState(false)
-  const [volume, setVolume] = useState(0.02)
+  const [volume, setVolume] = useState(1)
   const [oldVolume, setOldVolume] = useState(1)
   const [replay, setReplay] = useState(false)
   const [random, setRandom] = useState(false)

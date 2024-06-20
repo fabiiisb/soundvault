@@ -71,7 +71,7 @@ const SongPage = () => {
         <section>
           <div className="grid grid-cols-6 minixl:grid-cols-12 gap-2 minixl:gap-6 items-center">
             <Skeleton className='rounded-large col-span-6 sm:col-span-4 sm870:col-span-3'>
-            <div className="w-full h-[314px]  minixl:h-[300px] sm:h-[226px] sm:w-[226px]" />
+              <div className="w-full h-[314px]  minixl:h-[300px] sm:h-[226px] sm:w-[226px]" />
             </Skeleton>
 
             <Skeleton className='flex flex-col col-span-6 sm:col-span-8 sm870:col-span-9  rounded-large h-full'>
@@ -130,23 +130,28 @@ const SongPage = () => {
           isSingle={true}
         />
       </section>
-      <section className='mt-10'>
-        <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>More songs from this user</h1>
-        <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
 
-          {moreSongs.map((item) => (
-            <li key={item.song_id}>
-              <SingleCard
-                name={item.name}
-                year={new Date(item.creation_date).getFullYear()}
-                id={item.song_id}
-                src={item.image_url}
-              />
-            </li>
-          ))}
+      {moreSongs.length !== 0 &&
+        <section className='mt-10'>
+          <h1 className='text-2xl pb-2 font-bold underline underline-offset-[3px] decoration-niceOrange-400 decoration-2'>
+            More songs from this user
+          </h1>
 
-        </ul>
-      </section>
+          <ul className='grid grid-cols-[repeat(_auto-fill,minmax(150px,1fr)_)] grid-flow-dense mini:gap-[15px] gap-[10px] w-full'>
+            {moreSongs.map((item) => (
+              <li key={item.song_id}>
+                <SingleCard
+                  name={item.name}
+                  year={new Date(item.creation_date).getFullYear()}
+                  id={item.song_id}
+                  src={item.image_url}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      }
+
     </>
   )
 }
