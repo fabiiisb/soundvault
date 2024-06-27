@@ -1,9 +1,10 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, DropdownSection, Button, Skeleton } from '@nextui-org/react'
-import { SearchNormal1, MessageEdit, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely, MusicSquareAdd } from 'iconsax-react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, DropdownSection, Button, Skeleton } from '@nextui-org/react'
+import { MessageEdit, MusicPlaylist, Setting2, LogoutCurve, UserSquare, Lovely, MusicSquareAdd } from 'iconsax-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link.js'
 import { useSession, signOut } from 'next-auth/react'
+import InputSearch from './Search/InputSearch'
 
 const NavbarUi = () => {
   const { data: session, status } = useSession()
@@ -92,7 +93,7 @@ const NavbarUi = () => {
         <NavbarBrand className='mr-2 grow-0'>
           <Link href={'/'}>
             <p
-              className='font-bold'>
+              className='font-bold drop-shadow-md'>
               SOUNDVAULT
             </p>
           </Link>
@@ -105,18 +106,7 @@ const NavbarUi = () => {
       </NavbarContent>
 
       <NavbarContent as="div" className="items-center" justify="end">
-        <Input
-          classNames={{
-            base: 'max-w-full sm:max-w-[10rem] h-10',
-            mainWrapper: 'h-full',
-            input: 'text-small',
-            inputWrapper: 'h-full font-normal text-default-500 bg-content2'
-          }}
-          placeholder="Search..."
-          size="sm"
-          startContent={<SearchNormal1 size={18} />}
-          type="search"
-        />
+        <InputSearch />
         <div className='hidden sm:flex gap-1'>
           <AuthNavItem />
         </div>
