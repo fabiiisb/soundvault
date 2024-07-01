@@ -162,6 +162,7 @@ export default function HomePage () {
           ))}
         </ul>
       </section>
+      { console.log('test') }
     </div>
   )
 }
